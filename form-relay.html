@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Loading Form...</title></head>
+<body>
+  <p style="text-align:center;">Loading form, please wait...</p>
+  <iframe id="formFrame" width="100%" height="700" frameborder="0"></iframe>
+
+  <script>
+    window.onload = async function () {
+      try {
+        // Ambil parameter Program dari query URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const programName = urlParams.get("Program") || "ICE Institute Default";
+
+        // Fetch user info
+        const userResp = await fetch('/api/user/v1/me', { credentials: 'same-origin' });
+        const userData = await userResp.json();
+        const username = userData.username;
+
+        const accountResp = await fetch(`/api/user/v1/accounts/${username}`, { credentials: 'same-origin' });
+        const accountData = await accountResp.json();
+        const userEmail = accountData.email;
+
+        // Fetch course info
+        const courseMatch = window.location.href.match(/course-v1:[^/]+/);
+        const courseID = courseMatch ? courseMatch[0] : null;
+        if (!courseID) throw new Error("Course ID not found in URL");
+
+        const courseResp = await fetch(`/api/courses/v1/courses/${courseID}`, { credentials: 'same-origin' });
+        const courseData = await courseResp.json();
+        const courseName = courseData.name || "Unknown Course";
+        const courseInstitution = courseData.org || "Unknown Institution";
+
+        // Bangun URL ke Google Apps Script
+        const scriptBase = "https://script.google.com/macros/s/AKfycbxdZc0sduOQELlOxhxO5vNNy2DtkvyxZwdAlr-x-uODir6_lrzMg9k7pV8OzhvTgC8SoQ/exec";
+        const formURL = `${scriptBase}?namaMk=${encodeURIComponent(courseName)}&institusiMk=${encodeURIComponent(courseInstitution)}&email=${encodeURIComponent(userEmail)}&username=${encodeURIComponent(username)}&Program=${encodeURIComponent(programName)}`;
+
+        document.getElementById("formFrame").src = formURL;
+      } catch (err) {
+        document.body.innerHTML = `<p style="color:red;">Gagal memuat formulir. Silakan coba lagi nanti.</p>`;
+        console.error("Form Error:", err);
+      }
+    };
+  </script>
+</body>
+</html>

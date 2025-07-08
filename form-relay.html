@@ -43,7 +43,7 @@
         document.body.innerHTML = `<p style="color:red;">Gagal memuat formulir. Silakan coba lagi nanti.</p>`;
         console.error("Form Error:", err);
       }
-    };
+    }); // ✅ penutup event listener yang benar
   </script>
 </body>
 </html>

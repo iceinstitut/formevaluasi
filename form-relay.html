@@ -17,11 +17,11 @@
         const programName = urlParams.get("Program") || "ICE Institute Default";
 
         // Fetch user info
-        const userResp = await fetch('/api/user/v1/me', { credentials: 'same-origin' });
+        const userResp = await fetch('https://icei.ac.id/api/user/v1/me', { credentials: 'same-origin' });
         const userData = await userResp.json();
         const username = userData.username;
 
-        const accountResp = await fetch(`/api/user/v1/accounts/${username}`, { credentials: 'same-origin' });
+        const accountResp = await fetch(`https://icei.ac.id/api/user/v1/accounts/${username}`, { credentials: 'same-origin' });
         const accountData = await accountResp.json();
         const userEmail = accountData.email;
 
@@ -30,7 +30,7 @@
         const courseID = courseMatch ? courseMatch[0] : null;
         if (!courseID) throw new Error("Course ID not found in URL");
 
-        const courseResp = await fetch(`/api/courses/v1/courses/${courseID}`, { credentials: 'same-origin' });
+        const courseResp = await fetch(`https://icei.ac.id/api/courses/v1/courses/${courseID}`, { credentials: 'same-origin' });
         const courseData = await courseResp.json();
         const courseName = courseData.name || "Unknown Course";
         const courseInstitution = courseData.org || "Unknown Institution";

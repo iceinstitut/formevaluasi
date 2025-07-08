@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="UTF-8"><title>Loading Form...</title></head>
+<head>
+  <meta charset="UTF-8">
+  <title>Loading Form...</title>
+</head>
 <body>
   <p style="text-align:center;">Loading form, please wait...</p>
   <iframe id="formFrame" width="100%" height="700" frameborder="0"></iframe>
@@ -32,7 +35,7 @@
         const courseInstitution = courseData.org || "Unknown Institution";
 
         // Bangun URL ke Google Apps Script
-        const scriptBase = "https://script.google.com/macros/s/AKfycbxdZc0sduOQELlOxhxO5vNNy2DtkvyxZwdAlr-x-uODir6_lrzMg9k7pV8OzhvTgC8SoQ/exec";
+        const scriptBase = "https://script.google.com/macros/s/AKfycbyaf0qB6pBs6uqnStLS2hx_A9DUHEmPgLUYR90pLtpBWYBwWHAG80zIKORZRvJaH5Kz/exec";
         const formURL = `${scriptBase}?namaMk=${encodeURIComponent(courseName)}&institusiMk=${encodeURIComponent(courseInstitution)}&email=${encodeURIComponent(userEmail)}&username=${encodeURIComponent(username)}&Program=${encodeURIComponent(programName)}`;
 
         document.getElementById("formFrame").src = formURL;

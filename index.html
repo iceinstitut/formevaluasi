@@ -6,45 +6,6 @@
   <title>Loading Form...</title>
 </head>
 <body>
-  <p style="text-align:center;">Loading form, Tunggu... </p>
-  <iframe id="formFrame" width="100%" height="700" frameborder="0"></iframe>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', async function () {
-      try {
-        // Ambil parameter Program dari query URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const programName = urlParams.get("Program") || "ICE Institute Default";
-
-        // Fetch user info
-        const userResp = await fetch('https://icei.ac.id/api/user/v1/me', { credentials: 'same-origin' });
-        const userData = await userResp.json();
-        const username = userData.username;
-
-        const accountResp = await fetch(`https://icei.ac.id/api/user/v1/accounts/${username}`, { credentials: 'same-origin' });
-        const accountData = await accountResp.json();
-        const userEmail = accountData.email;
-
-        // Fetch course info
-        const courseMatch = window.location.href.match(/course-v1:[^/]+/);
-        const courseID = courseMatch ? courseMatch[0] : null;
-        if (!courseID) throw new Error("Course ID not found in URL");
-
-        const courseResp = await fetch(`https://icei.ac.id/api/courses/v1/courses/${courseID}`, { credentials: 'same-origin' });
-        const courseData = await courseResp.json();
-        const courseName = courseData.name || "Unknown Course";
-        const courseInstitution = courseData.org || "Unknown Institution";
-
-        // Bangun URL ke Google Apps Script
-        const scriptBase = "https://script.google.com/macros/s/AKfycbyaf0qB6pBs6uqnStLS2hx_A9DUHEmPgLUYR90pLtpBWYBwWHAG80zIKORZRvJaH5Kz/exec";
-        const formURL = `${scriptBase}?namaMk=${encodeURIComponent(courseName)}&institusiMk=${encodeURIComponent(courseInstitution)}&email=${encodeURIComponent(userEmail)}&username=${encodeURIComponent(username)}&Program=${encodeURIComponent(programName)}`;
-
-        document.getElementById("formFrame").src = formURL;
-      } catch (err) {
-        document.body.innerHTML = `<p style="color:red;">Gagal memuat formulir. Silakan coba lagi nanti.</p>`;
-        console.error("Form Error:", err);
-      }
-    });
-  </script>
+  <script type="text/javascript">window.onload = async function() {try {console.log("Fetching user data from Open edX API...");const userContext = await fetch('https://icei.ac.id/api/user/v1/me', {credentials: 'same-origin'});const contextData = await userContext.json();const username = contextData.username;const response = await fetch(`https://icei.ac.id/api/user/v1/accounts/${username}`, {credentials: 'same-origin'});console.log("API response status: ", response.status);if (!response.ok) {throw new Error("Failed to fetch user info, status: " + response.status);}const userData = await response.json();console.log("User data received: ", userData);const userEmail = userData.email || "No email found";console.log("User email detected: ", userEmail);console.log("Username detected: ", username);const courseIDMatch = window.location.href.match(/course-v1:[^/]+/);const courseID = courseIDMatch ? courseIDMatch[0] : null;if (!courseID) {throw new Error("Course ID not found in URL");}console.log("Course ID detected: ", courseID);const courseResponse = await fetch(`https://icei.ac.id/api/courses/v1/courses/${courseID}`, {credentials: 'same-origin'});if (!courseResponse.ok) {throw new Error("Failed to fetch course info, status: " + courseResponse.status);}const courseData = await courseResponse.json();console.log("Course data received: ", courseData);const courseName = courseData.name || "No course name found";const courseInstitution = courseData.org || "No institution found";console.log("Course name detected: ", courseName);console.log("Institution detected: ", courseInstitution);const formURL = `https://script.google.com/macros/s/AKfycbyaf0qB6pBs6uqnStLS2hx_A9DUHEmPgLUYR90pLtpBWYBwWHAG80zIKORZRvJaH5Kz/exec?namaMk=${encodeURIComponent(courseName)}&institusiMk=${encodeURIComponent(courseInstitution)}&email=${encodeURIComponent(userEmail)}&username=${encodeURIComponent(username)}&Program=ICE Institute Nasional Courses`;document.getElementById("googleFormIframe").src = formURL;} catch (error) {console.error("Error fetching user or course data: ", error);}};</script><p><strong>Hi ICE Institute friends!</strong></p><p>Thank you for joining our online courses at ICE Institute.</p><p>We would appreciate it if you could fill out the evaluation form below. Your feedback will help us improve our courses in the future.</p><p></p><p><strong>Sincerely,</strong><br /><strong>ICE Institute</strong></p><p><p><p style="text-align:center; font-style:italic">Please wait until the form appears.</p><iframe id="googleFormIframe" width="100%" height="600px" frameborder="0"></iframe>
 </body>
 </html>

@@ -3,57 +3,72 @@ layout: default
 title: Konten ICE Institute
 ---
 
-<div class="px-4 py-5 my-5 text-center">
-  <h1 class="display-5 fw-bold text-body-emphasis">Tim Konten ICE Institute</h1>
-  <div class="col-lg-6 mx-auto">
-    <p class="lead mb-4">Selamat datang dihalaman tim Konten ICE Institute. Halaman ini berisi informasi dari Tim Konten ICE Institute</p>
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center"></div>
+<!-- Hero Section -->
+<div class="px-4 py-12 my-8 text-center max-w-4xl mx-auto">
+  <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-4">
+    Tim Konten ICE Institute
+  </h1>
+  <div class="max-w-2xl mx-auto">
+    <p class="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed mb-6">
+      Selamat datang di halaman tim Konten ICE Institute. Halaman ini berisi informasi dari Tim Konten ICE Institute
+    </p>
+    <div class="flex flex-wrap justify-center gap-3"></div>
   </div>
 </div>
-<div class="row row-cols-2 row-cols-lg-4 g-4 text-center">
-  <!-- Awal Tombol URL Eksternal Panduan-->
-  <div class="col">
-    <a class="text-decoration-none" style="cursor: pointer;" href="{{ '/panduan/' | relative_url }}">
-      <div class="menuutama rounded p-3 h-100 shadow">
-        <i class="text-primarybi bi bi-book mb-2" style="font-size:6rem"></i>
-        <h3 class="mt-2 text-black">Panduan</h3>
+
+<!-- Menu Utama Cards Grid -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 text-center">
+    
+    <!-- Panduan -->
+    <a href="{{ '/panduan/' | relative_url }}" class="group block no-underline">
+      <div class="bg-white rounded-xl p-6 h-full shadow-md hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-1 border border-gray-100 flex flex-col items-center justify-center">
+        <i class="bi bi-book text-blue-600 text-6xl mb-3 transition-transform duration-300 group-hover:scale-110"></i>
+        <h3 class="mt-2 text-lg md:text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">
+          Panduan
+        </h3>
       </div>
     </a>
-  </div>
-  <!-- Awal Tombol URL Eksternal Verifikasi Sertifikat-->
-  <div class="col">
-    <a class="text-decoration-none" style="cursor: pointer;" href="{{ '/verifyeventserti.html' | relative_url }}">
-      <div class="menuutama rounded p-3 h-100 shadow">
-        <i class="text-primarybi bi bi-upc-scan mb-2" style="font-size:6rem"></i>
-        <h3 class="mt-2 text-black">Verifikasi Sertifikat</h3>
+
+    <!-- Verifikasi Sertifikat -->
+    <a href="{{ '/verifyeventserti.html' | relative_url }}" class="group block no-underline">
+      <div class="bg-white rounded-xl p-6 h-full shadow-md hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-1 border border-gray-100 flex flex-col items-center justify-center">
+        <i class="bi bi-upc-scan text-blue-600 text-6xl mb-3 transition-transform duration-300 group-hover:scale-110"></i>
+        <h3 class="mt-2 text-lg md:text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">
+          Verifikasi Sertifikat
+        </h3>
       </div>
     </a>
-  </div>
-  <!-- Awal Tombol URL Eksternal Data Profil Course-->
-  <div class="col">
-    <a class="text-decoration-none" style="cursor: pointer;" href="{{ '/listprofil.html' | relative_url }}">
-      <div class="menuutama rounded p-3 h-100 shadow">
-        <i class="text-primarybi bi bi-card-list mb-2" style="font-size:6rem"></i>
-        <h3 class="mt-2 text-black">Data Profil Course</h3>
+
+    <!-- Data Profil Course -->
+    <a href="{{ '/listprofil.html' | relative_url }}" class="group block no-underline">
+      <div class="bg-white rounded-xl p-6 h-full shadow-md hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-1 border border-gray-100 flex flex-col items-center justify-center">
+        <i class="bi bi-card-list text-blue-600 text-6xl mb-3 transition-transform duration-300 group-hover:scale-110"></i>
+        <h3 class="mt-2 text-lg md:text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">
+          Data Profil Course
+        </h3>
       </div>
     </a>
-  </div>
-  <!-- Awal Tombol URL Eksternal Form Profil Pengembang-->
-  <div class="col">
-    <a class="text-decoration-none" style="cursor: pointer;" href="{{ '/profildev.html' | relative_url }}">
-      <div class="menuutama rounded p-3 h-100 shadow">
-        <i class="text-primarybi bi bi-person-vcard mb-2" style="font-size:6rem"></i>
-        <h3 class="mt-2 text-black">Form Profil Pengembang</h3>
+
+    <!-- Form Profil Pengembang -->
+    <a href="{{ '/profildev.html' | relative_url }}" class="group block no-underline">
+      <div class="bg-white rounded-xl p-6 h-full shadow-md hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-1 border border-gray-100 flex flex-col items-center justify-center">
+        <i class="bi bi-person-vcard text-blue-600 text-6xl mb-3 transition-transform duration-300 group-hover:scale-110"></i>
+        <h3 class="mt-2 text-lg md:text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">
+          Form Profil Pengembang
+        </h3>
       </div>
     </a>
-  </div>
-  <!-- Awal Tombol URL Eksternal TIM-->
-  <div class="col">
-    <a class="text-decoration-none" style="cursor: pointer;" href="#">
-      <div class="menuutama rounded p-3 h-100 shadow">
-        <i class="text-primarybi bi bi-people mb-2" style="font-size:6rem"></i>
-        <h3 class="mt-2 text-black">TIM</h3>
+
+    <!-- TIM -->
+    <a href="#" class="group block no-underline">
+      <div class="bg-white rounded-xl p-6 h-full shadow-md hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-1 border border-gray-100 flex flex-col items-center justify-center">
+        <i class="bi bi-people text-blue-600 text-6xl mb-3 transition-transform duration-300 group-hover:scale-110"></i>
+        <h3 class="mt-2 text-lg md:text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">
+          TIM
+        </h3>
       </div>
     </a>
+
   </div>
 </div>

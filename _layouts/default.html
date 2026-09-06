@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+
+  <title>{{ page.title }}</title>
+
+  <link rel="icon" href="https://iceinstitut.github.io/image/aset/favicon_icei.png" type="image/png">
+
+  <!-- SEO -->
+  <meta name="description" content="{{ page.description | default: site.description }}">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ page.og_title | default: page.title }}">
+  <meta property="og:description" content="{{ page.description | default: site.description }}">
+  <meta property="og:type" content="{{ page.og_type | default: 'website' }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:site_name" content="ICE Institute">
+
+  <meta property="og:image"
+        content="{{ page.image | default: '/image/aset/default-og.jpg' | absolute_url }}">
+
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:alt"
+        content="{{ page.image_alt | default: page.title }}">
+
+  <meta property="og:locale" content="id_ID">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title"
+        content="{{ page.og_title | default: page.title }}">
+  <meta name="twitter:description"
+        content="{{ page.description | default: site.description }}">
+  <meta name="twitter:image"
+        content="{{ page.image | default: '/image/aset/default-og.jpg' | absolute_url }}">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap ICON -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+  <!-- SweetAlert2 -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="{{ '/assets/css/style.css' | relative_url }}" rel="stylesheet">
+
+</head>
+
+<body>
+
+{% include header.html %}
+
+<main class="container">
+{{ content }}
+</main>
+
+{% include footer.html %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+
+</body>
+</html>

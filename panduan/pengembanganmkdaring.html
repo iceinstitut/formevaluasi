@@ -18,7 +18,7 @@ title: Pengembangan Course Daring ICE Institute
         <button type="button" class="btn-close text-gray-400 hover:text-gray-700" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body p-0">
-        <nav id="nav-container-mobile" class="nav-dynamic p-4 space-y-1"></nav>
+        <nav aria-label="Daftar Isi Dokumentasi" id="nav-container-mobile" class="nav-dynamic p-4 space-y-1"></nav>
     </div>
 </div>
 
@@ -29,11 +29,11 @@ title: Pengembangan Course Daring ICE Institute
             Pengembangan Mata Kuliah Daring Self-Paced
         </div>
         <hr class="border-gray-200 mb-4">
-        <nav id="nav-container" class="nav-dynamic flex flex-col space-y-1 text-sm text-gray-700"></nav>
+        <nav aria-label="Daftar Isi Dokumentasi" id="nav-container" class="nav-dynamic flex flex-col space-y-1 text-sm text-gray-700"></nav>
     </aside>
 
     <!-- Main Content -->
-    <main class="main-content flex-1 p-4 lg:p-8 overflow-hidden" id="content-body">
+    <div class="main-content flex-1 p-4 lg:p-8 overflow-hidden" id="content-body">
         <section class="space-y-6">
             <div>
                 <img src="https://iceinstitut.github.io/image/aset/ice-institute-logo-horizontal.png" alt="ICE Institute Logo" class="mt-0 max-w-xs h-auto shadow-none rounded-none">
@@ -672,7 +672,7 @@ title: Pengembangan Course Daring ICE Institute
                 <p>Tanis, C. J. (2020). The seven principles of online learning: Feedback from faculty and alumni on its importance for teaching and learning. <em>Research in Learning Technology</em>, <em>28</em>(n.d.), 1-25.</p>
             </div>
         </section>
-    </main>
+    </div>
 </div>
 
 <script>
@@ -680,6 +680,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const contentBody = document.getElementById('content-body');
     const navContainer = document.getElementById('nav-container');
     const navContainerMobile = document.getElementById('nav-container-mobile');
+
+    if (!contentBody) return;
+
     const headings = Array.from(contentBody.querySelectorAll('h1, h2, h3, h4, h5, h6'));
 
     const levelClasses = {
@@ -691,10 +694,15 @@ document.addEventListener('DOMContentLoaded', function() {
         '6': 'pl-10 text-[11px] text-gray-400 hover:text-red-600'
     };
 
-    headings.forEach((heading) => {
+    headings.forEach((heading, index) => {
+        // Auto-generate ID jika heading belum punya ID
+        if (!heading.id) {
+            heading.id = 'heading-' + index + '-' + heading.innerText.toLowerCase().replace(/[^a-z0-9]/g, '-');
+        }
+
         const level = heading.tagName.substring(1);
         const navLink = document.createElement('a');
-        navLink.className = `block py-1 px-2 rounded-md transition-all cursor-pointer no-underline ${levelClasses[level] || ''}`;
+        navLink.className = `block py-1.5 px-2 rounded-md transition-all cursor-pointer no-underline text-gray-700 ${levelClasses[level] || ''}`;
         navLink.setAttribute('data-target', heading.id);
         navLink.innerText = heading.innerText;
 
@@ -703,39 +711,62 @@ document.addEventListener('DOMContentLoaded', function() {
             window.removeEventListener('scroll', updateActiveNav);
 
             const target = document.getElementById(heading.id);
-            const offset = 100;
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+            if (target) {
+                const offset = 100; // Jarak aman dari header sticky
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
 
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
-
-            document.querySelectorAll('.nav-dynamic a').forEach(l => {
-                l.classList.remove('bg-red-50', 'text-red-600', 'font-bold', 'border-red-600');
-            });
-            document.querySelectorAll(`.nav-dynamic a[data-target="${heading.id}"]`).forEach(l => {
-                l.classList.add('bg-red-50', 'text-red-600', 'font-bold', 'border-l-2', 'border-red-600');
-            });
-
-            const offcanvasEl = document.getElementById('offcanvasNavbar');
-            if (offcanvasEl && window.bootstrap) {
-                const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
-                if (offcanvas) offcanvas.hide();
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
             }
 
+            // Update Class Active (Tailwind Style)
+            setActiveLink(heading.id);
+
+            // Tutup Offcanvas Mobile ala Tailwind (Ganti Class / Hide Element)
+            closeTailwindOffcanvas();
+
+            // Atifkan kembali scroll listener setelah animasi selesai
             setTimeout(() => {
                 window.addEventListener('scroll', updateActiveNav);
             }, 800);
         };
 
         navLink.addEventListener('click', handleNavClick);
-        navContainer.appendChild(navLink);
 
-        const mobileClone = navLink.cloneNode(true);
-        mobileClone.addEventListener('click', handleNavClick);
-        navContainerMobile.appendChild(mobileClone);
+        if (navContainer) navContainer.appendChild(navLink);
+        if (navContainerMobile) {
+            const mobileClone = navLink.cloneNode(true);
+            mobileClone.addEventListener('click', handleNavClick);
+            navContainerMobile.appendChild(mobileClone);
+        }
     });
+
+    function setActiveLink(activeId) {
+        document.querySelectorAll('.nav-dynamic a').forEach(link => {
+            if (link.getAttribute('data-target') === activeId) {
+                link.classList.add('bg-red-50', 'text-red-600', 'font-bold', 'border-l-2', 'border-red-600');
+            } else {
+                link.classList.remove('bg-red-50', 'text-red-600', 'font-bold', 'border-l-2', 'border-red-600');
+            }
+        });
+    }
+
+    function closeTailwindOffcanvas() {
+        const offcanvasEl = document.getElementById('offcanvasNavbar');
+        if (offcanvasEl) {
+            // Sembunyikan offcanvas dengan memanipulasi class Tailwind/HTML
+            offcanvasEl.classList.add('hidden'); 
+            
+            // Jika Anda memakai toggle class bawaan (seperti -translate-x-full)
+            offcanvasEl.classList.add('-translate-x-full');
+            
+            // Hapus backdrop jika ada
+            const backdrop = document.getElementById('offcanvas-backdrop');
+            if (backdrop) backdrop.remove();
+        }
+    }
 
     function updateActiveNav() {
         const scrollPosition = window.scrollY + 120;
@@ -751,13 +782,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (currentActiveId) {
-            document.querySelectorAll('.nav-dynamic a').forEach(link => {
-                if (link.getAttribute('data-target') === currentActiveId) {
-                    link.classList.add('bg-red-50', 'text-red-600', 'font-bold', 'border-l-2', 'border-red-600');
-                } else {
-                    link.classList.remove('bg-red-50', 'text-red-600', 'font-bold', 'border-l-2', 'border-red-600');
-                }
-            });
+            setActiveLink(currentActiveId);
         }
     }
 

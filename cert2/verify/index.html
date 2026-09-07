@@ -1,0 +1,644 @@
+---
+layout: default
+title: Verifikasi Sertifikat di ICE Institute
+---
+
+<style>
+    /* ==========================================================================
+       1. VARIABLES & GLOBAL STYLES (Fondasi Desain Modern)
+       ========================================================================== */
+    :root {
+      --brand: #ee1522;
+      --brand-hover: #d10f1b;
+      --bg: #f8f9fa;
+      --card: #ffffff;
+      --text: #1a1f36;
+      --muted: #697386;
+      --border: #e3e8ee;
+      --shadow: 0 12px 30px rgba(238, 21, 34, 0.03), 0 2px 8px rgba(0,0,0,.02);
+      --radius: 16px;
+    }
+
+    html, body { 
+      height: 100%; 
+    }
+
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Wrapper utama dipersempit ke 760px agar bacaan 1 kolom mengalir seimbang */
+    .wrap {
+      max-width: 760px;
+      margin: 32px auto;
+      padding: 0 20px 40px;
+    }
+
+    /* ==========================================================================
+       2. TOPBAR (Poin 1 & 3: Brand Sah + Akses Status Instan)
+       ========================================================================== */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 24px;
+      background: #ffffff;
+      padding: 14px 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+    }
+
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--brand);
+      box-shadow: 0 0 0 4px rgba(238,21,34,.15);
+      flex: 0 0 auto;
+    }
+
+    .brand-title {
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    /* Komponen Badge Status Tervalidasi */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .5px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      white-space: nowrap;
+    }
+
+    .dot { 
+      width: 8px; 
+      height: 8px; 
+      border-radius: 999px; 
+      background: #999999; 
+    }
+
+    .badge.ok { border-color: rgba(25,135,84,.2); background: #e6f4ea; color: #137333; }
+    .badge.ok .dot { background: #198754; }
+    
+    .badge.bad { border-color: rgba(220,53,69,.2); background: #fce8e6; color: #c5221f; }
+    .badge.bad .dot { background: #dc3545; }
+    
+    .badge.warn { border-color: rgba(255,193,7,.3); background: #fef7e0; color: #b06000; }
+    .badge.warn .dot { background: #ffc107; }
+
+    #backLink {
+      background: #f4f6f8;
+      padding: 8px 16px;
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    #backLink:hover {
+      background: #e8ecef;
+      color: var(--text);
+    }
+
+    /* ==========================================================================
+       3. SINGLE COLUMN LAYOUT & CARDS
+       ========================================================================== */
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .h1 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .muted { 
+      color: var(--muted); 
+      font-size: 14px; 
+    }
+
+    .section-title {
+      margin: 28px 0 14px;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: var(--muted);
+    }
+
+    .hr { 
+      height: 1px; 
+      background: var(--border); 
+      margin: 24px 0; 
+      border: 0; 
+    }
+
+    /* ==========================================================================
+       4. KEY-VALUE COMPONENT (Poin 2 & 5: Tipografi Kontras Tinggi & Rapi)
+       ========================================================================== */
+    .kv {
+      display: grid;
+      grid-template-columns: 170px 1fr; /* Mengunci lajur label (k) dan lajur nilai (v) */
+      gap: 0;
+      margin-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .item {
+      display: contents; /* Trik agar div.item melepas pembungkusnya ke sistem CSS Grid */
+    }
+
+    .k { 
+      font-size: 13px; 
+      color: var(--muted); 
+      font-weight: 500; 
+      padding: 14px 8px 14px 0;
+      border-bottom: 1px solid #f4f6f8;
+      display: flex;
+      align-items: center;
+    }
+
+    .v { 
+      font-size: 14px; 
+      font-weight: 700; /* Tebal untuk menonjolkan kejelasan identitas data */
+      color: var(--text);
+      padding: 14px 0 14px 8px;
+      border-bottom: 1px solid #f4f6f8;
+      word-break: break-word; 
+      display: flex;
+      align-items: center;
+    }
+
+    /* Khusus untuk value tipe data reguler/panjang agar tetap nyaman dibaca */
+    .v.normal { 
+      font-weight: 600; 
+      color: #333c48; 
+    }
+    
+    /* Hilangkan garis bawah di baris data terakhir */
+    .kv .item:last-of-type .k,
+    .kv .item:last-of-type .v {
+      border-bottom: none;
+    }
+
+    /* ==========================================================================
+       5. SUMMARY BOX & FOOTER (Poin 1 & 6: Kalimat Kesimpulan yang Tegas)
+       ========================================================================== */
+    #summaryText {
+      margin-top: 12px;
+      padding: 16px;
+      background: #f8fafc;
+      border-left: 4px solid var(--brand); /* Warna diatur dinamis lewat JS di bawah */
+      border-radius: 0 10px 10px 0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .foot {
+      margin-top: 24px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    a { 
+      color: var(--brand); 
+      text-decoration: none; 
+      font-weight: 700; 
+      transition: color 0.2s; 
+    }
+    
+    a:hover { 
+      color: var(--brand-hover); 
+      text-decoration: underline; 
+    }
+
+    /* ==========================================================================
+       6. STATES & ANIMATION (Alert & Spinner Memuat)
+       ========================================================================== */
+    .alert {
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: #ffffff;
+      padding: 32px 24px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .alert h2 { 
+      margin: 0 0 10px; 
+      font-size: 18px; 
+      font-weight: 800; 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 10px; 
+    }
+
+    /* Spinner Animasi CSS Otomatis saat loading */
+    .alert h2::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      border: 2px solid #e3e8ee;
+      border-top-color: var(--brand);
+      border-radius: 50%;
+      display: inline-block;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { 
+      to { transform: rotate(360deg); } 
+    }
+    
+    .alert p { 
+      margin: 0; 
+      color: var(--muted); 
+      line-height: 1.5; 
+      font-size: 14px; 
+    }
+
+    .code {
+      margin: 16px auto 0;
+      max-width: max-content;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 12px;
+      background: #f6f6f6;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 12px;
+      color: var(--muted);
+    }
+
+    /* ==========================================================================
+       7. MOBILE RESPONSIVE OPTIMIZATION
+       ========================================================================== */
+    @media (max-width: 600px) {
+      .wrap { padding: 0 12px 30px; margin: 16px auto; }
+      .topbar { flex-direction: column; align-items: flex-start; gap: 14px; padding: 16px; }
+      #backLink { align-self: flex-end; margin-top: -38px; }
+      .card { padding: 20px; }
+      .kv { grid-template-columns: 1fr; }
+      .k { padding: 12px 0 2px 0; border-bottom: none; font-size: 11px; }
+      .v { padding: 0 0 12px 0; border-bottom: 1px dashed var(--border); }
+      .kv .item:last-of-type .v { border-bottom: none; }
+    }
+  </style>
+
+
+<div class="wrap">
+    
+    <div class="topbar">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span class="brand-title">Verifikasi Sertifikat</span>
+      </div>
+      <span id="badge" class="badge" style="display:none;"><span class="dot"></span><span id="badgeText">...</span></span>
+      <a href="../?id=" id="backLink">Kembali</a>
+    </div>
+
+    <div id="alertBox" class="alert" style="display:none;">
+      <h2 id="alertTitle">...</h2>
+      <p id="alertMsg">...</p>
+      <div id="alertCode" class="code" style="display:none;"></div>
+    </div>
+
+    <div id="mainGrid" class="grid" style="display:none;">
+      
+      <div class="card">
+        <div class="h1">Detail Sertifikat</div>
+        <div class="muted">Data di bawah ini berasal dari basis data resmi.</div>
+
+        <div class="kv" id="detailKv">
+          <div class="item">
+            <div class="k">Nama</div>
+            <div class="v" id="v_nama">-</div>
+          </div>
+          <div class="item">
+            <div class="k">No Sertifikat</div>
+            <div class="v" id="v_no">-</div>
+          </div>
+          <div class="item">
+            <div class="k">ID Sertifikat</div>
+            <div class="v normal" id="v_id">-</div>
+          </div>
+          <div class="item">
+            <div class="k">Status</div>
+            <div class="v normal" id="v_status">-</div>
+          </div>
+        </div>
+
+        <div class="section-title">Informasi Kegiatan</div>
+        <div class="kv">
+          <div class="item">
+            <div class="k">Nama Kegiatan</div>
+            <div class="v normal" id="v_nama_kegiatan">-</div>
+          </div>
+          <div class="item">
+            <div class="k">Tema</div>
+            <div class="v normal" id="v_tema">-</div>
+          </div>
+          <div class="item">
+            <div class="k">Peran</div>
+            <div class="v normal" id="v_sebagai">-</div>
+          </div>
+          <div class="item">
+            <div class="k">Bentuk</div>
+            <div class="v normal" id="v_bentuk">-</div>
+          </div>
+          <div class="item">
+            <div class="k">Hari & Tanggal</div>
+            <div class="v normal" id="v_haritgl">-</div>
+          </div>
+          <div class="item">
+            <div class="k">Tanggal Terbit</div>
+            <div class="v normal" id="v_tgl_sertifikat">-</div>
+          </div>
+        </div>
+
+        <div id="revokeSection" style="display:none;">
+          <div class="section-title" style="color:var(--brand);">Informasi Pencabutan</div>
+          <div class="kv">
+            <div class="item">
+              <div class="k">Dicabut pada</div>
+              <div class="v normal" id="v_revoked_at">-</div>
+            </div>
+            <div class="item">
+              <div class="k">Alasan</div>
+              <div class="v normal" id="v_revoked_reason">-</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="h1">Ringkasan Validasi</div>
+        <div class="muted" id="summaryText">-</div>
+
+        <div class="section-title">Informasi Tambahan Peserta</div>
+        <div class="kv">
+          <div class="item">
+            <div class="k">Instansi</div>
+            <div class="v normal" id="v_instansi">-</div>
+          </div>
+          <div class="item">
+            <div class="k">Profesi</div>
+            <div class="v normal" id="v_profesi">-</div>
+          </div>
+        </div>
+
+        <div class="foot">
+          Jika Anda merasa ada ketidaksesuaian data, silakan hubungi <a href="#">Admin ICE Institute</a>.
+        </div>
+      </div>
+    </div>
+
+    <div class="foot" id="footerYear"></div>
+  </div>
+
+  <script>
+    /**
+     * === KONFIG ===
+     * Ganti ini menjadi URL worker Anda (tanpa trailing slash)
+     * contoh: https://cert-api.example.workers.dev
+     */
+    const API_BASE = "https://cert2.ice-institut.workers.dev";
+
+    const $ = (id) => document.getElementById(id);
+
+    function qs(name) { return new URLSearchParams(location.search).get(name) || ""; }
+    const CERT_ID = qs("id").trim();
+    const TOKEN = qs("t").trim();
+
+    $("footerYear").textContent = `© ${new Date().getFullYear()} • Portal Sertifikat`;
+
+    function showAlert(title, msg, codeText) {
+      $("alertBox").style.display = "";
+      $("mainGrid").style.display = "none";
+      $("badge").style.display = "none";
+
+      $("alertTitle").textContent = title;
+      $("alertMsg").innerHTML = msg;
+
+      if (codeText) {
+        $("alertCode").style.display = "";
+        $("alertCode").textContent = codeText;
+      } else {
+        $("alertCode").style.display = "none";
+      }
+      
+      // Mengubah warna indikator loading jika status memuat aktif
+      if(title === "Memuat...") {
+         $("alertBox").style.borderColor = "var(--border)";
+      } else {
+         $("alertBox").style.borderColor = "rgba(220,53,69,0.2)";
+      }
+    }
+
+    function showMain() {
+      $("alertBox").style.display = "none";
+      $("mainGrid").style.display = "";
+    }
+
+    function setBadge(view) {
+      const badge = $("badge");
+      const badgeText = $("badgeText");
+
+      if (!view) { badge.style.display = "none"; return; }
+
+      const status = String(view.status || "").toUpperCase();
+      const isValid = !!view.is_valid;
+
+      badge.classList.remove("ok", "bad", "warn");
+      badge.style.display = "";
+
+      if (isValid) {
+        badge.classList.add("ok");
+        badgeText.textContent = "VALID";
+      } else if (status === "REVOKED") {
+        badge.classList.add("bad");
+        badgeText.textContent = "REVOKED";
+      } else {
+        badge.classList.add("warn");
+        badgeText.textContent = "TIDAK AKTIF";
+      }
+    }
+
+    function fill(view) {
+      $("v_nama").textContent = view.nama || "-";
+      $("v_no").textContent = view.no_sertifikat || "-";
+      $("v_id").textContent = view.id_sertifikat || "-";
+      $("v_status").textContent = view.status || "-";
+
+      $("v_nama_kegiatan").textContent = view.nama_kegiatan || "-";
+      $("v_tema").textContent = view.tema || "-";
+      $("v_sebagai").textContent = view.sebagai || "-";
+      $("v_bentuk").textContent = view.bentuk || "-";
+
+      const ht = [view.hari_kegiatan, view.tanggal_kegiatan].filter(Boolean).join(", ");
+      $("v_haritgl").textContent = ht || "-";
+
+      $("v_tgl_sertifikat").textContent = view.tanggal_sertifikat || "-";
+
+      $("v_instansi").textContent = view.instansi || "-";
+      $("v_profesi").textContent = view.profesi || "-";
+
+      const status = String(view.status || "").toUpperCase();
+      const summaryBox = $("summaryText");
+      
+      if (status === "REVOKED") {
+        $("revokeSection").style.display = "";
+        $("v_revoked_at").textContent = view.revoked_at || "-";
+        $("v_revoked_reason").textContent = view.revoked_reason || "-";
+      } else {
+        $("revokeSection").style.display = "none";
+      }
+
+      if (view.is_valid) {
+        summaryBox.style.borderLeftColor = "#198754";
+        summaryBox.innerHTML = 'Sertifikat ini dinyatakan <b>valid</b> dan terdaftar secara sah di dalam basis data ICE Institute <b>ACTIVE</b>.';
+      } else if (status === "REVOKED") {
+        summaryBox.style.borderLeftColor = "#dc3545";
+        summaryBox.innerHTML = 'Peringatan: Sertifikat ini telah resmi <b>dicabut</b> (REVOKED) dari sistem basis data ICE Institute dan dinyatakan tidak berlaku lagi.';
+      } else {
+        summaryBox.style.borderLeftColor = "#ffc107";
+        summaryBox.textContent = "Sertifikat ini tidak berstatus ACTIVE. Silakan hubungi Admin untuk konfirmasi lebih lanjut.";
+      }
+    }
+
+    async function apiVerify() {
+      const u = new URL(API_BASE + "/api/verify");
+      u.searchParams.set("id", CERT_ID);
+      u.searchParams.set("t", TOKEN);
+
+      const resp = await fetch(u.toString(), { method: "GET" });
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
+      return await resp.json();
+    }
+
+    function mapErrorToMode(message) {
+      const m = String(message || "");
+      if (m.toLowerCase().includes("token tidak valid")) return "invalid_token";
+      if (m.toLowerCase().includes("sertifikat tidak ditemukan")) return "not_found";
+      return "error";
+    }
+
+    async function init() {
+      const P = (new URLSearchParams(location.search).get("p") || "").toLowerCase();
+      if (P === "cert") {
+        const u = new URL("https://iceinstitut.github.io/konten/cert2/");
+        const id = CERT_ID || qs("id").trim();
+        const t  = TOKEN   || qs("t").trim();
+        if (id) u.searchParams.set("id", id);
+        if (t)  u.searchParams.set("t", t);
+        location.replace(u.toString());
+        return;
+      }
+    
+      if (!CERT_ID) {
+        showAlert(
+          "ID Sertifikat tidak ada",
+          "Mohon gunakan URL verifikasi yang lengkap dari sertifikat (parameter <b>id</b> dan <b>t</b>)."
+        );
+        return;
+      }
+      if (!TOKEN) {
+        showAlert(
+          "Token verifikasi tidak ada",
+          "URL verifikasi harus menyertakan parameter <b>t</b>. Mohon minta ulang link dari Admin.",
+          "id=" + CERT_ID
+        );
+        return;
+      }
+    
+      showAlert("Memuat...", "Sedang mengambil data verifikasi dari server.", "id=" + CERT_ID);
+    
+      try {
+        const res = await apiVerify();
+    
+        if (!res || !res.ok) {
+          const msg = (res && (res.message || res.error?.message)) ? String(res.message || res.error?.message) : "";
+          const mode = mapErrorToMode(msg);
+    
+          if (mode === "invalid_token") {
+            showAlert(
+              "Token tidak valid",
+              "Link verifikasi ini tidak valid atau sudah diganti oleh sistem. Mohon minta ulang link dari Admin.",
+              "id=" + CERT_ID
+            );
+            return;
+          }
+          if (mode === "not_found") {
+            showAlert(
+              "Sertifikat tidak ditemukan",
+              "ID sertifikat tidak terdaftar. Pastikan Anda menggunakan link resmi dari Admin.",
+              "id=" + CERT_ID
+            );
+            return;
+          }
+    
+          showAlert(
+            "Terjadi kesalahan",
+            msg || "Gagal memuat data.",
+            "id=" + CERT_ID
+          );
+          return;
+        }
+    
+        const view = res.view || {};
+        setBadge(view);
+        fill(view);
+        showMain();
+      } catch (err) {
+        showAlert(
+          "Terjadi kesalahan",
+          (err && err.message) ? err.message : String(err),
+          "id=" + CERT_ID
+        );
+      }
+    }
+
+    const back = document.getElementById("backLink");
+    if (back) {
+      const u = new URL(location.origin + "/konten/cert2/");
+      u.searchParams.set("id", CERT_ID);
+      u.searchParams.set("t", TOKEN);
+      back.href = u.toString();
+    }
+
+    init();
+  </script>

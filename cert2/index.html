@@ -1,0 +1,808 @@
+---
+layout: default
+title: Sertifikat di ICE Institute
+---
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      /* ==========================================================================
+         1. GLOBAL STYLES & VARIABLES
+         ========================================================================== */
+      :root {
+        --ice-primary: #ee1522;
+        --ice-primary-hover: #d10f1b;
+        --ice-bg: #fafafa;
+        --ice-card-bg: #ffffff;
+        --ice-text-main: #111111;
+        --ice-text-muted: #666666;
+        --ice-border: #eeeeee;
+        --ice-border-dashed: #dddddd;
+        --ice-radius: 16px;
+      }
+
+      .icecert-app {
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        background: var(--ice-bg);
+        color: var(--ice-text-main);
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .icecert-app * {
+        box-sizing: border-box;
+      }
+
+      /* ==========================================================================
+         2. LAYOUT CONTAINER & HEADER
+         ========================================================================== */
+      .icecert-wrap {
+        max-width: 860px; /* Lebar maksimal ideal agar preview sertifikat tidak terlalu melebar */
+        margin: 0 auto;
+        padding: 18px 14px 40px;
+      }
+
+      .icecert-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin: 8px 0 24px;
+      }
+
+      .icecert-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .icecert-badge {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: var(--ice-primary);
+        display: inline-block;
+      }
+
+      .icecert-title {
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: .2px;
+        margin: 0;
+      }
+
+      .icecert-sub {
+        color: var(--ice-text-muted);
+        font-size: 13px;
+        margin-top: 2px;
+      }
+
+      /* ==========================================================================
+         3. SINGLE COLUMN STACK (Menggantikan .icecert-grid lama)
+         ========================================================================== */
+      .icecert-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 20px; /* Jarak vertikal antar card */
+        width: 100%;
+      }
+
+      /* ==========================================================================
+         4. CARD COMPONENT & UTILITIES
+         ========================================================================== */
+      .icecert-card {
+        background: var(--ice-card-bg);
+        border: 1px solid var(--ice-border);
+        border-radius: var(--ice-radius);
+        padding: 20px; /* Padding sedikit diperlonggar agar lebih lega */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .02), 0 1px 0 rgba(0, 0, 0, .03);
+      }
+
+      .icecert-card h2 {
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0 0 14px;
+      }
+
+      .icecert-muted {
+        color: var(--ice-text-muted);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .icecert-hr {
+        height: 1px;
+        border: none;
+        background: #f0f0f0;
+        margin: 16px 0;
+      }
+
+      /* ==========================================================================
+         5. CERTIFICATE PREVIEW VIEWPORT
+         ========================================================================== */
+      .icecert-preview {
+        border: 1px dashed var(--ice-border-dashed);
+        border-radius: var(--ice-radius);
+        overflow: hidden;
+        background: #ffffff;
+        transition: border-color 0.2s ease;
+      }
+
+      .icecert-preview:hover {
+        border-color: var(--ice-primary); /* Indikator interaktif halus */
+      }
+
+      /* #certViewport & #certScaleWrap mempertahankan logika inline style bawaan Anda */
+      #certViewport {
+        background: #ffffff;
+      }
+
+      /* ==========================================================================
+         6. INTERACTIVE BUTTONS & ACTIONS
+         ========================================================================== */
+      .icecert-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+        margin-bottom: 12px;
+      }
+
+      .icecert-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        border: 1px solid var(--ice-border);
+        background: #ffffff;
+        color: var(--ice-text-main);
+        padding: 10px 18px;
+        border-radius: 12px;
+        font-weight: 750;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .icecert-btn:hover:not(:disabled) {
+        background: #f8f9fa;
+        border-color: #c1c9d2;
+      }
+
+      .icecert-btn.primary {
+        background: var(--ice-primary);
+        border-color: var(--ice-primary);
+        color: #ffffff;
+        box-shadow: 0 4px 10px rgba(238, 21, 34, 0.15);
+      }
+
+      .icecert-btn.primary:hover:not(:disabled) {
+        background: var(--ice-primary-hover);
+        border-color: var(--ice-primary-hover);
+        box-shadow: 0 4px 14px rgba(238, 21, 34, 0.25);
+      }
+
+      .icecert-btn:disabled {
+        opacity: .55;
+        cursor: not-allowed;
+        box-shadow: none !important;
+      }
+
+      .icecert-note {
+        font-size: 12px;
+        color: var(--ice-text-muted);
+        line-height: 1.5;
+      }
+
+      /* ==========================================================================
+         7. METADATA KEY-VALUE (Mendukung Data-Binding Lama)
+         ========================================================================== */
+        .icecert-kv {
+          display: grid;
+          /* Membuat 2 kolom: kolom 'k' selebar 160px, kolom 'v' mengambil sisa ruang */
+          grid-template-columns: 160px 1fr; 
+          gap: 0; /* Menggunakan padding komponen untuk jarak agar border bawah terlihat rapi */
+          font-size: 13px;
+          line-height: 1.6;
+          background: #ffffff;
+        }
+
+        .icecert-kv .k {
+          color: #697386; /* Warna abu-abu premium, tidak terlalu pekat */
+          font-weight: 500;
+          padding: 12px 8px 12px 0;
+          border-bottom: 1px solid #f4f6f8; /* Garis pembatas horizontal tipis */
+          display: flex;
+          align-items: center; /* Memastikan teks teks label rata tengah secara vertikal */
+        }
+
+        .icecert-kv .v {
+          color: #1a1f36; /* Warna hitam elegan untuk kontras tinggi */
+          font-weight: 600; /* Membuat teks data lebih tebal dan tegas */
+          padding: 12px 0 12px 8px;
+          border-bottom: 1px solid #f4f6f8;
+          word-break: break-word; /* Mencegah teks panjang (seperti nama atau nomor panjang) merusak layout */
+          display: flex;
+          align-items: center;
+        }
+
+        /* Sentuhan Akhir: Menghilangkan garis pembatas di baris paling bawah agar tidak double dengan footer card */
+        .icecert-kv .k:last-of-type,
+        .icecert-kv .v:last-of-type {
+          border-bottom: none;
+        }
+
+        /* Opsi Tambahan: Efek zebra-striping halus saat kursor melintas (opsional, bikin makin interaktif) */
+        .icecert-kv .k:hover,
+        .icecert-kv .k:hover + .v {
+          background-color: #fafbfc;
+        }
+
+        /* Responsif: Otomatis bertumpuk vertikal saat dibuka di handphone */
+        @media (max-width: 576px) {
+          .icecert-kv {
+            grid-template-columns: 1fr; /* Menjadi 1 kolom penuh */
+          }
+          
+          .icecert-kv .k {
+            padding: 8px 0 2px 0;
+            border-bottom: none; /* Hilangkan border bawah di label */
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+          }
+          
+          .icecert-kv .v {
+            padding: 0 0 10px 0;
+            /* Border bawah dipindahkan ke nilai akhir sebagai pembatas antar baris data */
+            border-bottom: 1px dashed #e3e8ee; 
+          }
+        }
+
+      /* ==========================================================================
+         8. STATUS PILLS
+         ========================================================================== */
+      .icecert-pill {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+
+      .icecert-pill.ok {
+        background: rgba(25, 135, 84, .10);
+        color: #198754;
+        border: 1px solid rgba(25, 135, 84, .20);
+      }
+
+      .icecert-pill.rev {
+        background: rgba(220, 53, 69, .08);
+        color: #dc3545;
+        border: 1px solid rgba(220, 53, 69, .18);
+      }
+
+      .icecert-pill.draft {
+        background: rgba(108, 117, 125, .10);
+        color: #6c757d;
+        border: 1px solid rgba(108, 117, 125, .20);
+      }
+
+      /* Style khusus untuk previewNote saat dalam kondisi memuat */
+        .mutar {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px; /* Jarak antara spinner dan teks */
+          font-size: 13px;
+          color: #697386;
+          font-weight: 500;
+          margin-top: 12px;
+        }
+
+        /* Membuat Spinner Animasi Menggunakan Pseudo-element */
+        .mutar::before {
+          content: "";
+          width: 16px;
+          height: 16px;
+          border: 2px solid #e3e8ee; /* Warna lingkaran dasar (samar) */
+          border-top-color: #ee1522; /* Warna juring lingkaran yang berputar (menggunakan warna brand Anda) */
+          border-radius: 50%;
+          animation: ice-spinner 0.8s linear infinite; /* Menjalankan animasi berputar terus-menerus */
+          display: inline-block;
+        }
+
+        /* Logika Animasi Putar 360 Derajat */
+        @keyframes ice-spinner {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+      .sembunyi {display: none !important;}
+    </style>
+
+    <div class="icecert-app">
+      <div class="icecert-wrap">
+
+        <div class="icecert-header">
+          <div class="icecert-brand">
+            <span class="icecert-badge"></span>
+            <div>
+              <div class="icecert-title">Sertifikat Digital</div>
+              <div class="icecert-sub">Preview & unduh sertifikat Anda</div>
+            </div>
+          </div>
+          <div>
+            <span class="icecert-pill draft" id="pillStatus" style="display:none;">STATUS</span>
+            <div class="icecert-muted" id="hdrId"></div>
+          </div>
+        </div>
+
+        <div class="icecert-card" id="stateCard" style="display:none; margin-bottom: 20px;">
+          <h2 id="stateTitle">Memuat...</h2>
+          <div class="icecert-muted" id="stateMsg">Silakan tunggu.</div>
+        </div>
+
+        <div class="icecert-stack" id="mainGrid" style="display:none;">
+
+          <div class="icecert-card">
+            <h2>Preview</h2>
+
+            <div class="icecert-preview" style="padding:12px;">
+              <div id="certViewport" style="width:100%; overflow:hidden; border-radius:14px;">
+                <div id="certScaleWrap" style="transform-origin: top left;"></div>
+              </div>
+            </div>
+
+            <div class="icecert-note" id="previewNote" style="margin-top:10px;">
+              Memuat preview...
+            </div>
+
+            <div class="icecert-actions">
+              <button class="icecert-btn primary" id="btnDownload">Download PDF</button>
+              <a class="icecert-btn" id="btnVerify" href="#" style="text-decoration:none; display:inline-flex; align-items:center;">
+                Verifikasi
+              </a>
+            </div>
+
+            <div class="icecert-note sembunyi">
+              Jika PDF sudah pernah dibuat, sistem akan mengambil file PDF yang sama (tanpa membuat ulang).
+            </div>
+          </div>
+
+          <div class="icecert-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <h2 style="margin:0;">Detail Sertifikat</h2>
+            </div>
+
+            <div class="icecert-hr"></div>
+
+            <div class="icecert-kv" id="detailKv">
+              <div class="k">No Sertifikat</div><div class="v" id="d_no">-</div>
+              <div class="k">Nama</div><div class="v" id="d_nama">-</div>
+              <div class="k">Sebagai</div><div class="v" id="d_sebagai">-</div>
+              <div class="k">Profesi</div><div class="v" id="d_profesi">-</div>
+              <div class="k">Instansi</div><div class="v" id="d_instansi">-</div>
+              <div class="k sembunyi">Kota</div><div class="v sembunyi" id="d_city">-</div>
+              <div class="k sembunyi">Provinsi</div><div class="v sembunyi" id="d_province">-</div>
+              <div class="k sembunyi">Negara</div><div class="v sembunyi" id="d_country">-</div>
+              <div class="k">Kegiatan</div><div class="v" id="d_nama_kegiatan">-</div>
+              <div class="k">Tipe</div><div class="v" id="d_tipe_kegiatan">-</div>
+              <div class="k">Bentuk</div><div class="v" id="d_bentuk">-</div>
+              <div class="k">Tema</div><div class="v" id="d_tema">-</div>
+              <div class="k">Tanggal Kegiatan</div><div class="v" id="d_tanggal_kegiatan">-</div>
+              <div class="k">Hari</div><div class="v" id="d_hari_kegiatan">-</div>
+              <div class="k">Tanggal Sertifikat</div><div class="v" id="d_tanggal_sertifikat">-</div>
+            </div>
+
+            <div class="icecert-hr"></div>
+
+            <div class="icecert-muted sembunyi" style="font-size:12px">
+              Template: <b id="d_template_key">-</b>
+            </div>
+          </div>
+
+        </div> </div>
+    </div>
+
+    <script>
+      /**
+       * === KONFIG ===
+       * Ganti ini menjadi URL worker Anda (tanpa trailing slash)
+       * contoh: https://cert-api.example.workers.dev
+       */
+      const API_BASE = "https://cert2.ice-institut.workers.dev";
+
+      // GitHub Pages base (untuk membuat link verify)
+      const GHP_BASE = location.origin + "/konten";
+      const VERIFY_PAGE = GHP_BASE + "/cert2/verify/"; // sesuaikan jika path Anda berbeda
+
+      const $ = (id) => document.getElementById(id);
+
+      const btnDownload = $("btnDownload");
+      const mainGrid = $("mainGrid");
+      const stateCard = $("stateCard");
+      const stateTitle = $("stateTitle");
+      const stateMsg = $("stateMsg");
+      const previewNote = $("previewNote");
+      const hdrId = $("hdrId");
+      const btnVerify = $("btnVerify");
+
+      function qs(name) {
+        return new URLSearchParams(location.search).get(name) || "";
+      }
+
+      const CERT_ID = qs("id").trim();
+      const TOKEN = qs("t").trim();
+
+      function showState(title, msg) {
+        stateCard.style.display = "";
+        mainGrid.style.display = "none";
+        stateTitle.textContent = title;
+        stateMsg.innerHTML = msg;
+        hdrId.textContent = "";
+      }
+
+      function showMain() {
+        stateCard.style.display = "none";
+        mainGrid.style.display = "";
+        hdrId.innerHTML = CERT_ID ? ("ID: <b>" + escapeHtml(CERT_ID) + "</b>") : "";
+      }
+
+      function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, (m) => ({
+          "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
+        }[m]));
+      }
+
+      async function apiGet(path, params) {
+        const u = new URL(API_BASE + path);
+        Object.keys(params || {}).forEach(k => u.searchParams.set(k, params[k]));
+        const resp = await fetch(u.toString(), { method: "GET" });
+        // Apps Script biasanya selalu 200; tapi tetap kita handle
+        if (!resp.ok) throw new Error("HTTP " + resp.status);
+        return await resp.json();
+      }
+
+      // Scale responsif (dipakai juga di versi lama) :contentReference[oaicite:2]{index=2}
+      function autoScale(pageDim){
+        const viewport = $("certViewport");
+        const wrap = $("certScaleWrap");
+
+        const mmToPx = (mm) => mm * (96 / 25.4);
+
+        function apply(){
+          const vw = viewport.clientWidth;
+          const pageWpx = mmToPx(pageDim.wMm);
+          const pageHpx = mmToPx(pageDim.hMm);
+
+          const scale = Math.min(1, vw / pageWpx);
+          wrap.style.transform = `scale(${scale})`;
+          viewport.style.height = (pageHpx * scale) + "px";
+        }
+
+        apply();
+        window.addEventListener("resize", apply);
+      }
+
+      function setPillStatus(status) {
+        const pill = $("pillStatus");
+        if (!status) { pill.style.display = "none"; return; }
+
+        const s = String(status).toUpperCase();
+        pill.style.display = "";
+        pill.textContent = s;
+
+        pill.classList.remove("ok", "rev", "draft");
+        if (s === "ACTIVE") pill.classList.add("ok");
+        else if (s === "REVOKED") pill.classList.add("rev");
+        else pill.classList.add("draft");
+      }
+
+      function fillDetail(view) {
+        // view dari api=verify menggunakan buildVerifyView_ (beberapa field city/province/country mungkin kosong)
+        const v = view || {};
+        $("d_no").textContent = v.no_sertifikat || "-";
+        $("d_nama").textContent = v.nama || "-";
+        $("d_sebagai").textContent = v.sebagai || "-";
+        $("d_profesi").textContent = v.profesi || "-";
+        $("d_instansi").textContent = v.instansi || "-";
+
+        // field ini mungkin belum ada di view verify backend Anda → aman fallback
+        $("d_city").textContent = v.city || "-";
+        $("d_province").textContent = v.province || "-";
+        $("d_country").textContent = v.country || "-";
+
+        $("d_nama_kegiatan").textContent = v.nama_kegiatan || "-";
+        $("d_tipe_kegiatan").textContent = v.tipe_kegiatan || "-";
+        $("d_bentuk").textContent = v.bentuk || "-";
+        $("d_tema").textContent = v.tema || "-";
+        $("d_tanggal_kegiatan").textContent = v.tanggal_kegiatan || "-";
+        $("d_hari_kegiatan").textContent = v.hari_kegiatan || "-";
+        $("d_tanggal_sertifikat").textContent = v.tanggal_sertifikat || "-";
+
+        $("d_template_key").textContent = v.template_key || "-";
+
+        setPillStatus(v.status || "");
+      }
+
+      async function loadPreview(){
+        previewNote.innerHTML = "<i class='mutar'></i> Memuat preview sertifikat...";
+        const res = await apiGet("/api/preview", { id: CERT_ID, t: TOKEN });
+
+        if (!res || !res.ok) {
+          previewNote.textContent = (res && res.message) ? res.message : "Gagal memuat preview.";
+          return;
+        }
+
+        const wrap = $("certScaleWrap");
+        wrap.innerHTML = res.snippet || "";
+
+        if (res.pageDim) autoScale(res.pageDim);
+
+        previewNote.textContent = "Preview siap. (Skala otomatis menyesuaikan layar)";
+      }
+
+      async function loadDetail(){
+        // detail diambil dari api=verify (agar tidak perlu endpoint baru)
+        const res = await apiGet("/api/verify", { id: CERT_ID, t: TOKEN });
+        if (!res || !res.ok) return; // detail boleh gagal tanpa memblokir preview
+
+        // backend router yang kita buat mengembalikan {ok:true, view:{...}}
+        fillDetail(res.view || {});
+      }
+
+async function ensurePdf(){
+  // Show loading alert dengan spinner
+  Swal.fire({
+    title: 'Memproses PDF...',
+    html: 'Mohon tunggu, sedang membuat dan mengunduh sertifikat Anda...',
+    icon: 'info',
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    didOpen: (modal) => {
+      Swal.showLoading()
+    }
+  });
+ 
+  try {
+    const res = await apiGet("/api/ensurePdf", { id: CERT_ID, t: TOKEN });
+ 
+    // Error response
+    if (!res || !res.ok) {
+      const errMsg = (res && res.message) ? res.message : "Gagal membuat PDF.";
+      
+      // Hide Google Drive limit errors
+      const displayMsg = errMsg.includes('quota') || 
+                         errMsg.includes('rate limit') ||
+                         errMsg.includes('rate') ||
+                         errMsg.includes('403') ||
+                         errMsg.includes('503')
+        ? "Server sedang sibuk memproses banyak permintaan. Silakan coba lagi dalam beberapa saat."
+        : errMsg;
+
+      Swal.fire({
+        title: 'Informasi',
+        text: displayMsg,
+        icon: 'warning',
+        confirmButtonText: 'Coba Lagi',
+        showCancelButton: true,
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          ensurePdf();
+        }
+      });
+      return;
+    }
+ 
+    const pdfUrl = res.pdfUrl || res.pdf_url || "";
+    const downloadUrl = res.downloadUrl || "";
+ 
+    // Missing URL
+    if (!pdfUrl && !downloadUrl) {
+      Swal.fire({
+        title: 'Informasi',
+        text: 'File sedang diproses, silakan coba lagi dalam beberapa saat.',
+        icon: 'info',
+        confirmButtonText: 'OK'
+      });
+      return;
+    }
+ 
+    // Success alert with PDF link
+    Swal.fire({
+      title: 'Sukses!',
+      html: `
+        <div style="
+          max-width: 420px;
+          margin: 30px auto;
+          padding: 28px 24px;
+          background: #ffffff;
+          border-radius: 16px;
+          box-shadow: 0 10px 30px rgba(238, 21, 34, 0.06), 0 2px 8px rgba(0, 0, 0, 0.02);
+          text-align: center;
+          font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          border: 1px solid #f9f9f9;
+        ">  
+          <h3 style="
+            color: #ee1522;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+          ">
+            Sertifikat Anda Telah Siap!
+          </h3>
+          
+          <p style="
+            color: #4f566b;
+            font-size: 14px;
+            margin: 0 0 24px 0;
+            line-height: 1.5;
+          ">
+            Dokumen PDF telah berhasil diterbitkan. Silakan unduh atau lihat salinan digital Anda di bawah ini.
+          </p>
+          <div style="
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+          ">
+            <button onclick="window.open('${downloadUrl}', '_blank')" style="
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+              padding: 14px 20px;
+              background: #ee1522;
+              color: white;
+              border: none;
+              border-radius: 10px;
+              font-weight: 600;
+              font-size: 14px;
+              cursor: pointer;
+              transition: all 0.2s ease;
+              box-shadow: 0 4px 12px rgba(238, 21, 34, 0.25);
+            " onmouseover="this.style.background='#d10f1b'; this.style.transform='translateY(-1px)';" 
+               onmouseout="this.style.background='#ee1522'; this.style.transform='translateY(0)';">
+              <span style="font-size: 18px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                <path d="M7 11l5 5l5 -5" />
+                <path d="M12 4l0 12" />
+            </svg>
+            </span>Unduh Sertifikat (PDF)
+            </button>
+            <a href="${pdfUrl}" target="_blank" style="
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+              padding: 14px 20px;
+              background: #f4f6f8;
+              color: #4f566b;
+              border-radius: 10px;
+              text-decoration: none;
+              font-weight: 600;
+              font-size: 14px;
+              transition: all 0.2s ease;
+              box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
+            " onmouseover="this.style.background='#e8ecef'; this.style.color='#1a1f36';" 
+               onmouseout="this.style.background='#f4f6f8'; this.style.color='#4f566b';">
+              <span style="font-size: 18px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                    <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                </svg>
+            </span> Pratinjau Dokumen
+            </a>
+          </div>
+        </div>
+      `,
+      icon: 'success',
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#198754',
+      allowOutsideClick: true
+    });
+ 
+  } catch (err) {
+    const errMsg = err && err.message ? err.message : String(err);
+    
+    // Hide Google Drive limit errors
+    const displayMsg = errMsg.includes('quota') || 
+                       errMsg.includes('rate') ||
+                       errMsg.includes('503') ||
+                       errMsg.includes('403')
+      ? "Server sedang sibuk memproses banyak permintaan. Silakan coba lagi nanti."
+      : "Terjadi kesalahan, silakan coba lagi.";
+
+    Swal.fire({
+      title: 'Informasi',
+      text: displayMsg,
+      icon: 'warning',
+      confirmButtonText: 'Coba Lagi',
+      showCancelButton: true,
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        ensurePdf();
+      }
+    });
+  }
+}
+
+      function initVerifyLink(){
+        // Buat link verifikasi di GitHub Pages
+        const u = new URL(VERIFY_PAGE);
+        u.searchParams.set("id", CERT_ID);
+        u.searchParams.set("t", TOKEN);
+        btnVerify.href = u.toString();
+      }
+
+
+async function init() {
+
+      // --- tampilkan loading GLOBAL ---
+  showState(
+    "Memuat Sertifikat...",
+    `
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="spinner-border text-danger" role="status"></div>
+      <span>Mohon tunggu, sedang mengambil data...</span>
+    </div>
+    `
+  );
+  // --- Legacy redirect handler (opsional tapi sangat disarankan) ---
+  // Jika ada URL lama pakai ?p=verify, arahkan ke halaman verify baru.
+  const P = (new URLSearchParams(location.search).get("p") || "").toLowerCase();
+  if (P === "verify") {
+    const u = new URL("https://iceinstitut.github.io/konten/cert2/verify/");
+    const id = CERT_ID || qs("id").trim();
+    const t  = TOKEN   || qs("t").trim();
+    if (id) u.searchParams.set("id", id);
+    if (t)  u.searchParams.set("t", t);
+    location.replace(u.toString());
+    return;
+  }
+
+  // --- Validasi param ---
+  if (!CERT_ID) {
+    showState(
+      "ID Sertifikat tidak ada",
+      'Pastikan Anda membuka URL yang diberikan Admin (parameter <b>id</b>).'
+    );
+    return;
+  }
+  if (!TOKEN) {
+    showState(
+      "Token tidak ada",
+      'Pastikan Anda membuka URL lengkap dari Admin (parameter <b>t</b>).'
+    );
+    return;
+  }
+
+  // --- tampilkan layout utama ---
+  showMain();
+  initVerifyLink();
+
+  btnDownload.addEventListener("click", ensurePdf);
+
+  try {
+    // preview dulu (paling penting untuk user)
+    await loadPreview();
+    // detail bisa menyusul
+    loadDetail().catch(() => {});
+  } catch (err) {
+    // biasanya invalid token / revoked / not found akan muncul dari message backend preview
+    showState("Gagal memuat sertifikat", escapeHtml(err?.message || String(err)));
+  }
+}
+
+      init();
+    </script>

@@ -1,0 +1,3 @@
+tambahkan konsep 
+?program=Digital&institusi_mk=ICE&nama_mk=CourseA
+  setiap di akhir url untuk menyesuaikan nama program, nama course dan nama institusi course

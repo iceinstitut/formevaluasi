@@ -1,0 +1,722 @@
+---
+layout: default
+title: Feedback Course ICE Institute
+---
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<!-- SweetAlert2 -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --brand:       #ee1522;
+    --brand-dark:  #c0111c;
+    --brand-light: #fff0f1;
+    --brand-mid:   #ffd6d8;
+    --text-main:   #1a1a2e;
+    --text-muted:  #6b7280;
+    --border:      #e5e7eb;
+    --bg:          #f8f9fc;
+    --card-bg:     #ffffff;
+    --radius:      14px;
+    --shadow:      0 4px 24px rgba(238,21,34,.07), 0 1px 4px rgba(0,0,0,.06);
+    --shadow-hover:0 8px 32px rgba(238,21,34,.13), 0 2px 8px rgba(0,0,0,.08);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-main);
+    min-height: 100vh;
+  }
+
+  /* HERO */
+  .form-hero {
+    padding: 48px 24px 64px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .form-hero .badge-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(238, 21, 34, .2); backdrop-filter: blur(8px);
+    border: 1px solid rgba(238, 21, 34,.3); color: var(--brand);
+    font-size: 12px; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; padding: 6px 14px; border-radius: 100px;
+    margin-bottom: 16px; position: relative;
+  }
+  .form-hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 5vw, 42px);
+    color: var(--brand); margin: 0 0 10px; line-height: 1.15; position: relative;
+  }
+  .form-hero p { color: rgba(238, 21, 34, .8); font-size: 15px; margin: 0; position: relative; }
+
+  /* PROGRESS STRIP */
+  .progress-strip { height: 3px; background: var(--brand-mid); overflow: hidden; }
+  .progress-strip-inner {
+    height: 100%;
+    background: var(--brand);
+    width: 0%; transition: width .3s ease;
+  }
+
+  /* CARD */
+  .form-card {
+    background: var(--card-bg); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 32px; margin-bottom: 20px;
+    border: 1px solid rgba(238,21,34,.06);
+    transition: box-shadow .2s;
+    animation: fadeUp .4s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(16px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .form-card:hover { box-shadow: var(--shadow-hover); }
+
+  .section-title {
+    font-size: 13px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--brand);
+    margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+  }
+  .section-title::after {
+    content: ''; flex: 1; height: 1px;
+    background: var(--brand-mid);
+  }
+
+  /* FORM FIELDS */
+  .form-label {
+    font-size: 13px; font-weight: 600; color: var(--text-main);
+    margin-bottom: 6px; display: flex; align-items: center; gap: 6px;
+  }
+  .form-label .bi { color: var(--brand); font-size: 14px; }
+
+  .form-control, .form-select {
+    border: 1.5px solid var(--border); border-radius: 10px;
+    padding: 11px 14px; font-size: 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--text-main); background: #fff;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .form-control:focus, .form-select:focus {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(238,21,34,.1);
+    outline: none;
+  }
+  .form-control.is-invalid {
+    border-color: var(--brand); background-image: none;
+    box-shadow: 0 0 0 3px rgba(238,21,34,.08);
+  }
+  .invalid-feedback {
+    font-size: 12px; color: var(--brand);
+    display: none; align-items: center; gap: 4px; margin-top: 5px;
+  }
+  .form-control.is-invalid ~ .invalid-feedback { display: flex; }
+  .form-control[readonly] {
+    background: var(--brand-light); border-color: var(--brand-mid);
+    color: var(--brand-dark); font-weight: 500;
+  }
+  textarea.form-control { resize: vertical; min-height: 100px; }
+
+  /* STAR RATING */
+  .star-group { display: flex; gap: 4px; align-items: center; padding: 4px 0; }
+  .star-btn {
+    background: none; border: none; padding: 0;
+    cursor: pointer; font-size: 30px; color: #dde1e7;
+    transition: color .15s, transform .15s; line-height: 1;
+  }
+  .star-btn:hover, .star-btn.active { color: var(--brand); transform: scale(1.18); }
+  .star-label {
+    font-size: 12px; font-weight: 600; color: var(--text-muted);
+    margin-left: 10px; min-width: 80px;
+  }
+  .star-group.has-error .star-btn:not(.active) { color: #f5b8bb; }
+  .rating-error-msg {
+    font-size: 12px; color: var(--brand);
+    display: none; align-items: center; gap: 4px; margin-top: 5px;
+  }
+  .rating-error-msg.visible { display: flex; }
+
+  /* NPS */
+  .nps-group { display: flex; gap: 5px; flex-wrap: wrap; }
+  .nps-btn {
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 1.5px solid var(--border); background: #fff;
+    font-size: 12px; font-weight: 700; color: var(--text-muted);
+    cursor: pointer; transition: all .15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nps-btn:hover { border-color: var(--brand); color: var(--brand); }
+  .nps-btn.active {
+    background: var(--brand); border-color: var(--brand); color: #fff;
+    box-shadow: 0 2px 8px rgba(238,21,34,.3); transform: scale(1.1);
+  }
+  .nps-labels {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--text-muted);
+    margin-top: 8px; padding: 0 2px;
+  }
+
+  /* RADIO CARD */
+  .radio-card-group { display: flex; gap: 10px; }
+  .radio-card { flex: 1; position: relative; }
+  .radio-card input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+  .radio-card-label {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px;
+    cursor: pointer; font-size: 14px; font-weight: 500; color: var(--text-muted);
+    transition: all .18s; background: #fff; user-select: none;
+  }
+  .radio-card-label .bi { font-size: 16px; }
+  .radio-card input:checked + .radio-card-label {
+    border-color: var(--brand); background: var(--brand-light);
+    color: var(--brand-dark); font-weight: 600;
+    box-shadow: 0 0 0 3px rgba(238,21,34,.08);
+  }
+  .radio-card-label:hover { border-color: var(--brand); color: var(--brand); }
+  .radio-group-error .radio-card-label { border-color: #f5b8bb; }
+  .radio-error-msg {
+    font-size: 12px; color: var(--brand);
+    display: none; align-items: center; gap: 4px; margin-top: 6px;
+  }
+  .radio-error-msg.visible { display: flex; }
+
+  /* FIELD NUMBER BADGE */
+  .field-number {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 20px; height: 20px; background: var(--brand-light);
+    color: var(--brand); border-radius: 50%;
+    font-size: 11px; font-weight: 700; flex-shrink: 0;
+  }
+
+  /* SUBMIT BUTTON */
+  .btn-submit {
+    background: var(--brand);
+    color: #fff; border: none; border-radius: 12px;
+    padding: 15px 32px; font-size: 15px; font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    width: 100%; cursor: pointer; transition: all .2s;
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; letter-spacing: .02em;
+    box-shadow: 0 4px 16px rgba(238,21,34,.3);
+  }
+  .btn-submit:hover:not(:disabled) {
+    transform: translateY(-2px); box-shadow: 0 8px 24px rgba(238,21,34,.4);
+  }
+  .btn-submit:disabled { opacity: .7; cursor: not-allowed; transform: none; }
+
+  /* INVALID BANNER */
+  .invalid-banner {
+    background: var(--brand-light); border: 1.5px solid var(--brand-mid);
+    border-radius: var(--radius); padding: 48px 32px; text-align: center;
+  }
+  .invalid-banner .icon-wrap {
+    width: 64px; height: 64px; background: var(--brand); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px; font-size: 28px; color: #fff;
+  }
+  .invalid-banner h3 {
+    font-family: 'DM Serif Display', serif; font-size: 24px;
+    color: var(--brand-dark); margin-bottom: 8px;
+  }
+  .invalid-banner p { color: var(--text-muted); font-size: 14px; margin: 0; }
+
+  /* SUCCESS */
+  .success-screen { text-align: center; padding: 60px 32px; animation: fadeUp .5s ease both; }
+  .success-screen .icon-wrap {
+    width: 80px; height: 80px;
+    background: var(--brand);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px; font-size: 36px; color: #fff;
+    box-shadow: 0 8px 24px rgba(238,21,34,.3);
+  }
+  .success-screen h2 {
+    font-family: 'DM Serif Display', serif; font-size: 32px;
+    color: var(--text-main); margin-bottom: 10px;
+  }
+  .success-screen p { color: var(--text-muted); font-size: 15px; }
+
+  /* RESPONSIVE */
+  @media (max-width:576px) {
+    .form-card  { padding: 20px 16px; }
+    .form-hero  { padding: 36px 16px 52px; }
+    .nps-btn    { width: 30px; height: 30px; font-size: 10px; }
+    .radio-card-group { flex-direction: column; }
+  }
+</style>
+
+<!-- HERO HEADER -->
+<div class="form-hero">
+  <div class="badge-pill"><i class="bi bi-patch-check-fill"></i> Course Evaluation</div>
+  <h1>Share Your Feedback</h1>
+  <p>Help us improve the quality of learning for everyone</p>
+</div>
+
+<!-- PROGRESS STRIP -->
+<div class="progress-strip">
+  <div class="progress-strip-inner" id="progressStrip"></div>
+</div>
+
+<div class="container py-4" style="max-width:720px;">
+
+  <!-- INVALID BANNER -->
+  <div id="invalidBanner" class="invalid-banner" style="display:none;">
+    <div class="icon-wrap"><i class="bi bi-exclamation-triangle-fill"></i></div>
+    <h3>Invalid Link</h3>
+    <p>Please access this form through the official link provided by your institution.</p>
+  </div>
+
+  <form id="form" novalidate>
+
+    <!-- CARD 1: IDENTITAS -->
+    <div class="form-card" style="animation-delay:.05s">
+      <div class="section-title"><i class="bi bi-person-circle"></i> Participant Identity</div>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label"><i class="bi bi-envelope"></i> Email</label>
+          <input type="email" id="email" class="form-control" placeholder="name@email.com">
+          <div class="invalid-feedback"><i class="bi bi-exclamation-circle"></i> <span id="emailErrMsg">This field is required</span></div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label"><i class="bi bi-at"></i> Username</label>
+          <input type="text" id="username" class="form-control" placeholder="Your username">
+          <div class="invalid-feedback"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label"><i class="bi bi-person"></i> Full Name</label>
+          <input type="text" id="nama" class="form-control" placeholder="Your full name">
+          <div class="invalid-feedback"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label"><i class="bi bi-mortarboard"></i> Program</label>
+          <input type="text" id="program" class="form-control" readonly>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label"><i class="bi bi-building"></i> Course Institution</label>
+          <input type="text" id="institusi_mk" class="form-control" readonly>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label"><i class="bi bi-book"></i> Course Name</label>
+          <input type="text" id="nama_mk" class="form-control" readonly>
+        </div>
+        <div class="col-12">
+          <label class="form-label"><i class="bi bi-calendar-check"></i> Completion Date</label>
+          <input type="date" id="tanggal" class="form-control">
+          <div class="invalid-feedback"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2: PENILAIAN MATERI -->
+    <div class="form-card" style="animation-delay:.1s">
+      <div class="section-title"><i class="bi bi-star"></i> Course Material</div>
+      <div class="row g-4">
+        <div class="col-12">
+          <label class="form-label"><span class="field-number">1</span> Knowledge Gain</label>
+          <div class="star-group" data-name="knowledge_gain"></div>
+          <div class="rating-error-msg" id="err_knowledge_gain"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label"><span class="field-number">2</span> Learning Resources</label>
+          <div class="star-group" data-name="learning_resources"></div>
+          <div class="rating-error-msg" id="err_learning_resources"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label"><span class="field-number">3</span> Instructional Materials</label>
+          <div class="star-group" data-name="instructional_materials"></div>
+          <div class="rating-error-msg" id="err_instructional_materials"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label"><span class="field-number">4</span> Assignments Effectiveness</label>
+          <div class="star-group" data-name="assignments_effectiveness"></div>
+          <div class="rating-error-msg" id="err_assignments_effectiveness"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label"><span class="field-number">5</span> Learning Activities</label>
+          <div class="star-group" data-name="learning_activities"></div>
+          <div class="rating-error-msg" id="err_learning_activities"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3: CAPAIAN -->
+    <div class="form-card" style="animation-delay:.15s">
+      <div class="section-title"><i class="bi bi-clipboard2-check"></i> Learning Outcomes</div>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <label class="form-label"><i class="bi bi-trophy"></i> Learning Outcome Achieved</label>
+          <div class="radio-card-group" data-name="learning_outcome_achieved">
+            <label class="radio-card">
+              <input type="radio" name="learning_outcome_achieved" value="true">
+              <span class="radio-card-label"><i class="bi bi-check-circle-fill"></i> Yes</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="learning_outcome_achieved" value="false">
+              <span class="radio-card-label"><i class="bi bi-x-circle"></i> No</span>
+            </label>
+          </div>
+          <div class="radio-error-msg" id="err_learning_outcome_achieved"><i class="bi bi-exclamation-circle"></i> Please select an option</div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label"><i class="bi bi-bullseye"></i> Expectation Met</label>
+          <div class="radio-card-group" data-name="expectation_met">
+            <label class="radio-card">
+              <input type="radio" name="expectation_met" value="true">
+              <span class="radio-card-label"><i class="bi bi-check-circle-fill"></i> Yes</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="expectation_met" value="false">
+              <span class="radio-card-label"><i class="bi bi-x-circle"></i> No</span>
+            </label>
+          </div>
+          <div class="radio-error-msg" id="err_expectation_met"><i class="bi bi-exclamation-circle"></i> Please select an option</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 4: PLATFORM -->
+    <div class="form-card" style="animation-delay:.2s">
+      <div class="section-title"><i class="bi bi-display"></i> Platform Experience</div>
+      <div class="row g-4">
+        <div class="col-12">
+          <label class="form-label"><span class="field-number">6</span> Platform Usability</label>
+          <div class="star-group" data-name="platform_usability"></div>
+          <div class="rating-error-msg" id="err_platform_usability"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label"><span class="field-number">7</span> Technical Experience</label>
+          <div class="star-group" data-name="technical_experience"></div>
+          <div class="rating-error-msg" id="err_technical_experience"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label"><span class="field-number">8</span> Technical Support</label>
+          <div class="star-group" data-name="technical_support"></div>
+          <div class="rating-error-msg" id="err_technical_support"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 5: NPS -->
+    <div class="form-card" style="animation-delay:.25s">
+      <div class="section-title"><i class="bi bi-heart"></i> Recommendation</div>
+      <label class="form-label">How likely are you to recommend this course? <span class="text-muted fw-normal">(1–10)</span></label>
+      <div class="nps-group" id="npsGroup"></div>
+      <div class="nps-labels">
+        <span>Not at all</span>
+        <span>Highly recommend</span>
+      </div>
+      <div class="rating-error-msg" id="err_nps"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+    </div>
+
+    <!-- CARD 6: MASUKAN TEKS -->
+    <div class="form-card" style="animation-delay:.3s">
+      <div class="section-title"><i class="bi bi-chat-square-text"></i> Input and Suggestions</div>
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="form-label"><i class="bi bi-emoji-smile"></i> Impression</label>
+          <textarea id="impression" class="form-control" placeholder="Tell us about your impressions while taking this course..."></textarea>
+          <div class="invalid-feedback"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label"><i class="bi bi-lightning"></i> The Biggest Challenge</label>
+          <textarea id="challenge" class="form-control" placeholder="What is the biggest challenge you face?"></textarea>
+          <div class="invalid-feedback"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label"><i class="bi bi-life-preserver"></i> Additional Support Needed</label>
+          <textarea id="support" class="form-control" placeholder="Additional Support Needed"></textarea>
+          <div class="invalid-feedback"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label"><i class="bi bi-lightbulb"></i> Suggestion</label>
+          <textarea id="saran" class="form-control" placeholder="Please provide your suggestions for future improvements..."></textarea>
+          <div class="invalid-feedback"><i class="bi bi-exclamation-circle"></i> This field is required</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div style="margin-bottom:40px;">
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <i class="bi bi-send-fill"></i> Kirim Feedback
+      </button>
+    </div>
+
+  </form>
+
+  <!-- SUCCESS SCREEN -->
+  <div id="successScreen" class="form-card success-screen" style="display:none;">
+    <div class="icon-wrap"><i class="bi bi-check-lg"></i></div>
+    <h2>Thank you!</h2>
+    <p>We have received your feedback and it will greatly assist in improving the quality of learning.</p>
+  </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+const API_URL = "https://feeden-course.ice-institut.workers.dev/";
+
+// ── SweetAlert2 brand mixin ──
+const SwalBrand = Swal.mixin({
+  customClass: { confirmButton: 'swal-btn-confirm', cancelButton: 'swal-btn-cancel' },
+  buttonsStyling: false
+});
+const swalStyle = document.createElement('style');
+swalStyle.textContent = `
+  .swal2-popup  { font-family:'Plus Jakarta Sans',sans-serif !important; border-radius:16px !important; }
+  .swal2-title  { font-family:'DM Serif Display',serif !important; }
+  .swal-btn-confirm {
+    background:#ee1522; color:#fff;
+    border:none; border-radius:10px; padding:10px 28px;
+    font-family:'Plus Jakarta Sans',sans-serif; font-weight:700;
+    font-size:14px; cursor:pointer; box-shadow:0 4px 12px rgba(238,21,34,.3);
+    transition:all .2s;
+  }
+  .swal-btn-confirm:hover { transform:translateY(-1px); box-shadow:0 6px 16px rgba(238,21,34,.4); }
+  .swal-btn-cancel {
+    background:#f3f4f6; color:#374151; border:none; border-radius:10px;
+    padding:10px 28px; font-family:'Plus Jakarta Sans',sans-serif;
+    font-weight:600; font-size:14px; cursor:pointer; margin-right:8px; transition:all .2s;
+  }
+  .swal-btn-cancel:hover { background:#e5e7eb; }
+`;
+document.head.appendChild(swalStyle);
+
+// ── URL PARAMS ──
+const params = new URLSearchParams(window.location.search);
+
+// ── [TAHAP 2] CEK PARAMS ──
+function checkParams() {
+  const required = ["program", "institusi_mk", "nama_mk"];
+  const missing  = required.filter(k => !params.get(k)?.trim());
+  if (missing.length > 0) {
+    document.getElementById("form").style.display = "none";
+    document.getElementById("invalidBanner").style.display = "block";
+    return false;
+  }
+  return true;
+}
+
+if (checkParams()) {
+  document.getElementById("program").value      = params.get("program");
+  document.getElementById("institusi_mk").value = params.get("institusi_mk");
+  document.getElementById("nama_mk").value      = params.get("nama_mk");
+}
+
+// ── STAR RATING ──
+const starLabels = ["", "Poor", "Enough", "Good", "Very Good"];
+const ratings = {};
+
+document.querySelectorAll(".star-group").forEach(el => {
+  const name = el.dataset.name;
+  for (let i = 1; i <= 4; i++) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "star-btn";
+    btn.innerHTML = "&#9733;";
+    btn.addEventListener("click", () => {
+      ratings[name] = i;
+      el.classList.remove("has-error");
+      document.getElementById("err_" + name)?.classList.remove("visible");
+      el.querySelectorAll(".star-btn").forEach((s, idx) => s.classList.toggle("active", idx < i));
+      const lbl = el.querySelector(".star-label");
+      if (lbl) lbl.textContent = starLabels[i];
+      updateProgress();
+    });
+    el.appendChild(btn);
+  }
+  const lbl = document.createElement("span");
+  lbl.className = "star-label";
+  el.appendChild(lbl);
+});
+
+// ── NPS ──
+let loveScore = 0;
+const npsGroup = document.getElementById("npsGroup");
+for (let n = 1; n <= 10; n++) {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "nps-btn";
+  btn.textContent = n;
+  btn.addEventListener("click", () => {
+    loveScore = n;
+    document.getElementById("err_nps").classList.remove("visible");
+    npsGroup.querySelectorAll(".nps-btn").forEach((b, idx) => b.classList.toggle("active", idx < n));
+    updateProgress();
+  });
+  npsGroup.appendChild(btn);
+}
+
+// ── PROGRESS BAR ──
+const REQUIRED_RATINGS = [
+  "knowledge_gain","learning_resources","instructional_materials",
+  "assignments_effectiveness","learning_activities",
+  "platform_usability","technical_experience","technical_support"
+];
+
+function updateProgress() {
+  let total = 0, filled = 0;
+  document.querySelectorAll("input:not([readonly]):not([type='radio']), textarea").forEach(el => {
+    total++; if (el.value.trim()) filled++;
+  });
+  REQUIRED_RATINGS.forEach(n => { total++; if (ratings[n]) filled++; });
+  total++; if (loveScore) filled++;
+  ["learning_outcome_achieved","expectation_met"].forEach(n => {
+    total++;
+    if (document.querySelector(`[data-name="${n}"] input:checked`)) filled++;
+  });
+  document.getElementById("progressStrip").style.width = Math.round((filled / total) * 100) + "%";
+}
+
+document.querySelectorAll("input:not([readonly]):not([type='radio']), textarea").forEach(el => {
+  el.addEventListener("input", updateProgress);
+});
+
+// ── [TAHAP 3] EMAIL VALIDATION ──
+function isValidEmail(val) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
+}
+
+// ── VALIDATE ──
+function validate() {
+  let valid = true;
+
+  // Text / email / date / textarea — skip readonly
+  document.querySelectorAll("input:not([readonly]):not([type='radio']), textarea").forEach(el => {
+    el.classList.remove("is-invalid");
+    if (!el.value.trim()) {
+      el.classList.add("is-invalid");
+      if (el.id === "email") document.getElementById("emailErrMsg").textContent = "This field is required";
+      valid = false;
+    } else if (el.type === "email" && !isValidEmail(el.value)) {
+      el.classList.add("is-invalid");
+      document.getElementById("emailErrMsg").textContent = "Format email tidak valid";
+      valid = false;
+    }
+  });
+
+  // Star ratings
+  REQUIRED_RATINGS.forEach(name => {
+    const el    = document.querySelector(`.star-group[data-name="${name}"]`);
+    const errEl = document.getElementById("err_" + name);
+    if (!ratings[name]) {
+      el?.classList.add("has-error"); errEl?.classList.add("visible"); valid = false;
+    } else {
+      el?.classList.remove("has-error"); errEl?.classList.remove("visible");
+    }
+  });
+
+  // NPS
+  if (!loveScore) {
+    document.getElementById("err_nps").classList.add("visible"); valid = false;
+  } else {
+    document.getElementById("err_nps").classList.remove("visible");
+  }
+
+  // [TAHAP 1] Radio — null-safe
+  ["learning_outcome_achieved","expectation_met"].forEach(name => {
+    const checked = document.querySelector(`[data-name="${name}"] input:checked`);
+    const groupEl = document.querySelector(`[data-name="${name}"]`);
+    const errEl   = document.getElementById("err_" + name);
+    if (!checked) {
+      groupEl?.classList.add("radio-group-error"); errEl?.classList.add("visible"); valid = false;
+    } else {
+      groupEl?.classList.remove("radio-group-error"); errEl?.classList.remove("visible");
+    }
+  });
+
+  if (!valid) {
+    const firstErr = document.querySelector(".is-invalid, .has-error, .radio-group-error");
+    firstErr?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+  return valid;
+}
+
+// ── SUBMIT ──
+document.getElementById("form").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  if (!validate()) {
+    // [TAHAP 4] SweetAlert — validasi gagal
+    SwalBrand.fire({
+      icon: "warning",
+      title: "Incomplete Form",
+      text: "Please complete all required fields before submitting.",
+      confirmButtonText: "Okay, I'll check."
+    });
+    return;
+  }
+
+  // [TAHAP 4] SweetAlert — konfirmasi submit
+  const confirmed = await SwalBrand.fire({
+    icon: "question",
+    title: "Send Feedback?",
+    text: "Make sure all data is correct before sending.",
+    showCancelButton: true,
+    confirmButtonText: "Yes, send now",
+    cancelButtonText: "Check again"
+  });
+  if (!confirmed.isConfirmed) return;
+
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Send...';
+
+  const payload = {
+    meta: {
+      email:                document.getElementById("email").value,
+      username:             document.getElementById("username").value,
+      nama:                 document.getElementById("nama").value,
+      program:              document.getElementById("program").value,
+      institusi_mk:         document.getElementById("institusi_mk").value,
+      nama_mk:              document.getElementById("nama_mk").value,
+      tanggal_penyelesaian: document.getElementById("tanggal").value
+    },
+    feedback: {
+      ...ratings,
+      // Kirim nilai string eksplisit "true"/"false" agar Google Sheet tidak kosong saat No dipilih
+      learning_outcome_achieved:
+        document.querySelector('[data-name="learning_outcome_achieved"] input:checked')?.value ?? "false",
+      expectation_met:
+        document.querySelector('[data-name="expectation_met"] input:checked')?.value ?? "false",
+      recommendation_score:      loveScore,
+      impression:                document.getElementById("impression").value,
+      biggest_challenge:         document.getElementById("challenge").value,
+      additional_support_needed: document.getElementById("support").value,
+      saran:                     document.getElementById("saran").value
+    }
+  };
+
+  try {
+    await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    document.getElementById("form").style.display = "none";
+    document.getElementById("successScreen").style.display = "block";
+    document.getElementById("progressStrip").style.width = "100%";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+  } catch (err) {
+    // [TAHAP 4] SweetAlert — error jaringan
+    SwalBrand.fire({
+      icon: "error",
+      title: "Failed to Send",
+      text: "A network error occurred. Please check your connection and try again.",
+      confirmButtonText: "Try again"
+    });
+    btn.disabled = false;
+    btn.innerHTML = '<i class="bi bi-send-fill"></i> Send Feedback';
+  }
+});
+</script>

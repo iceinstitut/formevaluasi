@@ -1,0 +1,467 @@
+---
+layout: default
+title: Verifikasi Sertifikat di ICE Institute
+---
+
+  <style>
+    :root{
+      --brand: #ee1522;
+      --bg: #fafafa;
+      --card: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --border: #eeeeee;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --radius: 16px;
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Arial, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .wrap{
+      max-width: 920px;
+      margin: 32px auto;
+      padding: 0 16px 40px;
+    }
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:10px;
+      font-weight: 900;
+      letter-spacing:.2px;
+    }
+    .brand-dot{
+      width: 12px; height: 12px; border-radius: 999px;
+      background: var(--brand);
+      box-shadow: 0 0 0 4px rgba(238,21,34,.12);
+      flex: 0 0 auto;
+    }
+    .brand-title{font-size: 16px;}
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width: 860px){
+      .grid{ grid-template-columns: 1.2fr .8fr; }
+    }
+    .h1{
+      margin: 0 0 6px;
+      font-size: 20px;
+      font-weight: 900;
+    }
+    .muted{ color: var(--muted); }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing:.2px;
+      border: 1px solid var(--border);
+      background:#fff;
+      white-space:nowrap;
+    }
+    .dot{ width: 8px; height:8px; border-radius:999px; background:#999; }
+    .badge.ok{ border-color: rgba(25,135,84,.25); background: rgba(25,135,84,.06); }
+    .badge.ok .dot{ background: #198754; }
+    .badge.bad{ border-color: rgba(220,53,69,.25); background: rgba(220,53,69,.06); }
+    .badge.bad .dot{ background: #dc3545; }
+    .badge.warn{ border-color: rgba(255,193,7,.35); background: rgba(255,193,7,.10); }
+    .badge.warn .dot{ background: #ffc107; }
+
+    .section-title{
+      margin: 0 0 10px;
+      font-size: 14px;
+      font-weight: 900;
+    }
+    .kv{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (min-width: 560px){
+      .kv{ grid-template-columns: 1fr 1fr; }
+    }
+    .item{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fff;
+    }
+    .k{ font-size: 11px; color: var(--muted); font-weight: 800; letter-spacing:.2px; text-transform: uppercase; }
+    .v{ margin-top: 4px; font-size: 14px; font-weight: 800; word-break: break-word; }
+    .v.normal{ font-weight: 700; }
+    .hr{ height:1px; background: var(--border); margin: 14px 0; border:0; }
+    .alert{
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 14px;
+    }
+    .alert h2{ margin:0 0 6px; font-size: 16px; font-weight: 900; }
+    .alert p{ margin:0; color: var(--muted); line-height: 1.5; }
+    .code{
+      margin-top: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      background: #f6f6f6;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px;
+      word-break: break-all;
+    }
+    .foot{
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align:center;
+    }
+    a{ color: var(--brand); text-decoration: none; font-weight: 800; }
+    a:hover{ text-decoration: underline; }
+  </style>
+
+
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span class="brand-title">Verifikasi Sertifikat</span>
+      </div>
+      <span id="badge" class="badge" style="display:none;"><span class="dot"></span><span id="badgeText">...</span></span>
+      <a href="../?id=" id="backLink">Kembali</a>
+    </div>
+
+    <!-- State: alerts -->
+    <div id="alertBox" class="alert" style="display:none;">
+      <h2 id="alertTitle">...</h2>
+      <p id="alertMsg">...</p>
+      <div id="alertCode" class="code" style="display:none;"></div>
+    </div>
+
+    <!-- State: main content -->
+    <div id="mainGrid" class="grid" style="display:none;">
+      <div class="card">
+        <div class="h1">Detail Sertifikat</div>
+        <div class="muted">Data di bawah ini berasal dari basis data resmi.</div>
+
+        <div class="kv">
+          <div class="item">
+            <div class="k">Nama</div>
+            <div class="v" id="v_nama">-</div>
+          </div>
+          <div class="item">
+            <div class="k">No Sertifikat</div>
+            <div class="v" id="v_no">-</div>
+          </div>
+          <div class="item">
+            <div class="k">ID Sertifikat</div>
+            <div class="v normal" id="v_id">-</div>
+          </div>
+          <div class="item">
+            <div class="k">Status</div>
+            <div class="v normal" id="v_status">-</div>
+          </div>
+        </div>
+
+        <hr class="hr"/>
+
+        <div class="section-title">Informasi Kegiatan</div>
+        <div class="kv">
+          <div class="item">
+            <div class="k">Nama Kegiatan</div>
+            <div class="v normal" id="v_nama_kegiatan">-</div>
+          </div>
+          <div class="item">
+            <div class="k">Tema</div>
+            <div class="v normal" id="v_tema">-</div>
+          </div>
+          <div class="item">
+            <div class="k">Peran</div>
+            <div class="v normal" id="v_sebagai">-</div>
+          </div>
+          <div class="item">
+            <div class="k">Bentuk</div>
+            <div class="v normal" id="v_bentuk">-</div>
+          </div>
+          <div class="item">
+            <div class="k">Hari & Tanggal Kegiatan</div>
+            <div class="v normal" id="v_haritgl">-</div>
+          </div>
+          <div class="item">
+            <div class="k">Tanggal Sertifikat</div>
+            <div class="v normal" id="v_tgl_sertifikat">-</div>
+          </div>
+        </div>
+
+        <div id="revokeSection" style="display:none;">
+          <hr class="hr"/>
+          <div class="section-title">Informasi Pencabutan</div>
+          <div class="kv">
+            <div class="item">
+              <div class="k">Dicabut pada</div>
+              <div class="v normal" id="v_revoked_at">-</div>
+            </div>
+            <div class="item">
+              <div class="k">Alasan</div>
+              <div class="v normal" id="v_revoked_reason">-</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="h1">Ringkasan</div>
+        <div class="muted" id="summaryText">-</div>
+
+        <hr class="hr"/>
+
+        <div class="section-title">Info Peserta</div>
+        <div class="kv" style="grid-template-columns:1fr;">
+          <div class="item">
+            <div class="k">Instansi</div>
+            <div class="v normal" id="v_instansi">-</div>
+          </div>
+          <div class="item">
+            <div class="k">Profesi</div>
+            <div class="v normal" id="v_profesi">-</div>
+          </div>
+        </div>
+
+        <div class="foot">
+          Jika Anda merasa ada ketidaksesuaian, silakan hubungi Admin.
+        </div>
+      </div>
+    </div>
+
+    <div class="foot" id="footerYear"></div>
+  </div>
+
+  <script>
+    /**
+     * === KONFIG ===
+     * Ganti ini menjadi URL worker Anda (tanpa trailing slash)
+     * contoh: https://cert-api.example.workers.dev
+     */
+    const API_BASE = "https://cert.ice-institut.workers.dev";
+
+    const $ = (id) => document.getElementById(id);
+
+    function qs(name) { return new URLSearchParams(location.search).get(name) || ""; }
+    const CERT_ID = qs("id").trim();
+    const TOKEN = qs("t").trim();
+
+    $("footerYear").textContent = `© ${new Date().getFullYear()} • Portal Sertifikat`;
+
+    function showAlert(title, msg, codeText) {
+      $("alertBox").style.display = "";
+      $("mainGrid").style.display = "none";
+      $("badge").style.display = "none";
+
+      $("alertTitle").textContent = title;
+      $("alertMsg").innerHTML = msg;
+
+      if (codeText) {
+        $("alertCode").style.display = "";
+        $("alertCode").textContent = codeText;
+      } else {
+        $("alertCode").style.display = "none";
+      }
+    }
+
+    function showMain() {
+      $("alertBox").style.display = "none";
+      $("mainGrid").style.display = "";
+    }
+
+    function setBadge(view) {
+      const badge = $("badge");
+      const badgeText = $("badgeText");
+
+      if (!view) { badge.style.display = "none"; return; }
+
+      const status = String(view.status || "").toUpperCase();
+      const isValid = !!view.is_valid;
+
+      badge.classList.remove("ok", "bad", "warn");
+      badge.style.display = "";
+
+      if (isValid) {
+        badge.classList.add("ok");
+        badgeText.textContent = "VALID";
+      } else if (status === "REVOKED") {
+        badge.classList.add("bad");
+        badgeText.textContent = "REVOKED";
+      } else {
+        badge.classList.add("warn");
+        badgeText.textContent = "TIDAK AKTIF";
+      }
+    }
+
+    function fill(view) {
+      $("v_nama").textContent = view.nama || "-";
+      $("v_no").textContent = view.no_sertifikat || "-";
+      $("v_id").textContent = view.id_sertifikat || "-";
+      $("v_status").textContent = view.status || "-";
+
+      $("v_nama_kegiatan").textContent = view.nama_kegiatan || "-";
+      $("v_tema").textContent = view.tema || "-";
+      $("v_sebagai").textContent = view.sebagai || "-";
+      $("v_bentuk").textContent = view.bentuk || "-";
+
+      const ht = [view.hari_kegiatan, view.tanggal_kegiatan].filter(Boolean).join(", ");
+      $("v_haritgl").textContent = ht || "-";
+
+      $("v_tgl_sertifikat").textContent = view.tanggal_sertifikat || "-";
+
+      $("v_instansi").textContent = view.instansi || "-";
+      $("v_profesi").textContent = view.profesi || "-";
+
+      const status = String(view.status || "").toUpperCase();
+      if (status === "REVOKED") {
+        $("revokeSection").style.display = "";
+        $("v_revoked_at").textContent = view.revoked_at || "-";
+        $("v_revoked_reason").textContent = view.revoked_reason || "-";
+      } else {
+        $("revokeSection").style.display = "none";
+      }
+
+      if (view.is_valid) {
+        $("summaryText").innerHTML = 'Sertifikat ini <b>valid</b> dan berstatus <b>ACTIVE</b>.';
+      } else if (status === "REVOKED") {
+        $("summaryText").innerHTML = 'Sertifikat ini <b>dicabut</b> (REVOKED) dan tidak berlaku.';
+      } else {
+        $("summaryText").textContent = "Sertifikat ini tidak berstatus ACTIVE. Silakan hubungi Admin.";
+      }
+    }
+
+    async function apiVerify() {
+      const u = new URL(API_BASE + "/api/verify");
+      u.searchParams.set("id", CERT_ID);
+      u.searchParams.set("t", TOKEN);
+
+      const resp = await fetch(u.toString(), { method: "GET" });
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
+      return await resp.json();
+    }
+
+    function mapErrorToMode(message) {
+      const m = String(message || "");
+
+      // Dari backend Anda: assertTokenValid_ => "Token tidak valid." :contentReference[oaicite:1]{index=1}
+      if (m.toLowerCase().includes("token tidak valid")) return "invalid_token";
+
+      // Dari backend preview: "Sertifikat tidak ditemukan." :contentReference[oaicite:2]{index=2}
+      if (m.toLowerCase().includes("sertifikat tidak ditemukan")) return "not_found";
+
+      // fallback
+      return "error";
+    }
+
+    async function init() {
+      // --- Legacy redirect handler (opsional tapi disarankan) ---
+      // Jika ada URL lama pakai ?p=cert, arahkan ke halaman cert baru.
+      const P = (new URLSearchParams(location.search).get("p") || "").toLowerCase();
+      if (P === "cert") {
+        const u = new URL("https://iceinstitut.github.io/konten/cert/");
+        const id = CERT_ID || qs("id").trim();
+        const t  = TOKEN   || qs("t").trim();
+        if (id) u.searchParams.set("id", id);
+        if (t)  u.searchParams.set("t", t);
+        location.replace(u.toString());
+        return;
+      }
+    
+      // --- Validasi querystring ---
+      if (!CERT_ID) {
+        showAlert(
+          "ID Sertifikat tidak ada",
+          "Mohon gunakan URL verifikasi yang lengkap dari sertifikat (parameter <b>id</b> dan <b>t</b>)."
+        );
+        return;
+      }
+      if (!TOKEN) {
+        showAlert(
+          "Token verifikasi tidak ada",
+          "URL verifikasi harus menyertakan parameter <b>t</b>. Mohon minta ulang link dari Admin.",
+          "id=" + CERT_ID
+        );
+        return;
+      }
+    
+      // --- Loading state ---
+      showAlert("Memuat...", "Sedang mengambil data verifikasi dari server.", "id=" + CERT_ID);
+    
+      try {
+        const res = await apiVerify();
+    
+        if (!res || !res.ok) {
+          const msg = (res && (res.message || res.error?.message)) ? String(res.message || res.error?.message) : "";
+          const mode = mapErrorToMode(msg);
+    
+          if (mode === "invalid_token") {
+            showAlert(
+              "Token tidak valid",
+              "Link verifikasi ini tidak valid atau sudah diganti oleh sistem. Mohon minta ulang link dari Admin.",
+              "id=" + CERT_ID
+            );
+            return;
+          }
+          if (mode === "not_found") {
+            showAlert(
+              "Sertifikat tidak ditemukan",
+              "ID sertifikat tidak terdaftar. Pastikan Anda menggunakan link resmi dari Admin.",
+              "id=" + CERT_ID
+            );
+            return;
+          }
+    
+          showAlert(
+            "Terjadi kesalahan",
+            msg || "Gagal memuat data.",
+            "id=" + CERT_ID
+          );
+          return;
+        }
+    
+        const view = res.view || {};
+        setBadge(view);
+        fill(view);
+        showMain();
+      } catch (err) {
+        showAlert(
+          "Terjadi kesalahan",
+          (err && err.message) ? err.message : String(err),
+          "id=" + CERT_ID
+        );
+      }
+    }
+
+    const back = document.getElementById("backLink");
+    if (back) {
+      const u = new URL(location.origin + "/konten/cert/");
+      u.searchParams.set("id", CERT_ID);
+      u.searchParams.set("t", TOKEN);
+      back.href = u.toString();
+    }
+
+    init();
+  </script>

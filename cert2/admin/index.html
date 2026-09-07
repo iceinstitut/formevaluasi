@@ -1,0 +1,460 @@
+---
+layout: default
+title: Admin Preview - Sertifikat
+---
+
+<style>
+  .admin-cert-app {
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    background: #fafafa;
+    color: #111;
+    min-height: 100vh;
+  }
+  
+  .admin-cert-app * {
+    box-sizing: border-box;
+  }
+  
+  .admin-cert-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 14px 40px;
+  }
+  
+  .admin-cert-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 8px 0 16px;
+  }
+  
+  .admin-cert-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .admin-cert-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #ee1522;
+    display: inline-block;
+  }
+  
+  .admin-cert-title {
+    font-weight: 800;
+    letter-spacing: 0.2px;
+  }
+  
+  .admin-cert-sub {
+    color: #666;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  .admin-cert-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.03);
+  }
+
+  .admin-cert-card h2 {
+    font-size: 14px;
+    margin: 0 0 10px;
+  }
+
+  .admin-cert-muted {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .admin-cert-preview {
+    border: 1px dashed #ddd;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    padding: 12px;
+  }
+
+  .admin-cert-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    align-items: center;
+  }
+
+  .admin-cert-btn {
+    border: 1px solid #eee;
+    background: #fff;
+    color: #111;
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-weight: 750;
+    cursor: pointer;
+    font-size: 13px;
+  }
+
+  .admin-cert-btn:hover {
+    background: #f5f5f5;
+    border-color: #ddd;
+  }
+
+  .admin-cert-btn.active {
+    background: #ee1522;
+    border-color: #ee1522;
+    color: #fff;
+  }
+
+  .admin-cert-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .admin-cert-spacer {
+    flex: 1;
+  }
+
+  .admin-cert-page-info {
+    font-size: 12px;
+    color: #666;
+  }
+
+  .admin-cert-alert {
+    border-radius: 14px;
+    border: 1px solid #eee;
+    background: #fff;
+    padding: 14px;
+    margin-bottom: 20px;
+  }
+
+  .admin-cert-alert h2 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 900;
+  }
+
+  .admin-cert-alert p {
+    margin: 0;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  #certViewport {
+    background: #fff;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+</style>
+
+<div class="admin-cert-app">
+  <div class="admin-cert-wrap">
+
+    <!-- Header -->
+    <div class="admin-cert-header">
+      <div class="admin-cert-brand">
+        <span class="admin-cert-badge"></span>
+        <div>
+          <div class="admin-cert-title">Admin Preview - Sertifikat</div>
+          <div class="admin-cert-sub">Preview sertifikat peserta (1 atau 2 halaman)</div>
+        </div>
+      </div>
+      <div class="admin-cert-muted" id="hdrId"></div>
+    </div>
+
+    <!-- State/Alert -->
+    <div class="admin-cert-card admin-cert-alert" id="stateCard" style="display:none;">
+      <h2 id="stateTitle">Memuat...</h2>
+      <p id="stateMsg">Silakan tunggu.</p>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainGrid" style="display:none;">
+      
+      <!-- Preview Card -->
+      <div class="admin-cert-card">
+        <h2>Preview Sertifikat</h2>
+        <div class="admin-cert-muted">
+          Pratinjau halaman 1 atau 2 (jika tersedia)
+        </div>
+
+        <!-- Preview Viewport -->
+        <div class="admin-cert-preview" style="margin-top:14px;">
+          <div id="certViewport" style="width:100%; overflow:hidden; border-radius:14px;">
+            <div id="certScaleWrap" style="transform-origin: top left;"></div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="admin-cert-controls">
+          <button class="admin-cert-btn active" id="btnPage1" onclick="showPage(1)">📄 Page 1</button>
+          <button class="admin-cert-btn" id="btnPage2" onclick="showPage(2)" style="display:none;">📄 Page 2</button>
+          
+          <div class="admin-cert-spacer"></div>
+          
+          <div class="admin-cert-page-info" id="pageInfo">Page 1</div>
+        </div>
+
+        <div style="font-size:12px; color:#666; margin-top:10px;">
+          Pratinjau ditampilkan dalam skala responsif. Tekan Page 1/2 untuk beralih halaman.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const API_BASE = "https://cert2.ice-institut.workers.dev";
+  const $ = (id) => document.getElementById(id);
+
+  function qs(name) {
+    return new URLSearchParams(location.search).get(name) || "";
+  }
+
+  const CERT_ID = qs("id").trim();
+  const TOKEN = qs("t").trim();
+  
+  let currentPage = 1;
+  let totalPages = 1;
+  let certData = null;
+  let previewPage1 = null;
+  let previewPage2 = null;
+  let pageDim1 = null;
+  let pageDim2 = null;
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, (m) => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
+    }[m]));
+  }
+
+  function showState(title, msg) {
+    $("stateCard").style.display = "";
+    $("mainGrid").style.display = "none";
+    $("stateTitle").textContent = title;
+    $("stateMsg").innerHTML = msg;
+    $("hdrId").textContent = "";
+  }
+
+  function showMain() {
+    $("stateCard").style.display = "none";
+    $("mainGrid").style.display = "";
+    $("hdrId").innerHTML = CERT_ID ? ("ID: <b>" + escapeHtml(CERT_ID) + "</b>") : "";
+  }
+
+  async function apiGet(path, params) {
+    const u = new URL(API_BASE + path);
+    Object.keys(params || {}).forEach(k => u.searchParams.set(k, params[k]));
+    const resp = await fetch(u.toString());
+    if (!resp.ok) throw new Error("HTTP " + resp.status);
+    return await resp.json();
+  }
+
+  function autoScale(pageDim) {
+    const viewport = $("certViewport");
+    const wrap = $("certScaleWrap");
+ 
+    const mmToPx = (mm) => mm * (96 / 25.4);
+ 
+    function apply() {
+      const vw = viewport.clientWidth;
+      const pageWpx = mmToPx(pageDim.wMm);
+      const pageHpx = mmToPx(pageDim.hMm);
+ 
+      const scale = Math.min(1, vw / pageWpx);
+      wrap.style.transform = `scale(${scale})`;
+      viewport.style.height = (pageHpx * scale) + "px";
+    }
+ 
+    apply();
+    window.addEventListener("resize", apply);
+  }
+
+  function showPage(pageNum) {
+    currentPage = pageNum;
+    
+    [$("btnPage1"), $("btnPage2")].forEach(btn => {
+      if (btn) btn.classList.remove("active");
+    });
+    if (pageNum === 1 && $("btnPage1")) {
+      $("btnPage1").classList.add("active");
+    } else if (pageNum === 2 && $("btnPage2")) {
+      $("btnPage2").classList.add("active");
+    }
+ 
+    const wrap = $("certScaleWrap");
+    if (pageNum === 1) {
+      wrap.innerHTML = previewPage1 || "";
+      if (pageDim1) autoScale(pageDim1);
+    } else {
+      wrap.innerHTML = previewPage2 || "";
+      if (pageDim2) autoScale(pageDim2);
+    }
+ 
+    $("pageInfo").textContent = `Page ${pageNum} of ${totalPages}`;
+  }
+
+  async function loadPreview() {
+    const res1 = await apiGet("/api/preview", { id: CERT_ID, t: TOKEN, page: '1' });
+ 
+    if (!res1 || !res1.ok) {
+      throw new Error(res1?.message || "Gagal load preview");
+    }
+ 
+    previewPage1 = res1.snippet || "";
+    pageDim1 = res1.pageDim || { wMm: 297, hMm: 210 };
+ 
+    // Load page 2 jika ada
+    if (certData.page2_enabled) {
+      try {
+        const res2 = await apiGet("/api/preview", { id: CERT_ID, t: TOKEN, page: '2' });
+        if (res2 && res2.ok) {
+          previewPage2 = res2.snippet || "";
+          pageDim2 = res2.pageDim || { wMm: 297, hMm: 210 };
+          totalPages = 2;
+        }
+      } catch (e) {
+        console.error('Page 2 preview error:', e);
+      }
+    }
+ 
+    if (totalPages === 2) {
+      const btn2 = $("btnPage2");
+      if (btn2) btn2.style.display = "";
+    }
+ 
+    showPage(1);
+  }
+
+  function generatePage2Html(layout, data, template) {
+    if (!layout || !layout.elements) return '';
+
+    const elements = layout.elements || [];
+    let html = '';
+
+    elements.forEach(el => {
+      if (!el || !el.key) return;
+
+      if (el.type === 'text') {
+        const x = Number(el.x || 0);
+        const y = Number(el.y || 0);
+        const fontSize = Number(el.fontSize || 12);
+        const weight = Number(el.weight || 400);
+        const color = String(el.color || '#111111');
+        const align = String(el.align || 'left');
+        const maxWidth = Number(el.maxWidth || 200);
+
+        const rawVal = String(el.value || '');
+        const content = renderMustache(rawVal, data);
+        const escaped = escapeHtml(content);
+
+        html += `<div class="page-el" style="left:${x}mm;top:${y}mm;max-width:${maxWidth}mm;font-size:${fontSize}pt;font-weight:${weight};color:${color};text-align:${align};">${escaped}</div>`;
+      }
+      else if (el.type === 'qr') {
+        const x = Number(el.x || 0);
+        const y = Number(el.y || 0);
+        const size = Number(el.size || 22);
+
+        html += `<div class="page-el" style="left:${x}mm;top:${y}mm;width:${size}mm;height:${size}mm;"><div style="width:100%;height:100%;background:#f0f0f0;border:1px dashed #ccc;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">QR</div></div>`;
+      }
+    });
+
+    const pageDim = getPageDim(layout, template);
+
+    const bgCss = 'background:#ffffff;';
+    const style = `
+<style>
+  .icecert-preview-root{ display:inline-block; }
+  .icecert-preview-root *{ box-sizing:border-box; }
+  .icecert-preview-root .cert-page{
+    position:relative;
+    width:${pageDim.wMm}mm;
+    height:${pageDim.hMm}mm;
+    overflow:hidden;
+    background:#fff;
+  }
+  .icecert-preview-root .cert-bg{ position:absolute; inset:0; ${bgCss} }
+  .icecert-preview-root .cert-layer{ position:absolute; inset:0; }
+  .icecert-preview-root .cert-el{
+    position:absolute;
+    word-break:break-word;
+  }
+  .icecert-preview-root img{ display:block; }
+</style>`;
+
+    const resultHtml = `
+${style}
+<div class="icecert-preview-root">
+  <div class="cert-page">
+    <div class="cert-bg"></div>
+    <div class="cert-layer">
+      ${html}
+    </div>
+  </div>
+</div>`;
+
+    return resultHtml;
+  }
+
+  function getPageDim(layout, template) {
+    const pageSize = String((layout.page && layout.page.size) || template.page_size || 'A4').toUpperCase();
+    const orientation = String((layout.page && layout.page.orientation) || template.orientation || 'LANDSCAPE').toUpperCase();
+
+    const map = {
+      'A4': { w: 210, h: 297 },
+      'A3': { w: 297, h: 420 },
+      'LETTER': { w: 215.9, h: 279.4 }
+    };
+
+    const base = map[pageSize] || map['A4'];
+    
+    if (orientation === 'PORTRAIT') {
+      return { wMm: base.w, hMm: base.h };
+    } else {
+      return { wMm: base.h, hMm: base.w };
+    }
+  }
+
+  function renderMustache(template, data) {
+    return String(template).replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (match, key) => {
+      return data && data[key] !== undefined ? String(data[key]) : '';
+    });
+  }
+
+  async function init() {
+    showState("Memuat...", "Mengambil data sertifikat...");
+ 
+    try {
+      if (!CERT_ID) {
+        throw new Error('ID Sertifikat kosong. Periksa URL Anda.');
+      }
+      if (!TOKEN) {
+        throw new Error('Token kosong. Periksa URL Anda.');
+      }
+ 
+      const verifyRes = await apiGet("/api/verify", { id: CERT_ID, t: TOKEN });
+      if (!verifyRes || !verifyRes.ok) {
+        throw new Error(verifyRes?.message || "Gagal load verify");
+      }
+ 
+      certData = verifyRes.view || {};
+ 
+      await loadPreview();
+ 
+      showMain();
+    } catch (err) {
+      showState("Error", escapeHtml(err?.message || String(err)));
+    }
+  }
+
+  window.addEventListener('load', init);
+</script>

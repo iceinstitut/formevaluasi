@@ -1,0 +1,384 @@
+---
+layout: default
+title: Sertifikat di ICE Institute
+---
+    <style>
+      .icecert-app{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial; background:#fafafa; color:#111; min-height:100vh;}
+      .icecert-app *{box-sizing:border-box}
+      .icecert-wrap{max-width:1320px;margin:0 auto;padding:18px 14px 40px}
+      .icecert-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 16px}
+      .icecert-brand{display:flex;align-items:center;gap:10px}
+      .icecert-badge{width:36px;height:36px;border-radius:10px;background:#ee1522;display:inline-block}
+      .icecert-title{font-weight:800;letter-spacing:.2px}
+      .icecert-sub{color:#666;font-size:13px;margin-top:2px}
+
+      .icecert-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}
+      @media (max-width:860px){.icecert-grid{grid-template-columns:1fr}}
+
+      .icecert-card{background:#fff;border:1px solid #eee;border-radius:16px;padding:14px; box-shadow:0 1px 0 rgba(0,0,0,.03)}
+      .icecert-card h2{font-size:14px;margin:0 0 10px}
+      .icecert-muted{color:#666;font-size:13px;line-height:1.45}
+      .icecert-hr{height:1px;background:#f0f0f0;margin:12px 0}
+
+      .icecert-preview{border:1px dashed #ddd;border-radius:16px;overflow:hidden;background:#fff;}
+      .icecert-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+      .icecert-btn{
+        border:1px solid #eee;background:#fff;color:#111;
+        padding:10px 12px;border-radius:12px;font-weight:750;cursor:pointer;
+      }
+      .icecert-btn.primary{background:#ee1522;border-color:#ee1522;color:#fff;}
+      .icecert-btn:disabled{opacity:.55;cursor:not-allowed}
+      .icecert-note{font-size:12px;color:#666;margin-top:10px}
+
+      .icecert-kv{display:grid;grid-template-columns:140px 1fr;gap:8px 12px;font-size:13px}
+      .icecert-kv .k{color:#666}
+      .icecert-kv .v{font-weight:650}
+
+      .icecert-pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800}
+      .icecert-pill.ok{background:rgba(25,135,84,.10);color:#198754;border:1px solid rgba(25,135,84,.20)}
+      .icecert-pill.rev{background:rgba(220,53,69,.08);color:#dc3545;border:1px solid rgba(220,53,69,.18)}
+      .icecert-pill.draft{background:rgba(108,117,125,.10);color:#6c757d;border:1px solid rgba(108,117,125,.20)}
+
+      /* certificate viewport */
+      #certViewport{ background:#fff; }
+    </style>
+
+    <div class="icecert-app">
+      <div class="icecert-wrap">
+
+        <div class="icecert-header">
+          <div class="icecert-brand">
+            <span class="icecert-badge"></span>
+            <div>
+              <div class="icecert-title">Sertifikat Digital</div>
+              <div class="icecert-sub">Preview & unduh sertifikat Anda</div>
+            </div>
+          </div>
+          <div class="icecert-muted" id="hdrId"></div>
+        </div>
+
+        <!-- alert/state -->
+        <div class="icecert-card" id="stateCard" style="display:none;">
+          <h2 id="stateTitle">Memuat...</h2>
+          <div class="icecert-muted" id="stateMsg">Silakan tunggu.</div>
+        </div>
+
+        <!-- main content -->
+        <div class="icecert-grid" id="mainGrid" style="display:none;">
+
+          <!-- Preview -->
+          <div class="icecert-card">
+            <h2>Preview</h2>
+
+            <div class="icecert-preview" style="padding:12px;">
+              <div id="certViewport" style="width:100%; overflow:hidden; border-radius:14px;">
+                <div id="certScaleWrap" style="transform-origin: top left;"></div>
+              </div>
+            </div>
+
+            <div class="icecert-note" id="previewNote" style="margin-top:10px;">
+              Memuat preview...
+            </div>
+
+            <div class="icecert-actions">
+              <button class="icecert-btn primary" id="btnDownload">Download PDF</button>
+
+              <a class="icecert-btn" id="btnVerify"
+                 href="#"
+                 style="text-decoration:none;display:inline-flex;align-items:center;">
+                Verifikasi
+              </a>
+            </div>
+
+            <div class="icecert-note">
+              Jika PDF sudah pernah dibuat, sistem akan mengambil file PDF yang sama (tanpa membuat ulang).
+            </div>
+          </div>
+
+          <!-- Detail -->
+          <div class="icecert-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <h2 style="margin:0;">Detail Sertifikat</h2>
+              <span class="icecert-pill draft" id="pillStatus" style="display:none;">STATUS</span>
+            </div>
+
+            <div class="icecert-hr"></div>
+
+            <div class="icecert-kv" id="detailKv">
+              <div class="k">No Sertifikat</div><div class="v" id="d_no">-</div>
+              <div class="k">Nama</div><div class="v" id="d_nama">-</div>
+              <div class="k">Sebagai</div><div class="v" id="d_sebagai">-</div>
+              <div class="k">Profesi</div><div class="v" id="d_profesi">-</div>
+              <div class="k">Instansi</div><div class="v" id="d_instansi">-</div>
+              <div class="k">Kota</div><div class="v" id="d_city">-</div>
+              <div class="k">Provinsi</div><div class="v" id="d_province">-</div>
+              <div class="k">Negara</div><div class="v" id="d_country">-</div>
+
+              <div class="icecert-hr" style="grid-column:1/-1"></div>
+
+              <div class="k">Kegiatan</div><div class="v" id="d_nama_kegiatan">-</div>
+              <div class="k">Tipe</div><div class="v" id="d_tipe_kegiatan">-</div>
+              <div class="k">Bentuk</div><div class="v" id="d_bentuk">-</div>
+              <div class="k">Tema</div><div class="v" id="d_tema">-</div>
+              <div class="k">Tanggal Kegiatan</div><div class="v" id="d_tanggal_kegiatan">-</div>
+              <div class="k">Hari</div><div class="v" id="d_hari_kegiatan">-</div>
+              <div class="k">Tanggal Sertifikat</div><div class="v" id="d_tanggal_sertifikat">-</div>
+            </div>
+
+            <div class="icecert-hr"></div>
+
+            <div class="icecert-muted" style="font-size:12px">
+              Template: <b id="d_template_key">-</b>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      /**
+       * === KONFIG ===
+       * Ganti ini menjadi URL worker Anda (tanpa trailing slash)
+       * contoh: https://cert-api.example.workers.dev
+       */
+      const API_BASE = "https://cert.ice-institut.workers.dev";
+
+      // GitHub Pages base (untuk membuat link verify)
+      const GHP_BASE = location.origin + "/konten";
+      const VERIFY_PAGE = GHP_BASE + "/cert/verify/"; // sesuaikan jika path Anda berbeda
+
+      const $ = (id) => document.getElementById(id);
+
+      const btnDownload = $("btnDownload");
+      const mainGrid = $("mainGrid");
+      const stateCard = $("stateCard");
+      const stateTitle = $("stateTitle");
+      const stateMsg = $("stateMsg");
+      const previewNote = $("previewNote");
+      const hdrId = $("hdrId");
+      const btnVerify = $("btnVerify");
+
+      function qs(name) {
+        return new URLSearchParams(location.search).get(name) || "";
+      }
+
+      const CERT_ID = qs("id").trim();
+      const TOKEN = qs("t").trim();
+
+      function showState(title, msg) {
+        stateCard.style.display = "";
+        mainGrid.style.display = "none";
+        stateTitle.textContent = title;
+        stateMsg.innerHTML = msg;
+        hdrId.textContent = "";
+      }
+
+      function showMain() {
+        stateCard.style.display = "none";
+        mainGrid.style.display = "";
+        hdrId.innerHTML = CERT_ID ? ("ID: <b>" + escapeHtml(CERT_ID) + "</b>") : "";
+      }
+
+      function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, (m) => ({
+          "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
+        }[m]));
+      }
+
+      async function apiGet(path, params) {
+        const u = new URL(API_BASE + path);
+        Object.keys(params || {}).forEach(k => u.searchParams.set(k, params[k]));
+        const resp = await fetch(u.toString(), { method: "GET" });
+        // Apps Script biasanya selalu 200; tapi tetap kita handle
+        if (!resp.ok) throw new Error("HTTP " + resp.status);
+        return await resp.json();
+      }
+
+      // Scale responsif (dipakai juga di versi lama) :contentReference[oaicite:2]{index=2}
+      function autoScale(pageDim){
+        const viewport = $("certViewport");
+        const wrap = $("certScaleWrap");
+
+        const mmToPx = (mm) => mm * (96 / 25.4);
+
+        function apply(){
+          const vw = viewport.clientWidth;
+          const pageWpx = mmToPx(pageDim.wMm);
+          const pageHpx = mmToPx(pageDim.hMm);
+
+          const scale = Math.min(1, vw / pageWpx);
+          wrap.style.transform = `scale(${scale})`;
+          viewport.style.height = (pageHpx * scale) + "px";
+        }
+
+        apply();
+        window.addEventListener("resize", apply);
+      }
+
+      function setPillStatus(status) {
+        const pill = $("pillStatus");
+        if (!status) { pill.style.display = "none"; return; }
+
+        const s = String(status).toUpperCase();
+        pill.style.display = "";
+        pill.textContent = s;
+
+        pill.classList.remove("ok", "rev", "draft");
+        if (s === "ACTIVE") pill.classList.add("ok");
+        else if (s === "REVOKED") pill.classList.add("rev");
+        else pill.classList.add("draft");
+      }
+
+      function fillDetail(view) {
+        // view dari api=verify menggunakan buildVerifyView_ (beberapa field city/province/country mungkin kosong)
+        const v = view || {};
+        $("d_no").textContent = v.no_sertifikat || "-";
+        $("d_nama").textContent = v.nama || "-";
+        $("d_sebagai").textContent = v.sebagai || "-";
+        $("d_profesi").textContent = v.profesi || "-";
+        $("d_instansi").textContent = v.instansi || "-";
+
+        // field ini mungkin belum ada di view verify backend Anda → aman fallback
+        $("d_city").textContent = v.city || "-";
+        $("d_province").textContent = v.province || "-";
+        $("d_country").textContent = v.country || "-";
+
+        $("d_nama_kegiatan").textContent = v.nama_kegiatan || "-";
+        $("d_tipe_kegiatan").textContent = v.tipe_kegiatan || "-";
+        $("d_bentuk").textContent = v.bentuk || "-";
+        $("d_tema").textContent = v.tema || "-";
+        $("d_tanggal_kegiatan").textContent = v.tanggal_kegiatan || "-";
+        $("d_hari_kegiatan").textContent = v.hari_kegiatan || "-";
+        $("d_tanggal_sertifikat").textContent = v.tanggal_sertifikat || "-";
+
+        $("d_template_key").textContent = v.template_key || "-";
+
+        setPillStatus(v.status || "");
+      }
+
+      async function loadPreview(){
+        previewNote.textContent = "Memuat preview...";
+        const res = await apiGet("/api/preview", { id: CERT_ID, t: TOKEN });
+
+        if (!res || !res.ok) {
+          previewNote.textContent = (res && res.message) ? res.message : "Gagal memuat preview.";
+          return;
+        }
+
+        const wrap = $("certScaleWrap");
+        wrap.innerHTML = res.snippet || "";
+
+        if (res.pageDim) autoScale(res.pageDim);
+
+        previewNote.textContent = "Preview siap. (Skala otomatis menyesuaikan layar)";
+      }
+
+      async function loadDetail(){
+        // detail diambil dari api=verify (agar tidak perlu endpoint baru)
+        const res = await apiGet("/api/verify", { id: CERT_ID, t: TOKEN });
+        if (!res || !res.ok) return; // detail boleh gagal tanpa memblokir preview
+
+        // backend router yang kita buat mengembalikan {ok:true, view:{...}}
+        fillDetail(res.view || {});
+      }
+
+      async function ensurePdf(){
+        btnDownload.disabled = true;
+        btnDownload.textContent = "Memproses...";
+
+        try {
+          const res = await apiGet("/api/ensurePdf", { id: CERT_ID, t: TOKEN });
+
+          btnDownload.disabled = false;
+          btnDownload.textContent = "Download PDF";
+
+          if (!res || !res.ok) {
+            alert((res && res.message) ? res.message : "Gagal membuat PDF.");
+            return;
+          }
+
+          // backend Anda mengembalikan downloadUrl :contentReference[oaicite:3]{index=3}
+          const url = res.downloadUrl || res.pdf_url || "";
+          if (!url) {
+            alert("PDF berhasil diproses, tetapi URL download tidak tersedia.");
+            return;
+          }
+
+          window.open(url, "_blank");
+        } catch (err) {
+          btnDownload.disabled = false;
+          btnDownload.textContent = "Download PDF";
+          alert(err && err.message ? err.message : String(err));
+        }
+      }
+
+      function initVerifyLink(){
+        // Buat link verifikasi di GitHub Pages
+        const u = new URL(VERIFY_PAGE);
+        u.searchParams.set("id", CERT_ID);
+        u.searchParams.set("t", TOKEN);
+        btnVerify.href = u.toString();
+      }
+
+
+async function init() {
+
+      // --- tampilkan loading GLOBAL ---
+  showState(
+    "Memuat Sertifikat...",
+    `
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="spinner-border text-danger" role="status"></div>
+      <span>Mohon tunggu, sedang mengambil data...</span>
+    </div>
+    `
+  );
+  // --- Legacy redirect handler (opsional tapi sangat disarankan) ---
+  // Jika ada URL lama pakai ?p=verify, arahkan ke halaman verify baru.
+  const P = (new URLSearchParams(location.search).get("p") || "").toLowerCase();
+  if (P === "verify") {
+    const u = new URL("https://iceinstitut.github.io/konten/cert/verify/");
+    const id = CERT_ID || qs("id").trim();
+    const t  = TOKEN   || qs("t").trim();
+    if (id) u.searchParams.set("id", id);
+    if (t)  u.searchParams.set("t", t);
+    location.replace(u.toString());
+    return;
+  }
+
+  // --- Validasi param ---
+  if (!CERT_ID) {
+    showState(
+      "ID Sertifikat tidak ada",
+      'Pastikan Anda membuka URL yang diberikan Admin (parameter <b>id</b>).'
+    );
+    return;
+  }
+  if (!TOKEN) {
+    showState(
+      "Token tidak ada",
+      'Pastikan Anda membuka URL lengkap dari Admin (parameter <b>t</b>).'
+    );
+    return;
+  }
+
+  // --- tampilkan layout utama ---
+  showMain();
+  initVerifyLink();
+
+  btnDownload.addEventListener("click", ensurePdf);
+
+  try {
+    // preview dulu (paling penting untuk user)
+    await loadPreview();
+    // detail bisa menyusul
+    loadDetail().catch(() => {});
+  } catch (err) {
+    // biasanya invalid token / revoked / not found akan muncul dari message backend preview
+    showState("Gagal memuat sertifikat", escapeHtml(err?.message || String(err)));
+  }
+}
+
+      init();
+    </script

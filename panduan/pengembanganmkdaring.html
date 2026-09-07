@@ -8,7 +8,6 @@ title: Pengembangan Course Daring ICE Institute
     <span class="text-red-600 font-bold tracking-wide">MODUL PENGEMBANGAN</span>
     <button id="mobileMenuBtn" type="button" class="lg:hidden p-2 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none">
         <i class="bi bi-list text-2xl"></i>
-</svg>
     </button>
 </header>
 
@@ -687,9 +686,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const contentBody = document.getElementById('content-body');
     const navContainer = document.getElementById('nav-container');
     const navContainerMobile = document.getElementById('nav-container-mobile');
+    
+    // Elemen Offcanvas Tailwind
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const closeOffcanvasBtn = document.getElementById('closeOffcanvasBtn');
+    const offcanvasEl = document.getElementById('offcanvasNavbar');
+    const backdropEl = document.getElementById('offcanvasBackdrop');
 
+    // --- LOGIK TOGGLE OFFCANVAS TAILWIND ---
+    function openOffcanvas() {
+        if (offcanvasEl && backdropEl) {
+            offcanvasEl.classList.remove('-translate-x-full');
+            backdropEl.classList.remove('hidden');
+        }
+    }
+
+    function closeOffcanvas() {
+        if (offcanvasEl && backdropEl) {
+            offcanvasEl.classList.add('-translate-x-full');
+            backdropEl.classList.add('hidden');
+        }
+    }
+
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openOffcanvas);
+    if (closeOffcanvasBtn) closeOffcanvasBtn.addEventListener('click', closeOffcanvas);
+    if (backdropEl) backdropEl.addEventListener('click', closeOffcanvas);
+
+    // --- LOGIK GENERATE NAVIGASI & SCROLL ---
     if (!contentBody) return;
-
     const headings = Array.from(contentBody.querySelectorAll('h1, h2, h3, h4, h5, h6'));
 
     const levelClasses = {
@@ -702,7 +726,6 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     headings.forEach((heading, index) => {
-        // Auto-generate ID jika heading belum punya ID
         if (!heading.id) {
             heading.id = 'heading-' + index + '-' + heading.innerText.toLowerCase().replace(/[^a-z0-9]/g, '-');
         }
@@ -719,7 +742,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const target = document.getElementById(heading.id);
             if (target) {
-                const offset = 100; // Jarak aman dari header sticky
+                const offset = 100;
                 const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
 
                 window.scrollTo({
@@ -728,13 +751,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            // Update Class Active (Tailwind Style)
             setActiveLink(heading.id);
+            closeOffcanvas(); // Menutup drawer saat link menu diklik
 
-            // Tutup Offcanvas Mobile ala Tailwind (Ganti Class / Hide Element)
-            closeTailwindOffcanvas();
-
-            // Atifkan kembali scroll listener setelah animasi selesai
             setTimeout(() => {
                 window.addEventListener('scroll', updateActiveNav);
             }, 800);
@@ -760,21 +779,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function closeTailwindOffcanvas() {
-        const offcanvasEl = document.getElementById('offcanvasNavbar');
-        if (offcanvasEl) {
-            // Sembunyikan offcanvas dengan memanipulasi class Tailwind/HTML
-            offcanvasEl.classList.add('hidden'); 
-            
-            // Jika Anda memakai toggle class bawaan (seperti -translate-x-full)
-            offcanvasEl.classList.add('-translate-x-full');
-            
-            // Hapus backdrop jika ada
-            const backdrop = document.getElementById('offcanvas-backdrop');
-            if (backdrop) backdrop.remove();
-        }
-    }
-
     function updateActiveNav() {
         const scrollPosition = window.scrollY + 120;
         let currentActiveId = "";
@@ -797,7 +801,3 @@ document.addEventListener('DOMContentLoaded', function() {
     updateActiveNav();
 });
 </script>
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/formevaluasi/assets/js/main.js"></script>

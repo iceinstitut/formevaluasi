@@ -1,0 +1,256 @@
+---
+layout: default
+title: Tabel Taksonomi Bloom
+---
+
+<div class="font-sans text-gray-900 bg-white max-w-[1200px] mx-auto p-4 sm:p-6">
+
+    <!-- Header Judul Halaman -->
+    <h1 class="font-extrabold text-2xl sm:text-3xl text-gray-900 mb-6 border-l-4 sm:border-l-[6px] border-[#ee1522] pl-4 uppercase tracking-tight">
+        Tabel Taksonomi Bloom
+    </h1>
+
+    <!-- Tabel 1 (Kognitif Asli Bloom 6 Kolom) -->
+    <div class="mb-8">
+        <h2 class="text-lg sm:text-xl font-bold text-gray-800 mb-3">Tabel Taksonomi Bloom untuk ranah Kognitif (Pengetahuan)</h2>
+        <input 
+            class="w-full px-4 py-3 mb-5 border border-gray-300 rounded-lg text-base outline-none transition duration-200 focus:border-[#ee1522] focus:ring-2 focus:ring-[#ee1522]/20 shadow-sm" 
+            type="text" 
+            id="searchInput1" 
+            onkeyup="searchTable('searchInput1', 'bloomTable1', 'noResults1')" 
+            placeholder="Cari kata kunci di Tabel 1..."
+        >
+        
+        <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+            <table class="w-full border-collapse text-sm min-w-[700px] text-left" id="bloomTable1">
+                <thead class="bg-gray-50 border-b-2 border-[#ee1522]">
+                    <tr>
+                        <th class="p-4 text-gray-900 font-bold uppercase text-xs tracking-wider border-r border-gray-200">C1 - Pengetahuan</th>
+                        <th class="p-4 text-gray-900 font-bold uppercase text-xs tracking-wider border-r border-gray-200">C2 - Pemahaman</th>
+                        <th class="p-4 text-gray-900 font-bold uppercase text-xs tracking-wider border-r border-gray-200">C3 - Aplikasi</th>
+                        <th class="p-4 text-gray-900 font-bold uppercase text-xs tracking-wider border-r border-gray-200">C4 - Analisis</th>
+                        <th class="p-4 text-gray-900 font-bold uppercase text-xs tracking-wider border-r border-gray-200">C5 - Evaluasi</th>
+                        <th class="p-4 text-gray-900 font-bold uppercase text-xs tracking-wider">C6 - Kreasi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white" id="tableBody1">
+                    <!-- Populated via JavaScript -->
+                </tbody>
+            </table>
+            <div id="noResults1" class="hidden text-center p-8 text-gray-500 bg-gray-50">Tidak ada kata kunci yang cocok dengan pencarian Anda.</div>
+        </div>
+    </div>
+
+    <!-- Tabel 2 (4 Kolom, 14 Baris) -->
+    <div class="mb-8">
+        <h2 class="text-lg sm:text-xl font-bold text-gray-800 mb-3">Tabel Taksonomi Bloom untuk ranah Psikomotorik (Keterampilan)</h2>
+        <input 
+            class="w-full px-4 py-3 mb-5 border border-gray-300 rounded-lg text-base outline-none transition duration-200 focus:border-[#ee1522] focus:ring-2 focus:ring-[#ee1522]/20 shadow-sm" 
+            type="text" 
+            id="searchInput2" 
+            onkeyup="searchTable('searchInput2', 'bloomTable2', 'noResults2')" 
+            placeholder="Cari kata kunci di Tabel 2 (4 Kolom)..."
+        >
+        
+        <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+            <table class="w-full border-collapse text-sm min-w-[700px] text-left" id="bloomTable2">
+                <thead class="bg-gray-50 border-b-2 border-[#ee1522]">
+                    <tr>
+                        <th class="p-4 text-gray-900 font-bold uppercase text-xs tracking-wider border-r border-gray-200">P1 - Menirukan</th>
+                        <th class="p-4 text-gray-900 font-bold uppercase text-xs tracking-wider border-r border-gray-200">P2 - Memanipulasi</th>
+                        <th class="p-4 text-gray-900 font-bold uppercase text-xs tracking-wider border-r border-gray-200">P3 - Pengalamiahan</th>
+                        <th class="p-4 text-gray-900 font-bold uppercase text-xs tracking-wider">P4 - Artikulasi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white" id="tableBody2">
+                    <!-- Populated via JavaScript -->
+                </tbody>
+            </table>
+            <div id="noResults2" class="hidden text-center p-8 text-gray-500 bg-gray-50">Tidak ada kata kunci yang cocok dengan pencarian Anda.</div>
+        </div>
+    </div>
+
+    <!-- Tabel 3 (5 Kolom, 15 Baris) -->
+    <div class="mb-8">
+        <h2 class="text-lg sm:text-xl font-bold text-gray-800 mb-3">Tabel Taksonomi Bloom untuk ranah Afektif (Sikap)</h2>
+        <input 
+            class="w-full px-4 py-3 mb-5 border border-gray-300 rounded-lg text-base outline-none transition duration-200 focus:border-[#ee1522] focus:ring-2 focus:ring-[#ee1522]/20 shadow-sm" 
+            type="text" 
+            id="searchInput3" 
+            onkeyup="searchTable('searchInput3', 'bloomTable3', 'noResults3')" 
+            placeholder="Cari kata kunci di Tabel 3 (5 Kolom)..."
+        >
+        
+        <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+            <table class="w-full border-collapse text-sm min-w-[700px] text-left" id="bloomTable3">
+                <thead class="bg-gray-50 border-b-2 border-[#ee1522]">
+                    <tr>
+                        <th class="p-4 text-gray-900 font-bold uppercase text-xs tracking-wider border-r border-gray-200">A1 - Menerima</th>
+                        <th class="p-4 text-gray-900 font-bold uppercase text-xs tracking-wider border-r border-gray-200">A2 - Menanggapi</th>
+                        <th class="p-4 text-gray-900 font-bold uppercase text-xs tracking-wider border-r border-gray-200">A3 - Menilai</th>
+                        <th class="p-4 text-gray-900 font-bold uppercase text-xs tracking-wider border-r border-gray-200">A4 - Mengelola</th>
+                        <th class="p-4 text-gray-900 font-bold uppercase text-xs tracking-wider">A5 - Menghayati</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white" id="tableBody3">
+                    <!-- Populated via JavaScript -->
+                </tbody>
+            </table>
+            <div id="noResults3" class="hidden text-center p-8 text-gray-500 bg-gray-50">Tidak ada kata kunci yang cocok dengan pencarian Anda.</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Data untuk Tabel 1 (Original Taksonomi Bloom)
+    const data1 = [
+        ["Mengutip", "Memperkirakan", "Memerlukan", "Menganalisis", "Mempertimbangkan", "Mengabstraksi"],
+        ["Menyebutkan", "Menjelaskan", "Menyesuaikan", "Mengaudit/Memeriksa", "Menilai", "Menganimasi"],
+        ["Menjelaskan", "Mengkategorikan", "Mengalokasikan", "Membuat Blueprint", "Membandingkan", "Mengatur"],
+        ["Menggambar", "Mencirikan", "Mengurutkan", "Membuat Garis Besar", "Menyimpulkan", "Mengumpulkan"],
+        ["Membilang", "Merinci", "Menerapkan", "Memecahkan", "Mengkontraskan", "Mendanai"],
+        ["Mengidentifikasi", "Mengasosiasikan", "Menentukan", "Mengkarakteristikkan", "Mengarahkan", "Mengkategorikan"],
+        ["Mendaftar", "Membandingkan", "Menugaskan", "Membuat Dasar Pengelompokkan", "Mengkritik", "Mengkode"],
+        ["Menunjukkan", "Menghitung", "Memperoleh", "Merasionalkan", "Menimbang", "Mengkombinasikan"],
+        ["Memberi Label", "Mengkontraskan", "Mencegah", "Menegaskan", "Mempertahankan", "Menyusun"],
+        ["Memberi Indeks", "Mengubah", "Mencegah", "Membuat Dasar Pengkontras", "Memutuskan", "Mengarang"],
+        ["Memasangkan", "Mempertahankan", "Mengkalkulasi", "Mengkorelasikan", "Memisahkan", "Membangun"],
+        ["Menamai", "Menguraikan", "Menangkap", "Mendeteksi", "Memprediksi", "Menanggulangi"],
+        ["Menandai", "Menjalin", "Memodifikasi", "Mendiagnosis", "Menilai", "Menghubungkan"],
+        ["Membaca", "Membedakan", "Mengklasifikasikan", "Mendiagramkan", "Memperjelas", "Menciptakan"],
+        ["Menyadari", "Mendiskusikan", "Melengkapi", "Mendiversifikasi", "Merangking", "Mengkreasikan"],
+        ["Menghafal", "Menggali", "Menghitung", "Menyeleksi", "Menugaskan", "Mengkoreksi"],
+        ["Meniru", "Mencontohkan", "Membangun", "Memerinci Ke Bagian-Bagian", "Menafsirkan", "Memotret"],
+        ["Mencatat", "Menerangkan", "Membiasakan", "Menominasikan", "Memberi Pertimbangan", "Merancang"],
+        ["Mengulang", "Mengemukakan", "Mendemonstrasikan", "Mendokumentasikan", "Membenarkan", "Mengembangkan"],
+        ["Mereproduksi", "Mempolakan", "Menurunkan", "Menjamin", "Mengukur", "Merencanakan"],
+        ["Meninjau", "Memperluas", "Menentukan", "Menguji", "Memproyeksi", "Mendikte"],
+        ["Memilih", "Menyimpulkan", "Menemukan", "Mencerahkan", "Memerinci", "Meningkatkan"],
+        ["Menyatakan", "Meramalkan", "Menggambarkan", "Menjelajah", "Menggradasi", "Memperjelas"],
+        ["Mempelajari", "Merangkum", "Menemukan Kembali", "Membagankan", "Merentangkan", "Memfasilitasi"],
+        ["Mentabulasi", "Menjabarkan", "Menggunakan", "Memngumpulkan", "Merekomendasikan", "Membentuk"],
+        ["Memberi Kode", "", "Melatih", "Membuat Kelompok", "Melepaskan", "Merumuskan"],
+        ["Menelusuri", "", "Menggali", "Mengidentifikasi", "Memilih", "Menggeneralisasikan"],
+        ["Menulis", "", "Membuka", "Mengilustrasikan", "Merangkum", "Menumbuhkan"],
+        ["", "", "Mengemukakan", "Menyimpulkan", "Mendukung", "Menangani"],
+        ["", "", "Membuat Faktor", "Menginterupsi", "Mengetes", "Mengirim"],
+        ["", "", "Membuat Gambar", "Menemukan", "Memvalidasi", "Memperbaiki"],
+        ["", "", "Membuat Grafik", "Menelaah", "Membuktikan Kembali", "Menggabungkan"],
+        ["", "", "Menangani", "Menata", "", "Memadukan"],
+        ["", "", "Mengilustrasikan", "Mengelola", "", "Membatasi"],
+        ["", "", "Mengadaptasi", "Memaksimalkan", "", "Menggabungkan"],
+        ["", "", "Menyelidiki", "Meminimalkan", "", "Mengajar"],
+        ["", "", "Memanipulasi", "Mengoptimalkan", "", "Membuat Model"],
+        ["", "", "Mempercantik", "Memerintahkan", "", "Improvisasi"],
+        ["", "", "Mengoperasikan", "Menggarisbesarkan", "", "Membuat Jaringan"],
+        ["", "", "Mempersoalkan", "Memberi Tanda/Kode", "", "Mengorganisasikan"],
+        ["", "", "", "Mprioritaskan", "", "Mensketsa"],
+        ["", "", "", "Mengedit", "", "Mereparasi"]
+    ];
+
+    // Data untuk Tabel 2 (4 Kolom, 14 Baris)
+    const data2 = [
+        ["Mengaktifkan", "Mengoreksi", "Mengalihkan", "Mengalihkan"],
+        ["Menyesuaikan", "Mendemonstrasikan", "Menggantikan", "Mempertajam"],
+        ["Menggabungkan", "Merancang", "Memutar", "Membentuk"],
+        ["Melamar", "Memilah", "Mengirim", "Memadankan"],
+        ["Mengatur", "Melatih", "Memindahkan", "Menggunakan"],
+        ["Mengumpulkan", "Memperbaiki", "Mendorong", "Memulai"],
+        ["Menimbang", "Mengidentifikasikan", "Menarik", "Menyetir"],
+        ["Memperkecil", "Mengisi", "Memproduksi", "Menjeniskan"],
+        ["Membangun", "Menempatkan", "Mencampur", "Menempel"],
+        ["Mengubah", "Membuat", "Mengoperasikan", "Menseketsa"],
+        ["Membersihkan", "Memanipulasi", "Mengemas", "Melonggarkan"],
+        ["Memposisikan", "Mereparasi", "Membungkus", "Menimbang"],
+        ["Mengonstruksi", "Mencampur", "-", "-"]
+    ];
+
+    // Data untuk Tabel 3 (5 Kolom, 15 Baris)
+    const data3 = [
+        ["Memilih", "Menjawab", "Mengasumsikan", "Menganut", "Mengubah Perilaku"],
+        ["Mempertanyakan", "Membantu", "Meyakini", "Mengubah", "Berakhlak Mulia"],
+        ["Mengikuti", "Mengajukan", "Melengkapi", "Menata", "Mempengaruhi"],
+        ["Memberi", "Mengompromikan", "Meyakinkan", "Mengklasifikasikan", "Mendengarkan"],
+        ["Menganut", "Menyenangi", "Memperjelas", "Mengombinasikan", "Mengkualifikasi"],
+        ["Mematuhi", "Menyambut", "Memprakarsai", "Mempertahankan", "Melayani"],
+        ["Meminati", "Mendukung", "Mengimani", "Membangun", "Menunjukkan"],
+        ["-", "Menyetujui", "Mengundang", "Membentuk Pendapat", "Membuktikan"],
+        ["-", "Menampilkan", "Menggabungkan", "Memadukan", "Memecahkan"],
+        ["-", "Melaporkan", "Mengusulkan", "Mengelola", "-"],
+        ["-", "Memilih", "Menekankan", "Menegosiasi", "-"],
+        ["-", "Mengatakan", "Menyumbang", "Merembuk", "-"],
+        ["-", "Memilah", "-", "-", "-"],
+        ["-", "Menolak", "-", "-", "-"]
+    ];
+
+    function renderTable(tableBodyId, dataArray, filter = "") {
+        const tbody = document.getElementById(tableBodyId);
+        tbody.innerHTML = "";
+        let visibleCount = 0;
+        const lowerFilter = filter.toLowerCase().trim();
+
+        dataArray.forEach(row => {
+            const rowMatches = lowerFilter === "" || row.some(cell => cell && cell.toLowerCase().includes(lowerFilter));
+
+            if (rowMatches) {
+                visibleCount++;
+                const tr = document.createElement('tr');
+                // Menggunakan Tailwind hover state untuk efisiensi
+                tr.className = "hover:bg-[#ee1522]/5 transition-colors duration-150";
+                
+                row.forEach((cell, idx) => {
+                    const td = document.createElement('td');
+                    // Style dasar sel tabel
+                    const borderRight = idx === row.length - 1 ? "" : "border-r border-gray-200";
+                    td.className = `p-[0.85rem_1rem] text-gray-700 ${borderRight}`;
+
+                    if (!cell) {
+                        td.textContent = "-";
+                        td.className += " text-gray-400 italic";
+                    } else if (lowerFilter && cell.toLowerCase().includes(lowerFilter)) {
+                        const regex = new RegExp(`(${lowerFilter})`, 'gi');
+                        td.innerHTML = cell.replace(regex, '<span class="bg-yellow-200 px-1 rounded font-semibold text-gray-900">$1</span>');
+                    } else {
+                        td.textContent = cell;
+                    }
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            }
+        });
+
+        return visibleCount;
+    }
+
+    function searchTable(inputId, tableId, noResultsId) {
+        const filter = document.getElementById(inputId).value;
+        let dataMap = data1;
+        let tbodyId = 'tableBody1';
+
+        if (tableId === 'bloomTable2') {
+            dataMap = data2;
+            tbodyId = 'tableBody2';
+        } else if (tableId === 'bloomTable3') {
+            dataMap = data3;
+            tbodyId = 'tableBody3';
+        }
+
+        const visibleCount = renderTable(tbodyId, dataMap, filter);
+        const noResultsEl = document.getElementById(noResultsId);
+        
+        if (visibleCount === 0) {
+            noResultsEl.classList.remove("hidden");
+            noResultsEl.classList.add("block");
+        } else {
+            noResultsEl.classList.remove("block");
+            noResultsEl.classList.add("hidden");
+        }
+    }
+
+    // Initial renders on window load
+    window.onload = function() {
+        renderTable('tableBody1', data1);
+        renderTable('tableBody2', data2);
+        renderTable('tableBody3', data3);
+    };
+</script>

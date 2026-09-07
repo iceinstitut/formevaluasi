@@ -1,0 +1,767 @@
+---
+layout: default
+title: Pengembangan Course Daring ICE Institute
+---
+
+<!-- Header Mobile -->
+<header class="mobile-header lg:hidden flex items-center justify-between bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-50 shadow-sm">
+    <span class="text-red-600 font-bold tracking-wide">MODUL PENGEMBANGAN</span>
+    <button class="px-3 py-1.5 text-sm text-red-600 border border-red-600 rounded-lg hover:bg-red-50 font-medium transition-colors" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+        Daftar Isi
+    </button>
+</header>
+
+<!-- Offcanvas Mobile -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar">
+    <div class="offcanvas-header p-4 border-b border-gray-100 flex justify-between items-center">
+        <h5 class="offcanvas-title text-red-600 font-bold text-lg">Daftar Isi</h5>
+        <button type="button" class="btn-close text-gray-400 hover:text-gray-700" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+        <nav id="nav-container-mobile" class="nav-dynamic p-4 space-y-1"></nav>
+    </div>
+</div>
+
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row">
+    <!-- Sidebar Desktop -->
+    <aside class="hidden lg:block w-72 h-[calc(100vh-100px)] sticky top-[90px] p-6 border-r border-gray-200 overflow-y-auto shrink-0">
+        <div class="text-red-600 font-extrabold tracking-wider mb-4 uppercase text-sm">
+            Pengembangan Mata Kuliah Daring Self-Paced
+        </div>
+        <hr class="border-gray-200 mb-4">
+        <nav id="nav-container" class="nav-dynamic flex flex-col space-y-1 text-sm text-gray-700"></nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content flex-1 p-4 lg:p-8 overflow-hidden" id="content-body">
+        <section class="space-y-6">
+            <div>
+                <img src="https://iceinstitut.github.io/image/aset/ice-institute-logo-horizontal.png" alt="ICE Institute Logo" class="mt-0 max-w-xs h-auto shadow-none rounded-none">
+            </div>
+
+            <h1 class="text-3xl lg:text-4xl font-extrabold text-gray-900 border-b-4 border-red-600 pb-2 tracking-tight uppercase leading-tight">
+                Pengembangan Mata Kuliah Daring Self-Paced
+            </h1>
+
+            <h2 id="1" class="text-2xl font-bold text-gray-900 mt-10 mb-4 relative pl-4 border-l-4 border-red-600 scroll-mt-28">Pendahuluan</h2>
+            <p class="text-gray-700 leading-relaxed">ICE Institute adalah <i>Indonesia Cyber Education Institute</i>, merupakan pusat kuliah daring yang terakreditasi oleh Kementerian Pendidikan dan Kebudayaan. Menyediakan bermacam kuliah dalam jaringan (daring) dari banyak Perguruan Tinggi dan penyedia pembelajaran daring di seluruh Indonesia.</p>
+            <p class="text-gray-700 leading-relaxed">Tujuan utama dari ICE Institute adalah untuk memfasilitasi penyediaan pendidikan berkualitas sekaligus menjamin kualitas layanan pembelajaran daring dan pendidikan daring. Lewat ICE Institute, pengguna akan termudahkan dalam memilih kuliah daring yang tepat untuk pengembangan karir di era Industri 4.0</p>
+            <p class="text-gray-700 leading-relaxed">ICE Institute adalah jawaban untuk menyongsong era revolusi industri 4.0 yang telah mengubah cara pandang tentang pendidikan. Perubahan yang dilakukan tidak hanya sekadar cara mengajar, tetapi jauh yang lebih esensial, yakni perubahan cara pandang terhadap konsep pendidikan menjadi holistik, bukan lagi parsial.</p>
+            <p class="text-gray-700 leading-relaxed">Dalam era revolusi industri 4.0 segala hal menjadi tanpa batas (<i>borderless</i>) dengan penggunaan daya komputasi dan data yang tidak terbatas (<em>unlimited</em>). Ini terjadi karena dipengaruhi oleh perkembangan internet dan teknologi digital yang masif sebagai tulang punggung pergerakan dan konektivitas manusia dan mesin.</p>
+            <p class="text-gray-700 leading-relaxed">Selain untuk menghadapi era industri 4.0, ICE Institute diharapkan mampu berperan dalam peningkatan perluasan akses dan pemerataan kualitas pendidikan untuk mendorong Angka Partisipasi Kasar (APK) menjadi 40%. ICE Institute juga akan membantu pemenuhan kebutuhan <i>lifelong learner</i> melalui penyediaan sistem dan konten pembelajaran bermutu yang dapat diakses kapanpun dan dimanapun.</p>
+            <p class="text-gray-700 leading-relaxed">Panduan ini disusun bagi Perguruan Tinggi yang akan membuka kelas perkuliahan daring di laman ICE Institute yang bersifat <i>self-paced learning</i>. Menurut Southard et al. (2015) bahwa <i>the self-paced online course is a relatively new and rare variation of an online course within the traditional university forum</i>. Tipe pembelajaran bersifat <em>self-paced</em> merupakan suatu format pembelajaran baru dari pembelajaran daring. Gerlich et al. (2009) menambahkan bahwa <i>self-paced learning is 100% online course, there is little or no synchronicity between the student and the professor.</i> Pembelajaran <i>self-paced</i> diselenggarakan secara asinkronus. Peserta didik dapat menyesuaikan kemampuan dan kecepatan mereka dalam menyelesaikan pembelajarannya (Southard et al., 2015).</p>
+
+            <h2 id="2" class="text-2xl font-bold text-gray-900 mt-10 mb-4 relative pl-4 border-l-4 border-red-600 scroll-mt-28">Defenisi Self-Paced Online Learning</h2>
+            <p class="text-gray-700 leading-relaxed">Demi memenuhi kebutuhan pembelajar, program pembelajaran secara daring juga disesuaikan tingkat kemampuan pembelajar. Terkait dengan&nbsp; kemampuan yang berbeda beberapa pembelajar ada yang membutuhkan banyak waktu untuk memahami materi yang diberikan dan bahkan sebaliknya.&nbsp;</p>
+            <p class="text-gray-700 leading-relaxed">Salah satu tipe program pembelajar yang ditawarkan adalah <i>self-paced learning</i>. Tipe ini merupakan salah satu bentuk pembelajaran mandiri yang memungkinkan pembelajar atau pemelajar belajar kapan saja, dimana saja secara <em>online</em>. Pembelajar dapat menyelesaikan tugas belajar dengan kecepatan yang disesuaikan dengan tingkat penguasaan pribadi mereka. Ini berarti mereka mungkin membutuhkan waktu lebih lama untuk memahami materi yang mereka pelajari, memahami topik yang mencakup materi yang sudah mereka ketahui, atau mengulang topik sesuai kebutuhan (Bray &amp; McClaskey, 2010).&nbsp;</p>
+            <p class="text-gray-700 leading-relaxed">Tipe pembelajaran ini tidak mengikuti jadwal tertentu, tetapi sebaliknya memungkinkan peserta untuk mengatur langkah mereka sendiri dengan memilih materi pembelajaran dan metode yang ditawarkan. Ditinjau dari segi asesmen, penilaian tugas akan terkomputerisasi dan bergantung pada kunci jawaban yang diberikan sebelumnya, tetapi dalam beberapa kasus, tutor atau instruktur akan dapat menandakan suatu tugas ketika diserahkan selama pembelajaran.&nbsp;</p>
+            <p class="text-gray-700 leading-relaxed"><em>Self-paced learning</em> dengan diyakini dapat menciptakan pembelajaran yang optimal karena pemelajar dapat menentukan kemampuannya, memutuskan kecepatan, dan waktu pengalaman belajar mereka. Peserta secara aktif terlibat dalam melakukan tugas-tugas pembelajaran tertentu dan mengalami keberhasilan dalam pembelajaran. Metode belajar ini juga disebut pembelajaran <em>self-directed learning</em>.</p>
+            <p class="text-gray-700 leading-relaxed">Dengan kata lain, <em>self-paced learning</em> adalah metode pembelajaran daring yang memungkinkan pengguna atau pemelajar dapat belajar secara mandiri melalui konten dan <i>learning management system</i> (LMS). LMS adalah perangkat lunak (<em>software</em> yang didesain untuk mengelola seluruh kegiatan pembelajaran secara <i>online</i>/digital) yang sudah disiapkan. <i>Self-paced learning</i> tidak memerlukan kehadiran trainer/tutor karena seluruh kegiatan pembelajaran (mulai dari kegiatan pembukaan, akses modul, sampai dengan kegiatan evaluasi) berada dalam satu paket.</p>
+
+            <h2 id="3" class="text-2xl font-bold text-gray-900 mt-10 mb-4 relative pl-4 border-l-4 border-red-600 scroll-mt-28">Perancangan Mata Kuliah Self-Paced Learning</h2>
+            <p class="text-gray-700 leading-relaxed">Panduan ini membahas tentang desain pengembangan program pembelajaran online dengan bentuk <em>self-paced learning</em> termasuk desain pembuatan materi kursus online. Pengembangan program pembelajaran itu tidak jauh berbeda dari pengembangan pembelajaran yang disajikan secara daring pada umumnya.</p>
+            <p class="text-gray-700 leading-relaxed">Tahapan awal dalam pengembangan mata kuliah daring (pembelajaran) adalah melalui tahap perancangan pembelajaran sehingga menghasilkan sebuah silabus yang relevan dengan Kerangka Kualifikasi Nasional Indonesia (KKNI), kebutuhan peserta, kebutuhan program studi, dan kebutuhan industri/job market, serta mengakomodasi beberapa level taksonomi.</p>
+
+            <div class="my-6">
+                <img id="Picture2" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_taksonomi_bloom_digital.jpg" alt="Gambar 1. Taksonomi Bloom Digital.jpg" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">1 - Gambar 1. Taksonomi Bloom Digital (sumber: <a href="https://teachonline.asu.edu/" class="text-red-600 underline">https://teachonline.asu.edu/</a>)</span>
+
+            <h3 id="31" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Tahap I: Analisis</h3>
+            <p class="text-gray-700 leading-relaxed">Beberapa komponen yang harus dipersiapkan sebelum mengembangkan materi pembelajaran adalah:</p>
+            <ol class="list-decimal list-inside space-y-2 text-gray-700 my-4 pl-2">
+                <li>Rumusan Deskripsi Mata Kuliah</li>
+                <li>Identifikasi Capaian Pembelajaran Lulusan (CPL)</li>
+                <li>Identifikasi Capaian Pembelajaran Mata Kuliah (CPMK) berdasarkan CPL.</li>
+                <li>Rumusan sub-CPMK yang sesuai dengan CMPK.</li>
+                <li>Analisis tiap tahapan pembelajaran sesuai durasi yang diperlukan.</li>
+                <li>Analisis <em>Learning Object </em>(LO), media, dan perangkat pembelajaran yang diperlukan yang sesuai dengan CPMK.</li>
+                <li>Rumusan panduan belajar.</li>
+                <li>Panduan bagi pengguna untuk mengakses mata kuliah pada <em>Open edX System </em>atau menggunakan LMS lain.</li>
+                <li>Artikel yang terkait dengan mata kuliah.</li>
+            </ol>
+
+            <h3 id="32" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Tahap II: Desain</h3>
+            <p class="text-gray-700 leading-relaxed">Pembelajaran self-paced learning diselenggarakan secara&nbsp; asynchronous. Pembelajaran asynchronous merupakan pembelajaran daring yang menyediakan berbagai LO dan forum diskusi yang dapat diakses oleh peserta kapan saja dan darimana saja dalam rentang waktu yang telah ditentukan (sesi/babak/inisiasi) namun tidak dapat berinteraksi atau berdiskusi secara langsung di waktu yang bersamaan.</p>
+
+            <h3 id="33" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Tahap III: Pengembangan</h3>
+            <p class="text-gray-700 leading-relaxed">Tahap pengembangan terkait dengan materi utama, materi pengayaan, dan asesmen yang memungkinkan peserta dapat mengatur sendiri kemampuan dan kecepatan belajar.</p>
+            <ol class="list-decimal list-inside space-y-2 text-gray-700 my-4 pl-2">
+                <li>Mengembangkan beragam LO dalam format teks, gambar, grafis, audio, video/audio visual, dan sebagainya sesuai dengan kebutuhan pembelajaran. </li>
+                <li>Mengembangkan beragam media pembelajaran daring untuk mewadahi LO yang dikembangkan.</li>
+                <li>Mengembangkan asesmen berupa kuis, tugas, proyek, dan lain-lain yang ternilai secara sistem.</li>
+                <li>Mengembangkan forum diskusi yang memungkinkan antarpeserta berdiskusi di dalam kelas daring.</li>
+            </ol>
+
+            <div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg flex items-start space-x-3">
+                <span class="text-2xl">💡</span>
+                <div class="flex-1 text-sm text-amber-900 leading-relaxed">
+                    <span class="font-bold text-amber-800 uppercase tracking-wide block mb-1">Catatan:</span>
+                    <i>Pilih media yang praktis, tersedia, dan mudah digunakan oleh peserta didik. Media juga harus realistis dan mencerminkan aktivitas pekerjaan (termasuk persyaratan keselamatan di tempat kerja). Perlu jadi pertimbangan juga adalah media memenuhi persyaratan aksesibilitas. Misalnya, apakah media berupa video menyertakan transkrip atau teks. Apa pun jenis media yang dipilih, pastikan media tersebut sah dan kredibel. Hindari sumber yang menyajikan sudut pandang yang bias.</i>
+                </div>
+            </div>
+
+            <p class="text-gray-700 leading-relaxed">Saat menentukan aktivitas yang akan disertakan dalam pembelajaran, sertakan aktivitas yang:</p>
+            <ul class="list-disc list-inside space-y-2 text-gray-700 my-4 pl-2">
+                <li>Berkaitan langsung dengan tujuan unit.</li>
+                <li>Memungkinkan untuk praktek keterampilan.</li>
+                <li>Memunculkan minat pembelajar.</li>
+                <li>Berkaitan dengan semua domain pembelajaran.</li>
+            </ul>
+
+            <h3 id="34" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Tahap IV: Implementasi&nbsp;</h3>
+            <ol class="list-decimal list-inside space-y-2 text-gray-700 my-4 pl-2">
+                <li>Melaksanakan pelatihan bagi dosen yang akan mengembangkan materi untuk <em>self-paced learning</em>.</li>
+                <li>Melaksanakan <em>self-paced learning</em> secara daring.</li>
+            </ol>
+
+            <h3 id="35" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Tahap V: Evaluasi</h3>
+            <ol class="list-decimal list-inside space-y-2 text-gray-700 my-4 pl-2">
+                <li>Mengevaluasi proses pembelajaran daring.</li>
+                <li>Menghasilkan data dan saran untuk perbaikan kualitas pembelajaran daring selanjutnya.</li>
+            </ol>
+
+            <h2 id="4" class="text-2xl font-bold text-gray-900 mt-10 mb-4 relative pl-4 border-l-4 border-red-600 scroll-mt-28">Pengembangan Learning Object (LO)</h2>
+            <p class="text-gray-700 leading-relaxed">Istilah materi pembelajaran yang digunakan di ICE Institute adalah <i>Learning Object </i>(LO). Secara umum, konsep pengembangan LO dapat dilakukan dengan tiga pendekatan, yaitu: membuat sendiri, mengadaptasi, atau mengadopsi. LO yang digunakan di dalam pembelajaran daring bisa bermacam-macam jenis. Pemilihan jenis LO disesuaikan dengan kebutuhan pembelajaran dan tetap memperhatikan jenis lisensi yang dipakai, yaitu <i>Copyright, Copyleft</i>, atau <em>Creative Commons</em>. Berikut adalah beberapa format LO yang dapat digunakan.</p>
+
+            <h3 id="41" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Teks</h3>
+            <p class="text-gray-700 leading-relaxed">LO dalam format teks dapat dikemas dalam media <i>ebook, ejournal, epaper, emagazine</i> (pdf, <em>epub</em>, dan sebagainya), <em>Word</em>, <em>PowerPoint</em>, dan sebagainya. LO format teks juga dapat dipadukan dengan LO format lain agar lebih menarik dan membantu memudahkan pemahaman bagi pembaca, misalnya dipadukan dengan gambar sebagai ilustrasi. Hal yang perlu diperhatikan dalam penggunaan LO jenis teks adalah:</p>
+            <ol class="list-decimal list-inside space-y-2 text-gray-700 my-4 pl-2">
+                <li>Ukuran huruf harus mudah untuk dilihat dan dibaca</li>
+                <li>Jenis huruf yang mudah terbaca</li>
+                <li>Warna huruf yang dipilih dapat membuat teks yang jelas dan mudah terbaca.</li>
+            </ol>
+            <p class="text-gray-700 leading-relaxed">Jika mengadopsi LO format teks dari ejournal atau ebook tertentu, maka perlu dipertimbangkan aksesnya. Pilihlah <em>ejournal</em> atau <em>ebook </em>yang bersifat <em>open journal</em> dan hindari jurnal abal-abal atau jurnal predator.&nbsp;</p>
+            <p class="text-gray-700 leading-relaxed">Contoh LO kombinasi teks dan gambar</p>
+            
+            <div class="my-6">
+                <img id="Picture3" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_kombinasi_lo_teks_dan_gambar.jpg" alt="kombinasi_lo_teks_dan_gambar" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">2 - Contoh kombinasi LO teks dan gambar&nbsp;</span>
+
+            <h3 id="42" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Gambar</h3>
+            <p class="text-gray-700 leading-relaxed">Penggunaan LO dalam format gambar perlu memperhatikan:</p>
+            <ol class="list-decimal list-inside space-y-2 text-gray-700 my-4 pl-2">
+                <li>Jenis file gambar yang dipakai harus memperhitungkan tingkat interoperabilitasnya. Gunakan jenis file gambar seperti JPG, JPEG, PNG, dan sebagainya yang lebih umum agar dapat digunakan di berbagai perangkat.</li>
+                <li>Ukuran piksel gambar harus diperhitungkan agar tidak pecah ketika diperbesar.</li>
+                <li>Jika diperlukan, teks dapat ditambahkan atau dikombinasikan di dalam penggunaan LO gambar.</li>
+            </ol>
+            
+            <div class="my-6">
+                <img id="Picture4" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_kombinasi_lo_format_gambar_dan_teks.jpg" alt="kombinasi_lo_format_gambar_dan_teks.jpeg" class="w-full max-w-md mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">3 - Contoh kombinasi LO format gambar dan teks&nbsp;</span>
+
+            <h3 id="43" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Audio</h3>
+            <p class="text-gray-700 leading-relaxed">Penggunaan LO dalam format audio perlu mempertimbangkan jenis file. Jenis file seperti MP3, M4A, OGG, dan sebagainya. Pilihlah jenis file yang lebih umum digunakan oleh banyak perangkat. Jika mengadopsi LO format audio dari sumber tertentu maka harus memperhatikan jenis lisensi, aksesibilitas, interopabilitas, dan ukuran file.</p>
+            <p class="text-gray-700 leading-relaxed">Contoh LO Audio</p>
+            
+            <div class="my-4">
+                <audio controls class="w-full max-w-md mx-auto">
+                    <source src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_lo_format_audio.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center my-2">4 - LO format audio (sumber: British Council)</span>
+
+            <h3 id="44" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Video</h3>
+            <p class="text-gray-700 leading-relaxed">Penggunaan LO dalam format video perlu mempertimbangkan:</p>
+            <p class="text-gray-700 leading-relaxed">Jenis file seperti AVI, MP4, MPEG, MKV, dan sebagainya. Pilihlah jenis file yang lebih umum digunakan oleh banyak perangkat. Jika mengadopsi LO format video dari sumber tertentu maka harus memperhatikan jenis lisensi, aksesibilitas, interopabilitas, dan ukuran file.</p>
+            
+            <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg bg-black my-6">
+                <iframe src="https://www.youtube.com/embed/6Rha_AxYxdo?si=teQCHpIETAYoSan0" title="Contoh adopsi LO format video" class="absolute top-0 left-0 w-full h-full border-0" allowfullscreen></iframe>
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">5 - Contoh adopsi LO format video dari www.youtube.com/@Reuters</span>
+
+            <h3 id="45" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Infografis</h3>
+            <p class="text-gray-700 leading-relaxed">Dirangkum dari <a href="https://uprint.id/blog/4-elemen-yang-harus-anda-cantumkan-pada-desain-infografis/" class="text-red-600 underline">uprint.id</a> , penggunaan LO dalam format infografis perlu mempertimbangkan:</p>
+            
+            <h4 class="text-md font-semibold text-gray-800 flex items-center space-x-2 mt-4 mb-2">
+                <span class="w-2.5 h-2.5 bg-red-600 rounded-sm inline-block"></span>
+                <span>1. Flow dan Style</span>
+            </h4>
+            <p class="text-gray-700 leading-relaxed">Pada umumnya, infografis memiliki <em>flow</em> dari atas ke bawah atau dari kiri ke samping dengan format vertikal. Sebuah infografis harus memiliki tampilan visual yang mampu menarik pembaca untuk melihatnya. Oleh sebab itu, gunakan palet warna dan tetap konsisten pada format <em>style </em>yang dipilih.</p>
+
+            <h4 class="text-md font-semibold text-gray-800 flex items-center space-x-2 mt-4 mb-2">
+                <span class="w-2.5 h-2.5 bg-red-600 rounded-sm inline-block"></span>
+                <span>2. Data Story</span>
+            </h4>
+            <p class="text-gray-700 leading-relaxed">Meskipun pada umumnya infografis menyajikan data berupa grafis atau angka-angka yang menunjukkan nilai statistik tertentu, cantumkan sedikit narasi atau cerita dari data tersebut sebagai prolognya. Tidak mungkin hanya tiba-tiba menyertakan grafis data setelah judul, bukan? Agar lebih mudah dimengerti, sertakan beberapa kata atau kalimat yang mendukung data. Jangan terlalu panjang karena justru bisa membuat orang malas membacanya.</p>
+
+            <p class="font-semibold text-gray-800 mt-4">Kemas dalam Bentuk Hirarki</p>
+            <p class="text-gray-700 leading-relaxed">Info yang disajikan dalam bentuk hirarki atau bercabang-cabang layaknya pohon membuatnya mudah dipahami. Pada beberapa poin tertentu, bisa mencantumkan warna yang berbeda untuk menunjukkan penekanan. Selain warna, bisa bermain dengan spasi, <em>font style</em>, angka, dan ukuran huruf. Ini bertujuan untuk menarik perhatian pembaca. Bisa juga menambahkan beberapa efek seperti <em>bold, italic</em>, dan menggunakan huruf kapital asal tidak terlalu berlebihan dan tetap memperhatikan estetika.</p>
+
+            <p class="font-semibold text-gray-800 mt-4">Jarak Spasi</p>
+            <p class="text-gray-700 leading-relaxed">Infografis dituntut untuk bisa menyajikan info secara menyeluruh dengan ruang kerja yang minim. Meskipun begitu, perlu diingat bahwa sebaiknya tidak menyertakan terlalu banyak teks untuk penyajian informasi karena bisa membuat jenuh pembaca. Selalu sisakan ruang kosong atau spasi. Spasi ini berguna untuk menyeimbangkan teks, gambar dengan ukuran besar, dan desain itu sendiri.</p>
+
+            <div class="my-6">
+                <img id="Picture7" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_lo_infografis.jpg" alt="lo_infografis" class="w-full max-w-md mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">6 - LO Infografis Sumber www.icei.ac.id</span>
+
+            <h3 id="46" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Chart, Tabel, Grafik</h3>
+            <p class="text-gray-700 leading-relaxed">Penggunaan LO dalam format <em>chart</em>, tabel, dan grafik harus memperhatikan hal-hal sebagai berikut.</p>
+            <ol class="list-decimal list-inside space-y-2 text-gray-700 my-4 pl-2">
+                <li>Kejelasan dan keterbacaan data
+                    <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                        <li>Kesesuaian antara data dan jenis <em>chart</em>, tabel, grafik yang digunakan</li>
+                        <li>Keseimbangan tampilan (proporsi data yang tampil, pembagian warna, dan sebagainya).</li>
+                        <li>Keindahan desain yang menarik</li>
+                    </ul>
+                </li>
+            </ol>
+            <p class="text-gray-700 leading-relaxed">Kelengkapan informasi penjelasan seperti misalnya penjelasan simbol atau warna tertentu yang digunakan.</p>
+
+            <div class="my-6">
+                <img id="Picture8" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_desain_3d_pie_chart.jpg" alt="desain_3d_pie_chart" class="w-full max-w-md mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">7 - Contoh desain 3D Pie Chart (Sumber: https://i.ytimg.com/vi/zljSZch0v24/maxresdefault.jpg)</span>
+
+            <h3 id="47" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Augmented Reality (AR)/Virtual Reality (VR)</h3>
+            <p class="text-gray-700 leading-relaxed">Perkembangan teknologi AR/VR memungkinkan pembelajaran dilakukan secara lebih nyata meskipun pada kenyataannya seluruh tampilan digital tersebut adalah di dunia maya. Beberapa rangkuman teknologi AR/VR yang dapat digunakan di dalam proses pembelajaran.</p>
+
+            <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg bg-black my-6">
+                <iframe title="Muscles and Bones Anatomy body Animation" class="absolute top-0 left-0 w-full h-full border-0" allow="autoplay; fullscreen; xr-spatial-tracking" src="https://sketchfab.com/models/db7be21587804a32ab3a99e165c56e19/embed"></iframe>
+            </div>
+            <p class="text-xs text-gray-600 text-center -mt-4 mb-6">
+                <a href="https://sketchfab.com/3d-models/muscles-and-bones-anatomy-body-animation-db7be21587804a32ab3a99e165c56e19" target="_blank" rel="nofollow" class="font-bold text-sky-600 hover:underline">Muscles and Bones Anatomy body Animation</a> by 
+                <a href="https://sketchfab.com/flarar" target="_blank" rel="nofollow" class="font-bold text-sky-600 hover:underline">flarar-01</a> on 
+                <a href="https://sketchfab.com" target="_blank" rel="nofollow" class="font-bold text-sky-600 hover:underline">Sketchfab</a>
+            </p>
+
+            <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg bg-black my-6">
+                <iframe src="https://www.youtube.com/embed/TsGaDUWLhAI?si=jEYnoXZlbNcoooeu" title="Contoh adopsi LO format video" class="absolute top-0 left-0 w-full h-full border-0" allowfullscreen></iframe>
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">8 - Contoh LO Augment Reality by <a href="https://www.youtube.com/@VisibleBodyOfficial" class="text-red-600 underline">Visible Body</a></span>
+
+            <h2 id="5" class="text-2xl font-bold text-gray-900 mt-10 mb-4 relative pl-4 border-l-4 border-red-600 scroll-mt-28">Penyelenggaraan Pembelajaran<em> Self-Paced</em></h2>
+            <p class="text-gray-700 leading-relaxed">Dalam tahap persiapan <em>self-paced learning</em>, PT penyelenggara melalui para dosen pengampu dapat melakukan aktifitas berikut.</p>
+            <p class="text-gray-700 leading-relaxed">Memasukkan sapaan dalam bentuk teks dan video di halaman pra-sesi atau sesi pendahuluan. Di dalamnya dapat memuat identitas pembelajaran, seperti:</p>
+            
+            <ul class="list-disc list-inside space-y-2 text-gray-700 my-4 pl-2">
+                <li>kode dan nama pembelajaran,</li>
+                <li>jumlah SKS,</li>
+                <li>identitas dosen (nama, email, foto/video sapaan),</li>
+                <li>melampirkan silabus</li>
+                <li>deskripsi MK,</li>
+                <li>narasi CPMK,</li>
+                <li>jumlah sesi yang akan ditempuh oleh peserta,</li>
+                <li>aktifitas apa saja yang harus dilakukan oleh peserta,</li>
+                <li>aturan kelas daring (penyampaian tentang <em>plagiarism consent</em>),</li>
+                <li>asesmen terhadap capaian pembelajaran peserta,</li>
+                <li>salam penutup.</li>
+            </ul>
+
+            <div class="my-6">
+                <img id="Picture10" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_ilustrasi_perkenalan_pra-sesi_pembelajaran.jpg" alt="ilustrasi_perkenalan_pra-sesi_pembelajaran" class="w-full max-w-xl mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">9 - Ilustrasi perkenalan pra-sesi pembelajaran (sumber: <a href="https://learning.edx.org/" class="text-red-600 underline">https://learning.edx.org/</a>)</span>
+
+            <p class="text-gray-700 leading-relaxed">Membuat sapaan pembuka untuk setiap sesi sekaligus memberi informasi kepada peserta tentang sub-CPMK yang akan dicapai pada setiap sesi. Lalu akhiri dengan salam penutup dan salam penyemangat.</p>
+            <p class="text-gray-700 leading-relaxed">Memasukkan kelengkapan LO pada setiap sesi. Dalam proses ini, dosen harus mengecek satu per satu LO apakah semuanya berfungsi secara normal (dapat dibuka/dijalankan).</p>
+
+            <h3 id="51" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Pengelolaan pembelajaran daring</h3>
+            <p class="text-gray-700 leading-relaxed">Pengelolaan pembelajaran daring perlu memperhatikan aspek-aspek sebagai berikut yang dikutip dari <em>Penn State</em><em>’</em><em>s World Campus</em>.</p>
+            
+            <h4 id="511" class="text-md font-semibold text-gray-800 flex items-center space-x-2 mt-6 mb-2">
+                <span class="w-2.5 h-2.5 bg-red-600 rounded-sm inline-block"></span>
+                <span>a. Berlatih strategi manajemen pembelajaran yang proaktif</span>
+            </h4>
+            <p class="text-gray-700 leading-relaxed">Contoh strategi manajemen pembelajaran proaktif meliputi: memantau pengiriman tugas, berkomunikasi dengan peserta, mengingatkan peserta tentang tenggat waktu yang terlewat atau akan datang, dan membuat penyesuaian pembelajaran di mana dan kapan saja diperlukan.</p>
+            <p class="text-gray-700 leading-relaxed">Dosen harus menetapkan ekspektasi yang jelas dan terdefinisi untuk peserta dan mengkomunikasikannya secara efektif sehingga peran dan tanggung jawab dosen dan peserta ditentukan dengan jelas.</p>
+
+            <div class="my-6">
+                <img id="Picture11" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_ilustrasi_manajemen_pembelajaran.jpg" alt="ilustrasi_manajemen_pembelajaran.jpg" class="w-full max-w-md mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">10 - Ilustrasi manajemen pembelajaran (sumber: https://www.germantownacademy.net/)</span>
+
+            <h4 id="512" class="text-md font-semibold text-gray-800 flex items-center space-x-2 mt-6 mb-2">
+                <span class="w-2.5 h-2.5 bg-red-600 rounded-sm inline-block"></span>
+                <span>B. Bersiaplah untuk kemungkinan gangguan teknis.</span>
+            </h4>
+            <p class="text-gray-700 leading-relaxed">Komunikasikan setiap perubahan tak terduga kepada peserta untuk mengurangi tingkat stres dan kecemasan yang terkait dengan perubahan pada pola pembelajaran yang telah ditetapkan sebelumnya.</p>
+
+            <div class="my-6">
+                <img id="Picture12" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_ilustrasi_gangguan_teknis_pada_system.jpg" alt="ilustrasi_gangguan_teknis_pada_system" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">11 - Ilustrasi gangguan teknis pada system/jaringan (sumber: https://www.seo.organic/)</span>
+
+            <h4 id="513" class="text-md font-semibold text-gray-800 flex items-center space-x-2 mt-6 mb-2">
+                <span class="w-2.5 h-2.5 bg-red-600 rounded-sm inline-block"></span>
+                <span>C. Tetapkan proses yang tepat waktu dalam menilai tugas peserta</span>
+            </h4>
+            <p class="text-gray-700 leading-relaxed">Dosen harus mengembangkan rencana tentang bagaimana tugas akan dinilai dan dikembalikan kepada peserta pada waktu yang tepat dan memberi tahu peserta tentang kapan nilai ditampilkan <em>by system</em>.</p>
+
+            <div class="my-6">
+                <img id="Picture13" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_ilustrasi_manajemen_waktu_pembelajaran.jpg" alt="ilustrasi_manajemen_waktu_pembelajaran" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">12 - Ilustrasi manajemen waktu pembelajaran (sumber: https://www.facultyfocus.com/)</span>
+
+            <h4 id="514" class="text-md font-semibold text-gray-800 flex items-center space-x-2 mt-6 mb-2">
+                <span class="w-2.5 h-2.5 bg-red-600 rounded-sm inline-block"></span>
+                <span>d. Umpan Balik/Feedback</span>
+            </h4>
+            <p class="text-gray-700 leading-relaxed">Dosen harus menyiapkan umpan balik untuk setiap asesmen <em>by system</em> sehingga peserta mengetahui perkembangan belajar mereka.</p>
+            <p class="text-gray-700 leading-relaxed">Setidaknya ada tiga jenis umpan balik, yaitu korektif, direktif/sugestif, dan epistemik.</p>
+            
+            <ul class="list-disc list-inside space-y-2 text-gray-700 my-4 pl-2">
+                <li>Umpan balik korektif (<em>single loop</em>) adalah umpan balik sederhana yang berisi seperti: ya/tidak, benar/salah, atau lulus/gagal.</li>
+                <li>Umpan balik sugestif/direktif (double loop) adalah umpan balik yang menjelaskan, misalnya, suatu prosedur dapat diubah atau dimodifikasi.</li>
+                <li>Umpan balik epistemik adalah gabungan antara umpan balik korektif dan direktif yang ditambahkan penjelaskan mengapa suatu hal/benda/dan sebagainya terjadi, terbentuk, hancur, dan sebagainya. Umpan balik dapat didesain dan diberikan secara otomatis pada kegiatan pembelajaran tertentu, seperti: pada kuis dan forum diskusi.</li>
+            </ul>
+
+            <p class="text-gray-700 leading-relaxed">Beberapa karakteristik umpan balik yang baik menurut berbagai hasil penelitian berbeda-beda adalah sebagai berikut:</p>
+            <ul class="list-disc list-inside space-y-2 text-gray-700 my-4 pl-2">
+                <li>Umpan balik harus relevan dengan materi atau tugas pembelajaran yang sedang berjalan. (Hattie, J., dan Timperley, H., 2007)</li>
+                <li>Umpan balik harus diberikan dalam jeda waktu yang cepat. (Gallien dan Oomen-Early, 2008; Afify, 2018; Tanis, 2020)</li>
+                <li>Umpan balik harus konstruktif bagi perkembangan pengetahuan, keterampilan, dan pemahaman peserta. (Lee, 2014)</li>
+                <li>Umpan balik dapat diberikan dalam bentuk tertulis atau audiovisual. (Morris dan Chikwa, 2016)</li>
+                <li>Waktu untuk penyampaian umpan balik harus dikelola agar dosen dapat memberikannya secara konsisten. (Evans, dkk., 2020)</li>
+                <li>Umpan balik harus diberikan secara jelas dan padat. (Gregory, Levy, dan Jeffers, 2008).</li>
+            </ul>
+
+            <div class="my-6">
+                <img id="Picture14" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_tiga_jenis_umpan_balik.png" alt="tiga_jenis_umpan_balik" class="w-full max-w-md mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">13 - Tiga jenis umpan balik (sumber: https://educationrickshaw.com/)</span>
+
+            <h2 id="6" class="text-2xl font-bold text-gray-900 mt-10 mb-4 relative pl-4 border-l-4 border-red-600 scroll-mt-28">ASESMEN</h2>
+            <p class="text-gray-700 leading-relaxed">Secara umum, asesmen terbagi ke dalam dua jenis yaitu formatif dan sumatif. Asesmen formatif adalah <em>the process of seeking and interpreting evidence for use by learners and their teachers to decide where the learners are in their learning, where they need to go and how best to get there </em>(Assessment Reform Group (ARG), 2002). Asesmen sumatif adalah <em>the reflection of what students have learned in the past</em> (Ahmed, Ali, Shah, 2019). Khusus untuk mata kuliah yang dikembangkan dengan mode pembelajaran <em>Self-Paced</em>, tipe asesmen formatif yang disarankan dalam bentuk <em>multiple choice</em> sehingga penilaian/<em>grading</em> dapat dilakukan secara otomatis melalui sistem.</p>
+
+            <div class="my-6">
+                <img id="Picture15" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_asesmen_formatif_dan_sumatif.png" alt="asesmen_formatif_dan_sumatif" class="w-full max-w-md mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">14 - Asesmen formatif dan sumatif (sumber: https://www.sheffield.ac.uk/)</span>
+
+            <p class="text-gray-700 leading-relaxed">Dalam pembelajaran daring di ICE Institute, asesmen terhadap peserta berfungsi juga untuk menentukan apakah peserta dapat memeroleh sertifikat kredensial mikro dari pembelajaran yang telah diikuti dan diselesaikan.</p>
+
+            <h3 id="61" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Jenis-jenis Asesmen</h3>
+            <p class="text-gray-700 leading-relaxed">Asesmen dalam pembelajaran daring dapat menggunakan fitur penilaian dan umpan balik otomatis sehingga lebih membantu dosen dan peserta. Beberapa jenis asesmen yang dapat diimplementasikan pada pembelajaran daring secara <em>Self-Paced</em> dalam sistem ICE Institute adalah sebagai berikut.</p>
+
+            <h4 id="611" class="text-md font-semibold text-gray-800 flex items-center space-x-2 mt-6 mb-2">
+                <span class="w-2.5 h-2.5 bg-red-600 rounded-sm inline-block"></span>
+                <span>a. Checkboxes with Hints and Feedback</span>
+            </h4>
+
+            <div class="my-6">
+                <img id="Picture16" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_jenis_jenis_asesmen.png" alt="jenis_jenis_asesmen" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">15 - Jenis Jenis Asesmen</span>
+
+            <p class="text-gray-700 leading-relaxed">Dalam asesmen jenis ini, pemelajar memilih satu atau beberapa opsi dari daftar kemungkinan jawaban. Untuk menjawab soal dengan benar, seorang pemelajar harus memilih semua pilihan jawaban yang benar dan tidak ada satu pun pilihan yang salah. Dosen pengampu harus menyiapkan pertanyaan disertai beberapa pilihan jawaban dengan setidaknya satu jawaban yang benar. Sebaiknya, pastikan bahwa semua pilihan jawaban tidak ambigu. Jawaban dengan ambiguitas dapat membuat pemelajar frustasi. Lihat Contoh di bawah ini.</p>
+
+            <div class="my-6">
+                <img id="Picture17" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_contoh_jenis_asesmen_checkboxes.png" alt="contoh_jenis_asesmen_checkboxes" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">16 - Contoh Jenis Asesmen Checkboxes</span>
+
+            <p class="text-gray-700 leading-relaxed">Berikut adalah cara mengembangkan asesmen <em>checkboxes </em>dengan <em>feedback</em>.</p>
+
+            <div class="my-6">
+                <img id="Picture18" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_cara_mengembangkan_asesmen_checkboxes_dengan_feedback.png" alt="cara_mengembangkan_asesmen_checkboxes_dengan_feedback" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">17 - Cara mengembangkan asesmen <em>checkboxes </em>dengan <em>feedback</em></span>
+
+            <h4 id="612" class="text-md font-semibold text-gray-800 flex items-center space-x-2 mt-6 mb-2">
+                <span class="w-2.5 h-2.5 bg-red-600 rounded-sm inline-block"></span>
+                <span>b. Multiple Choice/ Pilihan Ganda with Hints and Feedback</span>
+            </h4>
+            <p class="text-gray-700 leading-relaxed">Dalam asesmen jenis ini, pemelajar memilih satu pilihan dari daftar pilihan jawaban. <em>Multiple Choice</em> juga dapat memiliki beberapa opsi lanjutan, seperti menyusun ulang, mengacak, dan kumpulan pilihan jawaban untuk setiap pemelajar. Contoh pertanyaan pilihan ganda seperti berikut.</p>
+
+            <div class="my-6">
+                <img id="Picture19" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_jenis_asesmen_multiple_choice.png" alt="jenis_asesmen_multiple_choice" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">18 - Jenis Asesmen <em>Multiple Choice</em>/ Pilihan Ganda</span>
+
+            <p class="text-gray-700 leading-relaxed">Berikut adalah cara mengembangkan asesmen <em>multiple choice</em>/ pilihan ganda dengan <em>feedback</em>.</p>
+
+            <div class="my-6">
+                <img id="Picture20" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_cara_mengembangkan_asesmen_multiple_choice.png" alt="cara_mengembangkan_asesmen_multiple_choice" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">19 - Cara mengembangkan asesmen <em>multiple choice</em>/ pilihan ganda dengan <em>feedback</em></span>
+
+            <h4 id="613" class="text-md font-semibold text-gray-800 flex items-center space-x-2 mt-6 mb-2">
+                <span class="w-2.5 h-2.5 bg-red-600 rounded-sm inline-block"></span>
+                <span>c. Dropdown with Hints and Feedback</span>
+            </h4>
+            <p class="text-gray-700 leading-relaxed">Dalam asesmen jenis ini, pemelajar memilih satu pilihan dari daftar pilihan jawaban. Tidak seperti soal pilihan ganda, di mana pilihan jawaban selalu terlihat langsung di bawah pertanyaan, opsi jawaban untuk jenis asesmen <em>dropdown </em>tidak muncul sampai pemelajar menekan panah <em>dropdown </em>dan memilih opsi jawaban.</p>
+            <p class="text-gray-700 leading-relaxed">Tipe asesmen <em>dropdown </em>hanya dapat memiliki satu jawaban yang benar per pertanyaan dari beberapa opsi jawaban yang disediakan. Contoh asesmen <em>dropdown </em>sebagai berikut.</p>
+
+            <div class="my-6">
+                <img id="Picture21" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_jenis_asesmen_dropdown.png" alt="jenis_asesmen_dropdown" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">20 - Jenis Asesmen <em>Dropdown</em></span>
+
+            <p class="text-gray-700 leading-relaxed">Berikut adalah cara mengembangkan asesmen <em>dropdown </em>dengan <em>feedback</em></p>
+
+            <div class="my-6">
+                <img id="Picture22" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_cara_mengembangkan_asesmen_dropdown_dengan_feedback.png" alt="cara_mengembangkan_asesmen_dropdown_dengan_feedback" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">21 - Cara mengembangkan asesmen <em>dropdown </em>dengan <em>feedback</em></span>
+
+            <h4 id="614" class="text-md font-semibold text-gray-800 flex items-center space-x-2 mt-6 mb-2">
+                <span class="w-2.5 h-2.5 bg-red-600 rounded-sm inline-block"></span>
+                <span>d. Numerical Input with Hints and Feedback</span>
+            </h4>
+            <p class="text-gray-700 leading-relaxed">Dalam asesmen jenis ini, pemelajar memasukkan angka atau ekspresi matematika yang spesifik dan relatif sederhana untuk menjawab suatu pertanyaan. LMS secara otomatis mengubah jawaban yang dimasukkan pemelajar menjadi ekspresi simbolis yang muncul di bawah bidang respons.</p>
+            <p class="text-gray-700 leading-relaxed">Tanggapan untuk masalah input numerik dapat mencakup bilangan bulat, pecahan, dan konstanta seperti pi dan g. Respons juga dapat mencakup teks yang mewakili fungsi umum, seperti akar kuadrat (sqrt) dan basis log 2 (log2), serta fungsi trigonometri dan kebalikannya, seperti sinus (sin) dan arcsinus (arcsin). Untuk fungsi tersebut, pemelajar memasukkan teks yang diubah menjadi simbol matematika. Contoh berikut menunjukkan respons yang dimasukkan oleh pemelajar dan ekspresi numerik yang dihasilkan.</p>
+
+            <div class="my-6">
+                <img id="Picture23" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_numerical_input_with_hints_and_feedback.png" alt="numerical_input_with_hints_and_feedback" class="w-full max-w-[180px] mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <p class="text-xs text-gray-600 italic text-center">Keterangan : Seorang pemelajar mengetik n*x^(n-1) untuk memasukkan ekspresi simbolis n kali x ke pangkat n dikurangi 1.</p>
+
+            <p class="text-gray-700 leading-relaxed mt-4">Contoh asesmen numerical input with hints and feedback sebagai berikut.</p>
+
+            <div class="my-6">
+                <img id="Picture24" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_jenis_asesmen_numerical_input_with_hints_and_feedback.PNG" alt="jenis_asesmen_numerical_input_with_hints_and_feedback" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">22 - Jenis Asesmen <em>Numerical Input with Hints and Feedback</em></span>
+
+            <p class="text-gray-700 leading-relaxed">Berikut adalah cara mengembangkan asesmen <em>numerical input with hints and feedback</em>.</p>
+
+            <div class="my-6">
+                <img id="Picture25" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_cara_mengembangkan_asesmen_numerical_input_with_hints_and_feedback.png" alt="cara_mengembangkan_asesmen_numerical_input_with_hints_and_feedback" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">23 - Cara mengembangkan asesmen <em>Numerical Input with Hints and Feedback</em></span>
+
+            <h4 id="615" class="text-md font-semibold text-gray-800 flex items-center space-x-2 mt-6 mb-2">
+                <span class="w-2.5 h-2.5 bg-red-600 rounded-sm inline-block"></span>
+                <span>e. Text Input with Hints and Feedback</span>
+            </h4>
+            <p class="text-gray-700 leading-relaxed">Dalam asesmen jenis ini, pemelajar memasukkan teks ke dalam kolom jawaban. Jawaban dapat mencakup angka, huruf, dan karakter khusus seperti tanda baca. Karena teks yang dimasukkan pemelajar harus sama persis dengan jawaban yang ditentukan, termasuk ejaan dan tanda baca, Disarankan dosen menentukan lebih dari satu jawaban yang benar, sehingga memungkinkan perbedaan dalam kesalahan huruf besar dan ketik.</p>
+
+            <p class="text-gray-700 leading-relaxed mt-4">Contoh asesmen Text Input beserta feedback sebagai berikut.</p>
+
+            <div class="my-6">
+                <img id="Picture26" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_jenis_asesmen_text_input_with_hints_and_feedback.jpg" alt="jenis_asesmen_text_input_with_hints_and_feedback" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">24 - Jenis Asesmen Text Input with Hints and Feedback</span>
+
+            <p class="text-gray-700 leading-relaxed">Berikut adalah cara mengembangkan asesmen Text Input with Hints and Feedback</p>
+
+            <div class="my-6">
+                <img id="Picture27" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_cara_mengembangkan_asesmen_text_input_with_hints_and_feedback.PNG" alt="cara_mengembangkan_asesmen_text_input_with_hints_and_feedback" class="w-full max-w-md mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">25 - cara mengembangkan asesmen text input with hints and feedback</span>
+
+            <h3 id="62" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Pengaturan <em>Grading</em></h3>
+            <p class="text-gray-700 leading-relaxed">Gunakan topik di bagian ini untuk mempelajari tentang menyiapkan penilaian untuk kursus Anda. Menetapkan kebijakan penilaian memerlukan beberapa langkah, termasuk memutuskan apakah akan menyertakan bagian yang tidak dinilai dalam kursus Anda. Di bawah ini merupakan cara pengaturan grading/penilaian.</p>
+
+            <div class="my-6">
+                <img id="Picture28" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_tampilan_akses_pengaturan_grading.png" alt="tampilan_akses_pengaturan_grading" class="w-full max-w-md mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">26 - Tampilan akses pengaturan <em>grading</em>/penilaian</span>
+
+            <h4 id="621" class="text-md font-semibold text-gray-800 flex items-center space-x-2 mt-6 mb-2">
+                <span class="w-2.5 h-2.5 bg-red-600 rounded-sm inline-block"></span>
+                <span>a. Pengaturan Overall Grade Range</span>
+            </h4>
+            <p class="text-gray-700 leading-relaxed">Dosen pengampu harus mengatur rentang nilai untuk kelulusan mata kuliah (lulus atau gagal). Kontrol untuk rentang nilai ada di bagian atas halaman Penilaian seperti contoh di bawah ini.</p>
+
+            <div class="my-6">
+                <img id="Picture29" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_kontrol_rentang_nilai.png" alt="kontrol_rentang_nilai" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">27 - kontrol rentang nilai</span>
+
+            <p class="text-gray-700 leading-relaxed">Contoh di atas menunjukkan bahwa dosen pengampu mengatur rentang nilai lulus dan gagal, misalnya skor minimal lulus (<em>passing grade</em>) 50. Dosen pengampu dapat menyesuaikan rentang skor kelulusan sesuai kebutuhan dengan cara menggeser garis batas ke kiri atau ke kanan. Anda dapat melihat nomor rentang dari dua nilai yang berdekatan dengan perubahan garis. Batalkan pilihan baris saat berada di tempat yang Anda inginkan. Setelah Anda membuat perubahan pada rentang nilai, Anda harus memilih <em>Save Changes</em> di bagian bawah halaman untuk menyimpan perubahan.</p>
+
+            <h4 id="622" class="text-md font-semibold text-gray-800 flex items-center space-x-2 mt-6 mb-2">
+                <span class="w-2.5 h-2.5 bg-red-600 rounded-sm inline-block"></span>
+                <span>b. Masa Tenggang</span>
+            </h4>
+            <p class="text-gray-700 leading-relaxed">Dosen Pengampu tidak mengatur masa tenggang penilaian asesmen pembelajaran <em>self-paced.</em></p>
+
+            <h4 id="623" class="text-md font-semibold text-gray-800 flex items-center space-x-2 mt-6 mb-2">
+                <span class="w-2.5 h-2.5 bg-red-600 rounded-sm inline-block"></span>
+                <span>c. Konfigurasikan Komponen Grading</span>
+            </h4>
+            <p class="text-gray-700 leading-relaxed">Dosen pengampu harus menentukan komponen <em>grading </em>beserta bobotnya. Misalnya, dosen pengampu mengatur komponen, yakni:</p>
+            
+            <ul class="list-disc list-inside space-y-2 text-gray-700 my-4 pl-2">
+                <li>12 tugas yang disingkat menjadi TG dengan bobot 30%,</li>
+                <li>Satu (1) ujian tengah semester yang disingkat menjadi UTS dengan bobot 30%,</li>
+                <li>Satu (1) ujian akhir semester yang disingkat menjadi UAS dengan bobot 40%. Dengan demikian, total keseluruhan dari tiga (3) komponen grading memiliki bobot 100%. Sistem platform memberikan pilihan kepada dosen pengampu untuk menggunakan fitur <em>Number of Droppable</em>. <em>Number of Droppable</em> adalah fitur yang memungkinkan dosen pengampu untuk mengatur jumlah aktifikas penugasan yang tidak dihitung dalam komponen <em>grading</em>. Misalnya, dari 12 tugas terdapat 1 <em>Number of Droppable</em>. Ini berarti hanya akan ada 11 tugas yang dihitung dalam komponen tugas. Tugas yang masuk dalam N<em>umber of Droppable</em> ditentukan dari nilai tugas dengan skor terendah terlebih dahulu.</li>
+            </ul>
+
+            <div class="my-6">
+                <img id="Picture30" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_konfigurasikan_komponen_grading.png" alt="konfigurasikan_komponen_grading" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">28 - Konfigurasikan Komponen <em>Grading</em></span>
+
+            <h4 id="624" class="text-md font-semibold text-gray-800 flex items-center space-x-2 mt-6 mb-2">
+                <span class="w-2.5 h-2.5 bg-red-600 rounded-sm inline-block"></span>
+                <span>d. Mengaktifkan Grading Pada Subsection Asesmen.</span>
+            </h4>
+            <p class="text-gray-700 leading-relaxed">Setelah dosen pengampu mengkonfigurasikan Komponen <em>Grading </em>pada mata kuliah, dosen pengampu mengaktifkan fitur <em>grading </i>pada masing masing komponen pembelajaran yang masuk dalam komponen <em>grading</em>. Seperti contoh di bawah ini.</p>
+
+            <div class="my-6">
+                <img id="Picture31" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_contoh_mengaktifkan_grading_pada_subsection_asesmen.PNG" alt="contoh_mengaktifkan_grading_pada_subsection_asesmen" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">29 - Contoh mengaktifkan <em>grading </em>pada <em>subsection </em>asesmen</span>
+
+            <p class="text-gray-700 leading-relaxed">Pada gambar di atas dapat dilihat fitur <em>grading </i>telah aktif dengan tampilan centang (√ ) pada komponen komponen pembelajaran yang masuk dalam komponen <em>grading</em>.</p>
+
+            <div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-6 rounded-r-lg flex items-start space-x-3">
+                <span class="text-2xl">💡</span>
+                <div class="flex-1 text-sm text-amber-900 leading-relaxed">
+                    <span class="font-bold text-amber-800 uppercase tracking-wide block mb-1">Catatan:</span>
+                    <i>Jika dosen pengampu lupa mengaktifkan komponen grading pada mata kuliahnya, maka sistem tidak dapat melakukan penilaian secara otomatis.</i>
+                </div>
+            </div>
+
+            <h2 id="7" class="text-2xl font-bold text-gray-900 mt-10 mb-4 relative pl-4 border-l-4 border-red-600 scroll-mt-28">Evaluasi Program Matakuliah Daring</h2>
+            <p class="text-gray-700 leading-relaxed">Pada akhir seluruh kegiatan pembelajaran, dosen dan tim program studi mengevaluasi penyelenggaraan proses pembelajaran yang telah selesai. Kegiatan evaluasi sangat penting untuk mendapatkan data apakah pembelajaran yang telah selesai diselenggarakan berhasil atau memerlukan perbaikan untuk perkembangan yang lebih baik di masa yang akan datang. Elemen-elemen yang harus dievaluasi dari pembelajaran yang telah diselengarakan oleh universitas mitra pada ICE Institute mengadopsi model empat tingkat kerangka evaluasi dari Kirkpatrick (1998) yang dapat dilihat pada gambar di bawah ini.</p>
+
+            <div class="my-6">
+                <img id="Picture32" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_empat_tingkat_model_evaluasi_kirkpatrick.jpg" alt="empat_tingkat_model_evaluasi_kirkpatrick" class="w-full max-w-xl mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">30 - Empat tingkat model evaluasi Kirkpatrick (1998) (sumber gambar: https://kodosurvey.com/)</span>
+
+            <div class="my-6 border border-gray-200 rounded-lg overflow-x-auto shadow-sm">
+                <table class="w-full text-sm text-left text-gray-700">
+                    <thead class="bg-gray-50 text-gray-900 font-bold uppercase text-xs border-b border-gray-200">
+                        <tr>
+                            <th class="px-4 py-3">Skala</th>
+                            <th class="px-4 py-3">Skala Interval</th>
+                            <th class="px-4 py-3">Deskripsi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-red-50/50">
+                            <td class="px-4 py-3">5</td>
+                            <td class="px-4 py-3">4.21 - 5.00</td>
+                            <td class="px-4 py-3">Very High (VH)</td>
+                        </tr>
+                        <tr class="hover:bg-red-50/50">
+                            <td class="px-4 py-3">4</td>
+                            <td class="px-4 py-3">3.41 - 4.20</td>
+                            <td class="px-4 py-3">High (H)</td>
+                        </tr>
+                        <tr class="hover:bg-red-50/50">
+                            <td class="px-4 py-3">3</td>
+                            <td class="px-4 py-3">2.61 - 3.40</td>
+                            <td class="px-4 py-3">Moderate (M)</td>
+                        </tr>
+                        <tr class="hover:bg-red-50/50">
+                            <td class="px-4 py-3">2</td>
+                            <td class="px-4 py-3">1.81 - 2.60</td>
+                            <td class="px-4 py-3">Low (L)</td>
+                        </tr>
+                        <tr class="hover:bg-red-50/50">
+                            <td class="px-4 py-3">1</td>
+                            <td class="px-4 py-3">1.00 - 1.80</td>
+                            <td class="px-4 py-3">Very Low (VL)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">31 - Skala pengukuran menurut Kirkpatrick (1998)</span>
+
+            <h3 id="71" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Tingkat Evaluasi Pertama</h3>
+            <p class="text-gray-700 leading-relaxed">Tingkat Evaluasi Pertama adalah dengan mengevaluasi <b><i>reaksi dari peserta</i></b>. Apakah peserta nyaman dengan pembelajaran yang mereka ikuti. Contoh: Pertanyaan Evaluasi Reaksi Peserta</p>
+
+            <div class="my-6">
+                <img id="Picture34" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_tingkat_evaluasi_pertama.png" alt="tingkat_evaluasi_pertama" class="w-full max-w-md mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">32 - Tingkat evaluasi pertama</span>
+
+            <h3 id="72" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Tingkat Evaluasi Kedua</h3>
+            <p class="text-gray-700 leading-relaxed">Tingkat evaluasi kedua adalah dengan mengevaluasi apakah transfer pembelajaran/ pengetahuan/ keterampikan terjadi pada diri peserta. Contoh: Pertanyaan Evaluasi transfer pembelajaran</p>
+
+            <div class="my-6 border border-gray-200 rounded-lg overflow-x-auto shadow-sm">
+                <table class="w-full text-sm text-left text-gray-700">
+                    <thead class="bg-gray-50 text-gray-900 font-bold uppercase text-xs border-b border-gray-200">
+                        <tr>
+                            <th class="px-4 py-3 w-2/3">Indikator</th>
+                            <th class="px-4 py-3">Skor Rata-rata</th>
+                            <th class="px-4 py-3">Deskripsi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">1. Saya memperoleh keterampilan tentang bagaimana menangani masalah melalui pelatihan.</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">2. Saya memahami semua konsep yang disajikan dalam pelatihan</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">3. Saya dapat menerapkan pengetahuan dan keterampilan yang saya pelajari dari pelatihan di rumah dan di tempat kerja</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">4. Para pembicara mampu menjelaskan dan menjawab pertanyaan yang memperdalam pemahaman saya dengan jelas.</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">5. Keterampilan presentasi pembicara membantu saya memahami masalah yang kompleks</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">6. Saya perhatikan bahwa pelatihan itu mengubah rekan-rekan saya dalam berurusan dengan orang lain</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">33 - Tingkat evaluasi kedua</span>
+
+            <h3 id="73" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Tingkat Evaluasi Ketiga</h3>
+            <p class="text-gray-700 leading-relaxed">Tingkat evaluasi ketiga adalah dengan mengevaluasi apakah pembelajaran mengubah perilaku peserta. Contoh: Pertanyaan Evaluasi dampak perilaku peserta</p>
+
+            <div class="my-6 border border-gray-200 rounded-lg overflow-x-auto shadow-sm">
+                <table class="w-full text-sm text-left text-gray-700">
+                    <thead class="bg-gray-50 text-gray-900 font-bold uppercase text-xs border-b border-gray-200">
+                        <tr>
+                            <th class="px-4 py-3 w-2/3">Indikator</th>
+                            <th class="px-4 py-3">Skor Rata-rata</th>
+                            <th class="px-4 py-3">Deskripsi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">1. Saya menerapkan konsep yang saya pelajari dari pelatihan dalam pekerjaan saya sehari-hari.</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">2. Saya melihat perubahan perilaku rekan kerja saya setelah pelatihan.</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">3. Dibandingkan sebelumnya, saya sekarang termotivasi untuk berbicara tentang suatu masalah.</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">4. Setelah pelatihan, saya sekarang melakukan tugas-tugas yang seharusnya untuk posisi saya.</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">5. Pelatihan mengubah cara kerja saya dengan rekan kerja saya.</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">6. Saya memiliki lebih banyak rasa hormat sekarang daripada sebelumnya.</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">34 - Tingkat evaluasi ketiga</span>
+
+            <h3 id="74" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Tingkat Evaluasi Keempat</h3>
+            <p class="text-gray-700 leading-relaxed">Tingkat evaluasi keempat adalah dengan mengevaluasi apakah pembelajaran yang telah diselenggarakan memengaruhi kinerja, keterampilan, atau pengetahuan peserta. Contoh: Pertanyaan Evaluasi dampak kinerja</p>
+
+            <div class="my-6 border border-gray-200 rounded-lg overflow-x-auto shadow-sm">
+                <table class="w-full text-sm text-left text-gray-700">
+                    <thead class="bg-gray-50 text-gray-900 font-bold uppercase text-xs border-b border-gray-200">
+                        <tr>
+                            <th class="px-4 py-3 w-2/3">Indikator</th>
+                            <th class="px-4 py-3">Skor Rata-rata</th>
+                            <th class="px-4 py-3">Deskripsi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">1. Tim telah mencapai tujuannya dalam melakukan pelatihan di perguruan tinggi.</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">2. Saya yakin semua peserta puas dengan hasil pelatihan yang dilakukan.</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">3. Melalui pelatihan, kesenjangan pengetahuan di perguruan tinggi dapat diperbaiki.</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">4. Pelatihan yang terorganisir dengan baik.</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">5. Pembicara yang diundang untuk pelatihan ini adalah para ahli.</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                        <tr class="hover:bg-red-50/50"><td class="px-4 py-3">6. Secara keseluruhan, pelatihan Sensitivitas Gender dilakukan</td><td class="px-4 py-3"></td><td class="px-4 py-3"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">35 - Tingkat evaluasi keempat</span>
+
+            <h3 id="75" class="text-lg font-bold text-red-700 border-b-2 border-gray-200 inline-block pb-1 mt-8 mb-4 scroll-mt-28">Contoh Evaluasi Lainnya</h3>
+            <p class="text-gray-700 leading-relaxed">Beberapa contoh angket untuk mengevaluasi penyelenggaraan pembelajaran daring dari beberapa perguruan tinggi di Indonesia</p>
+
+            <div class="my-6">
+                <img id="Picture38" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_contoh_beberapa_butir_angket_untuk_mengevaluasi_penyelenggaraan_pembelajaran_daring.jpg" alt="contoh_beberapa_butir_angket_untuk_mengevaluasi_penyelenggaraan_pembelajaran_daring" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">36 - Contoh beberapa butir angket untuk mengevaluasi penyelenggaraan pembelajaran daring dari STIKES Kendedes</span>
+
+            <div class="my-6">
+                <img id="Picture39" src="http://iceinstitut.github.io/image/aset/pengembanganmkdaring_contoh_beberapa_butir_angket_untuk_mengevaluasi_pembelajaran_daring_universitas.png" alt="contoh_beberapa_butir_angket_untuk_mengevaluasi_pembelajaran_daring_universitas" class="w-full max-w-xs mx-auto h-auto rounded-xl shadow-md border border-gray-100">
+            </div>
+            <span class="block text-xs text-gray-500 italic text-center -mt-4 mb-6">37 - Contoh beberapa butir angket untuk mengevaluasi pembelajaran daring Universitas Terbuka</span>
+
+            <h2 id="8" class="text-2xl font-bold text-gray-900 mt-10 mb-4 relative pl-4 border-l-4 border-red-600 scroll-mt-28">Referensi</h2>
+            <div class="space-y-3 text-sm text-gray-700">
+                <p>Afify, M. K. (2018). The impact of interaction between timing of feedback provision in distance e-learning and learning styles on achieving learning outcomes among Arab open university students. <em>EURASIA Journal of Mathematics, Science and Technology Education, 14</em>(7), 3053-3068.</p>
+                <p>Ahmed, F., Ali, S., Shah, R.A. (2019). Exploring variation in summative assessment: language teachers’ knowledge of students' formative assessment and its effect on their summative assessment. <em>Bulletin of Education and Research August 2019, 41</em>(2), pp. 109-119</p>
+                <p>Allal, L. (2011). <em>Assessment for learning culture in the classroom, and beyond</em>. Paper presented at the 4th Assessment for Learning conference, Bergen, Norway.</p>
+                <p>Assessment Reform Group (ARG). (2002). <em>Assessment for learning: 10 principles</em> (leaflet printed by the ARG).</p>
+                <p>Bray, B., &amp; McClaskey, K. (2010). Personalization vs. differentiation vs. individualization. Mid-Pacific Institute, 1(1).</p>
+                <p>Chaeruman, U. A. (2018). <em>PEDATI model desain sistem pembelajaran blended</em>. Jakarta: Universitas Negeri Jakarta.</p>
+                <p>Evans, N. W., Hartshorn, K. J., McCollum, R. M., &amp; Wolfersberger, M. (2010). Contextualizing corrective feedback in second language writing pedagogy. <em>Language Teaching Research, 14</em>(n.d.), 445–463.</p>
+                <p>Gallien, T. &amp; Oomen-Early, J. (2008). Personalized versus collective instructor feedback in the online classroom: does type of feedback affect student satisfaction, academic performance and perceived connectedness with the instructor? <em>International Journal on eLearning</em>, <em>7</em>(3), 463–476.</p>
+                <p>Garrison, D. R., Anderson, T., &amp; Archer, W. (2000). Critical inquiry in a text-based environment: Computer conferencing in higher education model. <em>The Internet and Higher Education, 2</em>(2-3), 87-105.</p>
+                <p>Gerlich, R.N., Mills, L.H., &amp; Sollosy, M. (2009). An evaluation of predictors of achievement on selected outcomes in a self-paced online course. <em>Research in Higher Education Journal, 4</em>(n.a.), 1-14.</p>
+                <p>Gregory, J. B., Levy, P. E., &amp; Jeffers, M. (2008). Development of a model of the feedback process within executive coaching. <em>Consulting Psychology Journal: Practice and Research, 60</em>(1), 42–56.</p>
+                <p>Hattie, J., &amp; Timperley, H. (2007). The power of feedback. <em>Review of Educational Research, 77</em>(1), 81–112.</p>
+                <p>Kirkpatrick, D. L. (1998). <em>Evaluating Training Programs: The four levels</em>. San Francisco: Berrett-Koehler</p>
+                <p>Lee, J. (2014). An exploratory study of effective online learning: Assessing satisfaction levels of graduate students of mathematics education associated with human and design factors of an online course. <em>International Review of Research in Open &amp; Distance Learning</em>, <em>15</em>(1), 1–23.</p>
+                <p>Morris, C. &amp; Chikwa, G. (2016). Audio versus written feedback: Exploring learners’ preference and the impact of feedback format on students’ academic performance. <em>Active Learning in Higher Education, 17</em>(2) 125–137.</p>
+                <p>Southard, S., Meddaugh, J., and France-Harris, A., (2015). Can SPOC (self-paced online course) live long and prosper? A comparison study of a new species of online course delivery. <em>Online Journal of Distance Learning Administration 18</em>(2), 8</p>
+                <p>Tanis, C. J. (2020). The seven principles of online learning: Feedback from faculty and alumni on its importance for teaching and learning. <em>Research in Learning Technology</em>, <em>28</em>(n.d.), 1-25.</p>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const contentBody = document.getElementById('content-body');
+    const navContainer = document.getElementById('nav-container');
+    const navContainerMobile = document.getElementById('nav-container-mobile');
+    const headings = Array.from(contentBody.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+
+    const levelClasses = {
+        '1': 'font-bold mt-3 text-sm border-l-2 border-transparent hover:text-red-600',
+        '2': 'pl-3 text-sm hover:text-red-600',
+        '3': 'pl-6 text-xs text-gray-600 hover:text-red-600',
+        '4': 'pl-8 text-xs text-gray-500 hover:text-red-600',
+        '5': 'pl-10 text-[11px] text-gray-400 hover:text-red-600',
+        '6': 'pl-10 text-[11px] text-gray-400 hover:text-red-600'
+    };
+
+    headings.forEach((heading) => {
+        const level = heading.tagName.substring(1);
+        const navLink = document.createElement('a');
+        navLink.className = `block py-1 px-2 rounded-md transition-all cursor-pointer no-underline ${levelClasses[level] || ''}`;
+        navLink.setAttribute('data-target', heading.id);
+        navLink.innerText = heading.innerText;
+
+        const handleNavClick = (e) => {
+            e.preventDefault();
+            window.removeEventListener('scroll', updateActiveNav);
+
+            const target = document.getElementById(heading.id);
+            const offset = 100;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+
+            document.querySelectorAll('.nav-dynamic a').forEach(l => {
+                l.classList.remove('bg-red-50', 'text-red-600', 'font-bold', 'border-red-600');
+            });
+            document.querySelectorAll(`.nav-dynamic a[data-target="${heading.id}"]`).forEach(l => {
+                l.classList.add('bg-red-50', 'text-red-600', 'font-bold', 'border-l-2', 'border-red-600');
+            });
+
+            const offcanvasEl = document.getElementById('offcanvasNavbar');
+            if (offcanvasEl && window.bootstrap) {
+                const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+                if (offcanvas) offcanvas.hide();
+            }
+
+            setTimeout(() => {
+                window.addEventListener('scroll', updateActiveNav);
+            }, 800);
+        };
+
+        navLink.addEventListener('click', handleNavClick);
+        navContainer.appendChild(navLink);
+
+        const mobileClone = navLink.cloneNode(true);
+        mobileClone.addEventListener('click', handleNavClick);
+        navContainerMobile.appendChild(mobileClone);
+    });
+
+    function updateActiveNav() {
+        const scrollPosition = window.scrollY + 120;
+        let currentActiveId = "";
+
+        for (let i = 0; i < headings.length; i++) {
+            const heading = headings[i];
+            if (heading.offsetTop <= scrollPosition) {
+                currentActiveId = heading.id;
+            } else {
+                break;
+            }
+        }
+
+        if (currentActiveId) {
+            document.querySelectorAll('.nav-dynamic a').forEach(link => {
+                if (link.getAttribute('data-target') === currentActiveId) {
+                    link.classList.add('bg-red-50', 'text-red-600', 'font-bold', 'border-l-2', 'border-red-600');
+                } else {
+                    link.classList.remove('bg-red-50', 'text-red-600', 'font-bold', 'border-l-2', 'border-red-600');
+                }
+            });
+        }
+    }
+
+    window.addEventListener('scroll', updateActiveNav);
+    updateActiveNav();
+});
+</script>

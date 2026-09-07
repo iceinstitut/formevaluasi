@@ -1,0 +1,1253 @@
+---
+layout: default
+title: Interactive Video Quiz Builder ICE Institute
+---
+
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fef2f2',
+                            100: '#ffe1e2',
+                            200: '#ffc8ca',
+                            500: '#ee1522',
+                            600: '#d10f1c',
+                            700: '#b00b16',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Light Theme Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+
+<div class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- HEADER -->
+    <section>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-[#ee1522] flex items-center justify-center text-white font-bold shadow-md shadow-rose-500/20">
+                    <i class="fa-solid font-bold fa-play text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight text-slate-900">
+                        Interactive Video Quiz Builder
+                    </h1>
+                    <p class="text-xs text-slate-500">Generator Kode Video Pembelajaran YouTube</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="resetAll()" class="px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:text-brand-500 hover:bg-slate-100 rounded-lg transition-colors border border-slate-200">
+                    <i class="fa-solid fa-rotate-left mr-1.5"></i> Reset
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <section class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- LEFT COLUMN: FORM & QUESTION BUILDER (7 Cols) -->
+        <div class="lg:col-span-7 flex flex-col gap-6">
+            
+            <!-- SECTION 1: YOUTUBE URL -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+                <h2 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-4 flex items-center gap-2">
+                    <i class="fa-brands fa-youtube text-[#ee1522] text-xl"></i> 1. Sumber Video YouTube
+                </h2>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <div class="relative flex-1">
+                        <i class="fa-solid fa-link absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="youtubeUrlInput" 
+                            placeholder="Contoh: https://www.youtube.com/watch?v=F03eyCR3arU" 
+                            value="https://www.youtube.com/watch?v=F03eyCR3arU"
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-[#ee1522] focus:ring-1 focus:ring-[#ee1522] transition-all text-slate-800 placeholder-slate-400">
+                    </div>
+                    <button onclick="updateVideoSource()" class="px-5 py-2.5 bg-[#ee1522] hover:bg-brand-600 active:scale-95 text-white font-medium text-sm rounded-xl transition-all shadow-md shadow-brand-500/20 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-arrows-rotate"></i> Muat Video
+                    </button>
+                </div>
+            </div>
+
+            <!-- SECTION 2: QUESTIONS BUILDER -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col gap-4">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                    <div>
+                        <h2 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-[#ee1522]"></i> 2. Pengaturan Soal Kuis
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-1">Tambahkan pertanyaan beserta opsi dan waktu munculnya.</p>
+                    </div>
+                    <button onclick="addQuestion()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 active:scale-95 text-white font-semibold text-xs rounded-xl transition-all shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-plus text-emerald-400"></i> Tambah Soal
+                    </button>
+                </div>
+
+                <!-- Questions Container -->
+                <div id="questionsContainer" class="flex flex-col gap-5 max-h-[600px] overflow-y-auto pr-1">
+                    <!-- Dynamic Question Cards Rendered Here -->
+                </div>
+            </div>
+
+            <!-- GENERATE BUTTON -->
+            <button onclick="generateInteractiveCode()" class="w-full py-4 bg-[#ee1522] hover:bg-brand-600 active:scale-[0.99] text-white font-bold text-base rounded-2xl transition-all shadow-lg shadow-brand-500/25 flex items-center justify-center gap-3">
+                <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+                Generate Kode Video Interaktif
+            </button>
+        </div>
+
+        <!-- RIGHT COLUMN: PREVIEW & CODE OUTPUT (5 Cols) -->
+        <div class="lg:col-span-5 flex flex-col gap-6">
+            
+            <!-- VIDEO PREVIEW & TIMESTAMP ASSISTANT -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col gap-3">
+                <h2 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-circle-play text-[#ee1522]"></i> YouTube Preview Helper</span>
+                    <span id="videoStatusBadge" class="text-[10px] bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-full font-mono border border-slate-200">ID: F03eyCR3arU</span>
+                </h2>
+                <div class="aspect-video w-full bg-slate-900 rounded-xl overflow-hidden border border-slate-200 relative shadow-inner">
+                    <iframe id="previewIframe" class="w-full h-full" 
+                        src="https://www.youtube.com/embed/F03eyCR3arU" 
+                        title="YouTube video player" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
+                </div>
+                <p class="text-xs text-slate-500 italic">
+                    <i class="fa-solid fa-circle-info mr-1 text-[#ee1522]"></i> Gunakan pemutar di atas untuk memutar video dan menentukan timestamp (menit:detik) yang akurat.
+                </p>
+            </div>
+
+            <!-- CODE OUTPUT CONTAINER -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col flex-1 min-h-[400px]">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
+                    <h2 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-code text-[#ee1522]"></i> Output Kode HTML Interaktif
+                    </h2>
+                    <button id="copyBtn" onclick="copyGeneratedCode()" disabled class="px-3.5 py-1.5 bg-slate-100 border border-slate-200 text-slate-400 cursor-not-allowed hover:bg-slate-200 font-semibold text-xs rounded-xl transition-all flex items-center gap-1.5">
+                        <i class="fa-solid fa-copy"></i> Copy Kode
+                    </button>
+                </div>
+                
+                <div class="relative flex-1 bg-slate-900 border border-slate-800 rounded-xl p-3 font-mono text-xs overflow-hidden flex flex-col">
+                    <textarea id="outputCodeArea" readonly placeholder="Klik 'Generate Kode Video Interaktif' untuk menghasilkan kode siap pakai..." class="w-full h-full bg-transparent resize-none border-0 focus:outline-none text-emerald-400 placeholder-slate-500 font-mono text-xs leading-relaxed"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl transition-all duration-300 transform translate-y-20 opacity-0 flex items-center gap-3 z-50 border border-slate-800">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toastMessage" class="text-sm font-medium">Pesan Notifikasi</span>
+    </div>
+
+    <script>
+    /* =====================================================
+    STATE MANAGEMENT
+    ====================================================== */
+    let currentVideoId = "F03eyCR3arU";
+    let questionsData = [
+        {
+            timestamp: "01:43",
+            question: "Tujuan utama penggunaan fungsi PROPER pada kolom nama dalam video adalah untuk …?",
+            options: [
+                "Membuat setiap awal kata menggunakan huruf kapital secara konsisten",
+                "Mengubah semua teks menjadi huruf kecil",
+                "Menghilangkan spasi berlebih pada data teks",
+                "Menggabungkan beberapa kolom menjadi satu"
+            ],
+            correctAnswer: 0
+        },
+        {
+            timestamp: "04:12",
+            question: "Mengapa pada conditional formatting digunakan fungsi LOWER dalam rumus pengecekan diagnosa??",
+            options: [
+                "Supaya format sel menjadi huruf kecil semua",
+                "Agar data numerik bisa ikut dianalisis",
+                "Agar perbedaan huruf besar–kecil tidak memengaruhi hasil pengecekan",
+                "Untuk mempercepat proses freeze baris dan kolom"
+            ],
+            correctAnswer: 2
+        }
+    ];
+
+    /* =====================================================
+    INITIALIZATION
+    ====================================================== */
+    window.onload = function() {
+        renderQuestions();
+    };
+
+    /* =====================================================
+    TOAST HELPER
+    ====================================================== */
+    function showToast(message, type = "success") {
+        const toast = document.getElementById("toast");
+        const toastMessage = document.getElementById("toastMessage");
+        const toastIcon = document.getElementById("toastIcon");
+
+        toastMessage.textContent = message;
+        if (type === "success") {
+            toastIcon.className = "fa-solid fa-circle-check text-emerald-400 text-lg";
+        } else if (type === "error") {
+            toastIcon.className = "fa-solid fa-triangle-exclamation text-rose-400 text-lg";
+        } else {
+            toastIcon.className = "fa-solid fa-circle-info text-sky-400 text-lg";
+        }
+
+        toast.classList.remove("translate-y-20", "opacity-0");
+        setTimeout(() => {
+            toast.classList.add("translate-y-20", "opacity-0");
+        }, 3000);
+    }
+
+    /* =====================================================
+    YOUTUBE URL PARSER
+    ====================================================== */
+    function extractYouTubeId(url) {
+        if (!url) return null;
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : null;
+    }
+
+    function updateVideoSource() {
+        const inputUrl = document.getElementById("youtubeUrlInput").value.trim();
+        const videoId = extractYouTubeId(inputUrl);
+
+        if (!videoId) {
+            showToast("URL YouTube tidak valid! Mohon periksa kembali.", "error");
+            return;
+        }
+
+        currentVideoId = videoId;
+        document.getElementById("previewIframe").src = `https://www.youtube.com/embed/${videoId}`;
+        document.getElementById("videoStatusBadge").textContent = `ID: ${videoId}`;
+        showToast("Video YouTube berhasil dimuat!");
+    }
+
+    /* =====================================================
+    QUESTION CARDS RENDERER (Light Theme)
+    ====================================================== */
+    function renderQuestions() {
+        const container = document.getElementById("questionsContainer");
+        container.innerHTML = "";
+
+        questionsData.forEach((q, qIndex) => {
+            const card = document.createElement("div");
+            card.className = "bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col gap-4 relative group transition-all hover:border-slate-300 shadow-sm";
+
+            card.innerHTML = `
+                <!-- Card Header -->
+                <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                    <span class="text-xs font-bold text-slate-800 flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full bg-[#ee1522] text-white flex items-center justify-center text-[10px] font-bold">${qIndex + 1}</span>
+                        Pertanyaan #${qIndex + 1}
+                    </span>
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-1.5 bg-white border border-slate-200 px-2.5 py-1 rounded-lg">
+                            <i class="fa-solid fa-clock text-[#ee1522] text-xs"></i>
+                            <span class="text-xs text-slate-500 font-medium">Timestamp:</span>
+                            <input type="text" value="${q.timestamp}" 
+                                onchange="updateQuestionField(${qIndex}, 'timestamp', this.value)"
+                                placeholder="01:30" 
+                                class="w-16 bg-slate-50 border border-slate-300 rounded px-1.5 py-0.5 text-xs text-slate-900 font-mono text-center focus:outline-none focus:border-[#ee1522]">
+                        </div>
+                        ${questionsData.length > 1 ? `
+                            <button onclick="removeQuestion(${qIndex})" title="Hapus Soal" class="text-slate-400 hover:text-[#ee1522] p-1 transition-colors">
+                                <i class="fa-solid fa-trash-can text-sm"></i>
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+
+                <!-- Question Text Area -->
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Isi Pertanyaan</label>
+                    <textarea rows="2" 
+                        onchange="updateQuestionField(${qIndex}, 'question', this.value)"
+                        placeholder="Tuliskan soal/pertanyaan di sini..."
+                        class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-xs text-slate-800 focus:outline-none focus:border-[#ee1522] focus:ring-1 focus:ring-[#ee1522] transition-all placeholder-slate-400">${q.question}</textarea>
+                </div>
+
+                <!-- Options Grid -->
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-2 uppercase tracking-wider">Pilihan Jawaban & Kunci Jawaban (Pilih Lingkaran untuk Kunci)</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        ${q.options.map((opt, oIndex) => {
+                            const optionLetters = ['A', 'B', 'C', 'D'];
+                            const isCorrect = q.correctAnswer === oIndex;
+                            return `
+                                <div class="flex items-center gap-2 bg-white border ${isCorrect ? 'border-emerald-500 bg-emerald-50/50' : 'border-slate-200'} rounded-lg p-1.5 px-2.5 shadow-sm">
+                                    <input type="radio" name="correct_${qIndex}" ${isCorrect ? 'checked' : ''} 
+                                        onchange="updateQuestionField(${qIndex}, 'correctAnswer', ${oIndex})"
+                                        title="Jadikan Kunci Jawaban (${optionLetters[oIndex]})"
+                                        class="w-4 h-4 accent-[#ee1522] cursor-pointer">
+                                    <span class="text-xs font-bold ${isCorrect ? 'text-emerald-600' : 'text-slate-500'} w-4">${optionLetters[oIndex]}.</span>
+                                    <input type="text" value="${escapeHtml(opt)}" 
+                                        onchange="updateOptionField(${qIndex}, ${oIndex}, this.value)"
+                                        placeholder="Opsi ${optionLetters[oIndex]}"
+                                        class="flex-1 bg-transparent text-xs text-slate-800 focus:outline-none placeholder-slate-400">
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/"/g, '&quot;');
+    }
+
+    /* =====================================================
+    DATA UPDATERS
+    ====================================================== */
+    function updateQuestionField(index, field, value) {
+        if (field === 'correctAnswer') {
+            questionsData[index][field] = parseInt(value, 10);
+            renderQuestions();
+        } else {
+            questionsData[index][field] = value;
+        }
+    }
+
+    function updateOptionField(qIndex, oIndex, value) {
+        questionsData[qIndex].options[oIndex] = value;
+    }
+
+    function addQuestion() {
+        questionsData.push({
+            timestamp: "02:00",
+            question: "Pertanyaan baru...",
+            options: [
+                "Pilihan A",
+                "Pilihan B",
+                "Pilihan C",
+                "Pilihan D"
+            ],
+            correctAnswer: 0
+        });
+        renderQuestions();
+        showToast("Soal baru ditambahkan!");
+    }
+
+    function removeQuestion(index) {
+        if (questionsData.length <= 1) return;
+        questionsData.splice(index, 1);
+        renderQuestions();
+        showToast("Soal berhasil dihapus.", "info");
+    }
+
+    function resetAll() {
+        currentVideoId = "F03eyCR3arU";
+        document.getElementById("youtubeUrlInput").value = "https://www.youtube.com/watch?v=F03eyCR3arU";
+        document.getElementById("previewIframe").src = "https://www.youtube.com/embed/F03eyCR3arU";
+        document.getElementById("videoStatusBadge").textContent = "ID: F03eyCR3arU";
+        
+        questionsData = [
+            {
+                timestamp: "01:43",
+                question: "Tujuan utama penggunaan fungsi PROPER pada kolom nama dalam video adalah untuk …?",
+                options: [
+                    "Membuat setiap awal kata menggunakan huruf kapital secara konsisten",
+                    "Mengubah semua teks menjadi huruf kecil",
+                    "Menghilangkan spasi berlebih pada data teks",
+                    "Menggabungkan beberapa kolom menjadi satu"
+                ],
+                correctAnswer: 0
+            }
+        ];
+        renderQuestions();
+        document.getElementById("outputCodeArea").value = "";
+        const copyBtn = document.getElementById("copyBtn");
+        copyBtn.disabled = true;
+        copyBtn.className = "px-3.5 py-1.5 bg-slate-100 border border-slate-200 text-slate-400 cursor-not-allowed hover:bg-slate-200 font-semibold text-xs rounded-xl transition-all flex items-center gap-1.5";
+        showToast("Formulir berhasil direset.", "info");
+    }
+
+    /* =====================================================
+    FULL CODE GENERATOR WITH BRANDING #ee1522 & LIGHT ACCENTS
+    ====================================================== */
+    function generateInteractiveCode() {
+        const inputUrl = document.getElementById("youtubeUrlInput").value.trim();
+        const videoId = extractYouTubeId(inputUrl) || currentVideoId;
+
+        const quizConfigObj = {
+            videoId: videoId,
+            questions: questionsData
+        };
+
+        const configJson = JSON.stringify(quizConfigObj, null, 4);
+
+        const fullTemplate = `<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Pembelajaran Interaktif</title>
+    <style>
+/* =====================================================
+VIDEO CONTAINER
+====================================================== */
+.video-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+#youtube-player {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+/* =====================================================
+CUSTOM VIDEO CONTROL BAR
+====================================================== */
+.video-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.35),
+    transparent
+  );
+  z-index: 8;
+  transition: opacity 0.2s ease;
+}
+.control-left,
+.control-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+/* =====================================================
+CONTROL BUTTON
+====================================================== */
+.control-button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font-size: 22px;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.control-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.control-button:active {
+  transform: scale(0.94);
+}
+.control-button:focus-visible {
+  outline: 3px solid #ee1522;
+  outline-offset: 2px;
+}
+/* =====================================================
+PLAY / PAUSE ICON
+====================================================== */
+.play-icon {
+  display: block;
+  font-size: 21px;
+  line-height: 1;
+}
+.pause-icon {
+  display: none;
+  font-size: 21px;
+  line-height: 1;
+}
+.is-playing .play-icon {
+  display: none;
+}
+.is-playing .pause-icon {
+  display: block;
+}
+/* =====================================================
+FULLSCREEN ICON
+====================================================== */
+.fullscreen-icon {
+  font-size: 21px;
+  line-height: 1;
+}
+/* =====================================================
+CUSTOM TIMELINE
+====================================================== */
+.timeline-wrapper {
+  margin-top: 12px;
+  padding: 0 2px;
+}
+.timeline {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  background: #e2e8f0;
+  border-radius: 20px;
+  cursor: default;
+}
+.timeline-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: #ee1522;
+  border-radius: 20px;
+  pointer-events: none;
+}
+/* =====================================================
+QUESTION MARKER (#ee1522)
+====================================================== */
+.question-marker {
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #ee1522;
+  border: 3px solid white;
+  box-shadow: 0 1px 6px rgba(238, 21, 34, 0.4);
+  z-index: 5;
+  cursor: help;
+}
+.question-marker::after {
+  content: "?";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+}
+.question-marker:hover {
+  transform: translate(-50%, -50%) scale(1.25);
+}
+/* =====================================================
+MARKER TOOLTIP
+====================================================== */
+.question-marker .marker-tooltip {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 220px;
+  padding: 8px 10px;
+  border-radius: 7px;
+  background: #0f172a;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+  z-index: 20;
+}
+.question-marker:hover .marker-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+/* =====================================================
+TIMELINE INFO
+====================================================== */
+.timeline-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 7px;
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 500;
+}
+.question-hint {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.question-hint-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ee1522;
+}
+/* =====================================================
+QUESTION OVERLAY
+====================================================== */
+.question-overlay {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 10;
+}
+.question-overlay.active {
+  display: flex;
+}
+/* =====================================================
+QUESTION CARD
+====================================================== */
+.question-card {
+  width: 100%;
+  max-width: 620px;
+  max-height: 90%;
+  overflow-y: auto;
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  animation: cardIn 0.2s ease;
+  color: #0f172a;
+}
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.question-number {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ee1522;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.question-text {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 22px;
+  color: #0f172a;
+}
+/* =====================================================
+OPTIONS
+====================================================== */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  text-align: left;
+  font-size: 15px;
+  color: #1e293b;
+  font-weight: 500;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+}
+.option:hover {
+  border-color: #ee1522;
+  background: #fef2f2;
+  transform: translateY(-1px);
+}
+.option:focus-visible {
+  outline: 3px solid #ee1522;
+  outline-offset: 2px;
+}
+.option.correct {
+  border-color: #10b981;
+  background: #ecfdf5;
+  color: #047857;
+}
+.option.incorrect {
+  border-color: #ee1522;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+.option-letter {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f1f5f9;
+  font-weight: 700;
+  color: #475569;
+}
+/* =====================================================
+FEEDBACK
+====================================================== */
+.feedback {
+  display: none;
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.feedback.active {
+  display: block;
+}
+.feedback.correct {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+.feedback.incorrect {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+/* =====================================================
+CONTINUE BUTTON (#ee1522)
+====================================================== */
+.continue-button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 10px;
+  background: #ee1522;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.continue-button:hover {
+  background: #d10f1c;
+}
+.continue-button:focus-visible {
+  outline: 3px solid #ee1522;
+  outline-offset: 2px;
+}
+.continue-button:disabled {
+  background: #cbd5e1;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+/* =====================================================
+STATUS
+====================================================== */
+.status {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+}
+    </style>
+</head>
+<body style="font-family: system-ui, -apple-system, sans-serif; background: #f8fafc; margin: 0; padding: 20px;">
+    <main style="max-width: 900px; margin: 0 auto;">
+        <!-- VIDEO SECTION -->
+        <section id="videoContainer" class="video-container" aria-label="Video pembelajaran">
+            <div id="youtube-player"></div>
+            <!-- CUSTOM CONTROLS -->
+            <div id="videoControls" class="video-controls">
+                <div class="control-left">
+                    <button id="playPauseButton" class="control-button" type="button" aria-label="Putar video" title="Putar / jeda">
+                        <span class="play-icon" aria-hidden="true">▶</span>
+                        <span class="pause-icon" aria-hidden="true">❚❚</span>
+                    </button>
+                </div>
+                <div class="control-right">
+                    <button id="fullscreenButton" class="control-button" type="button" aria-label="Layar penuh" title="Layar penuh">
+                        <span class="fullscreen-icon" aria-hidden="true">⛶</span>
+                    </button>
+                </div>
+            </div>
+            <!-- QUESTION OVERLAY -->
+            <div id="questionOverlay" class="question-overlay" role="dialog" aria-modal="true" aria-labelledby="questionText" aria-describedby="feedback">
+                <div class="question-card">
+                    <div id="questionNumber" class="question-number"></div>
+                    <div id="questionText" class="question-text"></div>
+                    <div id="options" class="options" role="radiogroup" aria-label="Pilihan jawaban"></div>
+                    <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+                    <button id="continueButton" class="continue-button" type="button" disabled>
+                        Pilih Jawaban
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- CUSTOM TIMELINE -->
+        <div class="timeline-wrapper">
+            <div id="timeline" class="timeline" aria-label="Progress video">
+                <div id="timelineProgress" class="timeline-progress"></div>
+            </div>
+            <div class="timeline-info">
+                <span id="currentTime">00:00</span>
+                <span class="question-hint">
+                    <span class="question-hint-dot" aria-hidden="true"></span>
+                    Terdapat pertanyaan
+                </span>
+                <span id="duration">00:00</span>
+            </div>
+        </div>
+        <div id="status" class="status" aria-live="polite">
+            Memuat video...
+        </div>
+    </main>
+
+    <script>
+    /* =====================================================
+    CONFIGURATION
+    ====================================================== */
+    const quizConfig = ${configJson};
+
+    /* =====================================================
+    STATE
+    ====================================================== */
+    let player = null;
+    let questions = [];
+    let currentQuestionIndex = null;
+    let questionAnswered = false;
+    let questionOpen = false;
+    let lastPlayerTime = 0;
+    let maximumWatchedTime = 0;
+    let monitoringTimer = null;
+    let videoDuration = 0;
+    const SEEK_TOLERANCE = 1.5;
+
+    /* =====================================================
+    DOM
+    ====================================================== */
+    const videoContainer = document.getElementById("videoContainer");
+    const playPauseButton = document.getElementById("playPauseButton");
+    const fullscreenButton = document.getElementById("fullscreenButton");
+    const overlay = document.getElementById("questionOverlay");
+    const questionNumber = document.getElementById("questionNumber");
+    const questionText = document.getElementById("questionText");
+    const optionsContainer = document.getElementById("options");
+    const feedback = document.getElementById("feedback");
+    const continueButton = document.getElementById("continueButton");
+    const status = document.getElementById("status");
+    const timeline = document.getElementById("timeline");
+    const timelineProgress = document.getElementById("timelineProgress");
+    const currentTimeElement = document.getElementById("currentTime");
+    const durationElement = document.getElementById("duration");
+
+    /* =====================================================
+    TIMESTAMP PARSER
+    ====================================================== */
+    function parseTimestamp(value) {
+        if (typeof value === "number") return Math.max(0, value);
+        if (!value) return 0;
+        const stringValue = String(value).trim();
+        if (/^\\d+(\\.\\d+)?$/.test(stringValue)) return Number(stringValue);
+        const parts = stringValue.split(":").map(Number);
+        if (parts.some(Number.isNaN)) return 0;
+        if (parts.length === 2) return parts[0] * 60 + parts[1];
+        if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+        return 0;
+    }
+
+    /* =====================================================
+    FORMAT TIME
+    ====================================================== */
+    function formatTime(seconds) {
+        seconds = Math.max(0, Math.floor(seconds || 0));
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        if (hours > 0) {
+            return [
+                String(hours).padStart(2, "0"),
+                String(minutes).padStart(2, "0"),
+                String(secs).padStart(2, "0")
+            ].join(":");
+        }
+        return [
+            String(minutes).padStart(2, "0"),
+            String(secs).padStart(2, "0")
+        ].join(":");
+    }
+
+    /* =====================================================
+    NORMALIZE QUESTIONS
+    ====================================================== */
+    function normalizeQuestions(config) {
+        return config.questions
+            .map((question, index) => ({
+                ...question,
+                originalIndex: index,
+                timestampSeconds: parseTimestamp(question.timestamp),
+                answered: false
+            }))
+            .filter(question => question.options && question.options.length === 4 && question.timestampSeconds >= 0)
+            .sort((a, b) => a.timestampSeconds - b.timestampSeconds);
+    }
+
+    /* =====================================================
+    CREATE TIMELINE MARKERS
+    ====================================================== */
+    function createTimelineMarkers() {
+        if (!videoDuration) return;
+        timeline.querySelectorAll(".question-marker").forEach(marker => marker.remove());
+        questions.forEach((question, index) => {
+            if (question.timestampSeconds > videoDuration) return;
+            const marker = document.createElement("div");
+            marker.className = "question-marker";
+            const percentage = (question.timestampSeconds / videoDuration) * 100;
+            marker.style.left = \`\${percentage}%\`;
+            marker.setAttribute("aria-label", \`Pertanyaan \${index + 1} pada \${formatTime(question.timestampSeconds)}\`);
+            const tooltip = document.createElement("span");
+            tooltip.className = "marker-tooltip";
+            tooltip.textContent = \`Pertanyaan \${index + 1} — \${formatTime(question.timestampSeconds)}\`;
+            marker.appendChild(tooltip);
+            timeline.appendChild(marker);
+        });
+    }
+
+    /* =====================================================
+    YOUTUBE API
+    ====================================================== */
+    function loadYouTubeAPI() {
+        if (window.YT && window.YT.Player) {
+            createPlayer();
+            return;
+        }
+        window.onYouTubeIframeAPIReady = createPlayer;
+        const script = document.createElement("script");
+        script.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(script);
+    }
+
+    /* =====================================================
+    CREATE PLAYER
+    ====================================================== */
+    function createPlayer() {
+        player = new YT.Player("youtube-player", {
+            videoId: quizConfig.videoId,
+            playerVars: {
+                controls: 0,
+                disablekb: 1,
+                rel: 0,
+                modestbranding: 1,
+                playsinline: 1
+            },
+            events: {
+                onReady: handlePlayerReady,
+                onStateChange: handlePlayerStateChange,
+                onPlaybackRateChange: handlePlaybackRateChange,
+                onError: handlePlayerError
+            }
+        });
+    }
+
+    function handlePlayerReady() {
+        videoDuration = player.getDuration();
+        durationElement.textContent = formatTime(videoDuration);
+        try { player.setPlaybackRate(1); } catch (e) {}
+        createTimelineMarkers();
+        status.textContent = "Video siap diputar.";
+        updatePlayPauseButton();
+        startMonitoring();
+    }
+
+    playPauseButton.addEventListener("click", togglePlayPause);
+
+    function togglePlayPause() {
+        if (!player || questionOpen) return;
+        const state = player.getPlayerState();
+        if (state === YT.PlayerState.PLAYING) {
+            player.pauseVideo();
+        } else {
+            player.playVideo();
+        }
+    }
+
+    function updatePlayPauseButton() {
+        if (!player) return;
+        const isPlaying = player.getPlayerState() === YT.PlayerState.PLAYING;
+        playPauseButton.classList.toggle("is-playing", isPlaying);
+        playPauseButton.setAttribute("aria-label", isPlaying ? "Jeda video" : "Putar video");
+    }
+
+    function handlePlayerStateChange(event) {
+        updatePlayPauseButton();
+        if (event.data === YT.PlayerState.PLAYING) {
+            status.textContent = "Video sedang diputar.";
+        } else if (event.data === YT.PlayerState.PAUSED && !questionOpen) {
+            status.textContent = "Video dijeda.";
+        } else if (event.data === YT.PlayerState.ENDED) {
+            status.textContent = "Video selesai.";
+            stopMonitoring();
+        }
+    }
+
+    function handlePlaybackRateChange(event) {
+        if (event.data !== 1) {
+            try { player.setPlaybackRate(1); } catch (e) {}
+        }
+    }
+
+    function handlePlayerError(event) {
+        console.error("YouTube Player Error:", event.data);
+        status.textContent = "Terjadi masalah saat memuat video.";
+    }
+
+    fullscreenButton.addEventListener("click", toggleFullscreen);
+    async function toggleFullscreen() {
+        try {
+            if (!document.fullscreenElement) {
+                if (videoContainer.requestFullscreen) await videoContainer.requestFullscreen();
+                else if (videoContainer.webkitRequestFullscreen) videoContainer.webkitRequestFullscreen();
+            } else {
+                if (document.exitFullscreen) await document.exitFullscreen();
+                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+            }
+        } catch (e) { console.error("Fullscreen error:", e); }
+    }
+
+    document.addEventListener("fullscreenchange", () => {
+        const isFullscreen = Boolean(document.fullscreenElement);
+        fullscreenButton.setAttribute("aria-label", isFullscreen ? "Keluar dari layar penuh" : "Layar penuh");
+    });
+
+    function startMonitoring() {
+        stopMonitoring();
+        monitoringTimer = setInterval(monitorVideo, 200);
+    }
+
+    function stopMonitoring() {
+        if (monitoringTimer) {
+            clearInterval(monitoringTimer);
+            monitoringTimer = null;
+        }
+    }
+
+    function monitorVideo() {
+        if (!player || !player.getCurrentTime) return;
+        const currentTime = player.getCurrentTime();
+        updateTimeline(currentTime);
+
+        if (!videoDuration) {
+            videoDuration = player.getDuration();
+            if (videoDuration) {
+                durationElement.textContent = formatTime(videoDuration);
+                createTimelineMarkers();
+            }
+        }
+
+        if (questionOpen) {
+            lastPlayerTime = currentTime;
+            return;
+        }
+
+        const jump = currentTime - lastPlayerTime;
+        if (jump > SEEK_TOLERANCE) {
+            try { player.seekTo(maximumWatchedTime, true); } catch (e) {}
+            status.textContent = "Melewati bagian video tidak diperbolehkan.";
+            lastPlayerTime = maximumWatchedTime;
+            return;
+        }
+
+        if (currentTime > maximumWatchedTime) {
+            maximumWatchedTime = currentTime;
+        }
+        lastPlayerTime = currentTime;
+
+        try { if (player.getPlaybackRate() !== 1) player.setPlaybackRate(1); } catch (e) {}
+
+        checkQuestionTimestamp(currentTime);
+    }
+
+    function updateTimeline(currentTime) {
+        if (!videoDuration) return;
+        const percentage = Math.min(100, Math.max(0, (currentTime / videoDuration) * 100));
+        timelineProgress.style.width = \`\${percentage}%\`;
+        currentTimeElement.textContent = formatTime(currentTime);
+    }
+
+    function checkQuestionTimestamp(currentTime) {
+        if (questionOpen) return;
+        const nextQuestion = questions.find(q => !q.answered && currentTime >= q.timestampSeconds);
+        if (!nextQuestion) return;
+        openQuestion(nextQuestion);
+    }
+
+    function openQuestion(question) {
+        if (questionOpen) return;
+        questionOpen = true;
+        questionAnswered = false;
+        currentQuestionIndex = questions.indexOf(question);
+        player.pauseVideo();
+        renderQuestion(question);
+        overlay.classList.add("active");
+        status.textContent = "Pertanyaan muncul. Silakan pilih jawaban.";
+    }
+
+    function renderQuestion(question) {
+        questionNumber.textContent = \`Pertanyaan \${currentQuestionIndex + 1} dari \${questions.length}\`;
+        questionText.textContent = question.question;
+        optionsContainer.innerHTML = "";
+        feedback.textContent = "";
+        feedback.className = "feedback";
+        continueButton.disabled = true;
+        continueButton.textContent = "Pilih Jawaban";
+
+        question.options.forEach((optionText, index) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "option";
+            button.setAttribute("role", "radio");
+            button.setAttribute("aria-checked", "false");
+
+            const letter = document.createElement("span");
+            letter.className = "option-letter";
+            letter.textContent = String.fromCharCode(65 + index);
+
+            const text = document.createElement("span");
+            text.textContent = optionText;
+
+            button.appendChild(letter);
+            button.appendChild(text);
+
+            button.addEventListener("click", () => selectAnswer(index, button, question));
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    function selectAnswer(selectedIndex, selectedButton, question) {
+        if (questionAnswered) return;
+        questionAnswered = true;
+        const isCorrect = selectedIndex === Number(question.correctAnswer);
+        const allOptions = optionsContainer.querySelectorAll(".option");
+
+        allOptions.forEach((button, index) => {
+            button.disabled = true;
+            button.setAttribute("aria-checked", index === selectedIndex ? "true" : "false");
+        });
+
+        if (isCorrect) {
+            selectedButton.classList.add("correct");
+            feedback.className = "feedback active correct";
+            feedback.textContent = "✓ Jawaban Benar!";
+        } else {
+            selectedButton.classList.add("incorrect");
+            const correctButton = allOptions[Number(question.correctAnswer)];
+            if (correctButton) correctButton.classList.add("correct");
+            feedback.className = "feedback active incorrect";
+            feedback.textContent = "✕ Jawaban Salah!";
+        }
+
+        continueButton.disabled = false;
+        continueButton.textContent = "Lanjutkan Video";
+        question.answered = true;
+    }
+
+    continueButton.addEventListener("click", continueVideo);
+
+    function continueVideo() {
+        if (!questionAnswered) return;
+        questionOpen = false;
+        overlay.classList.remove("active");
+        status.textContent = "Video dilanjutkan.";
+        setTimeout(() => {
+            try { player.setPlaybackRate(1); } catch (e) {}
+            player.playVideo();
+        }, 100);
+    }
+
+    function initialize() {
+        questions = normalizeQuestions(quizConfig);
+        if (!questions.length) {
+            status.textContent = "Tidak ada pertanyaan yang dikonfigurasi.";
+            return;
+        }
+        loadYouTubeAPI();
+    }
+
+    initialize();
+    <\/script>
+</body>
+</html>`;
+
+        const outputArea = document.getElementById("outputCodeArea");
+        outputArea.value = fullTemplate;
+
+        const copyBtn = document.getElementById("copyBtn");
+        copyBtn.disabled = false;
+        copyBtn.className = "px-3.5 py-1.5 bg-[#ee1522] hover:bg-brand-600 text-white font-semibold text-xs rounded-xl transition-all flex items-center gap-1.5 shadow-sm cursor-pointer";
+
+        showToast("Kode berhasil di-generate! Klik 'Copy Kode' untuk menyalin.");
+    }
+
+    /* =====================================================
+    CLIPBOARD COPY HELPER
+    ====================================================== */
+    function copyGeneratedCode() {
+        const outputArea = document.getElementById("outputCodeArea");
+        if (!outputArea.value) return;
+
+        outputArea.select();
+        outputArea.setSelectionRange(0, 99999);
+
+        try {
+            document.execCommand('copy');
+            showToast("Kode disalin ke clipboard!");
+        } catch (err) {
+            showToast("Gagal menyalin otomatis, silakan copy manual.", "error");
+        }
+    }
+    </script>
+</div>

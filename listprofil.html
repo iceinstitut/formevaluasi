@@ -1,0 +1,358 @@
+---
+layout: default
+title: Daftar Course dan Pengembang di ICE Institute
+---
+
+<!-- Pastikan Tailwind CSS CDNs/framework sudah di-load di layout utama Anda -->
+<div class="font-sans text-gray-900 bg-white">
+  <div class="max-w-[1100px] mx-auto px-[18px] pt-[24px] pb-[48px]">
+
+    <!-- HERO -->
+    <section class="border border-gray-200 rounded-[24px] p-5 bg-white shadow-[0_10px_30px_rgba(17,24,39,0.08)]">
+      <div class="flex flex-wrap gap-[18px] items-start justify-between">
+        <div>
+          <h1 class="text-[28px] leading-[1.15] mb-2 tracking-[-0.02em] font-normal">
+            Daftar Course dan Pengembang di <span class="text-[#ee1522] font-semibold">ICE Institute</span>
+          </h1>
+          <div class="text-gray-500 max-w-[112ch] leading-[1.6] text-sm">
+            Halaman ini menampilkan daftar mata kuliah beserta nama-nama pengembangnya, lengkap dengan fitur pencarian untuk memudahkan Anda menemukan informasi yang dibutuhkan. Jika Anda tidak menemukan nama mata kuliah yang Anda cari, silakan tambahkan data mata kuliah tersebut melalui tombol <strong>Add Course</strong>. Namun, apabila Anda menemukan nama mata kuliahnya tetapi tidak menemukan nama Anda tercantum sebagai pengembang, Anda juga dapat menambahkan nama Anda melalui tombol <strong>Add Course Dev</strong>. Pastikan data yang Anda masukkan akurat agar informasi tetap terjaga dan bermanfaat bagi semua pengguna.
+            <div class="mt-2 flex flex-wrap gap-2">
+              <a class="border border-gray-200 bg-[#ee1522] text-white rounded-[14px] px-3 py-[10px] text-[13px] cursor-pointer shadow-[0_6px_16px_rgba(17,24,39,0.08)] transition-all duration-150 inline-flex items-center gap-2 whitespace-nowrap hover:bg-[#ee1522]/70 active:translate-y-[1px] focus:outline-none focus:ring-4 focus:ring-[#ee1522]/20" href="profilmk.html" target="_blank">Add Course</a>
+              <a class="border border-gray-200 bg-white text-gray-900 rounded-[14px] px-3 py-[10px] text-[13px] cursor-pointer shadow-[0_6px_16px_rgba(17,24,39,0.08)] transition-all duration-150 inline-flex items-center gap-2 whitespace-nowrap hover:bg-gray-50 active:translate-y-[1px] focus:outline-none focus:ring-4 focus:ring-[#ee1522]/20" href="profildev.html" target="_blank">Add Course Dev</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-[10px] flex-wrap items-center justify-end">
+          <div class="hidden border border-gray-200 bg-white rounded-full px-[10px] py-2 text-xs text-gray-900 flex gap-2 items-center shadow-[0_6px_16px_rgba(17,24,39,0.08)]"><span class="w-[10px] h-[10px] rounded-full bg-[#ee1522] shadow-[0_0_0_4px_rgba(238,21,34,0.12)]"></span><span id="statCourses">–</span> mata kuliah</div>
+          <div class="hidden border border-gray-200 bg-white rounded-full px-[10px] py-2 text-xs text-gray-900 flex gap-2 items-center shadow-[0_6px_16px_rgba(17,24,39,0.08)]"><span class="w-[10px] h-[10px] rounded-full bg-[#ee1522] shadow-[0_0_0_4px_rgba(238,21,34,0.12)]"></span><span id="statLecturers">–</span> dosen</div>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="mt-[14px] flex gap-[10px] flex-wrap items-center justify-between">
+        <div class="flex-1 basis-[320px] flex items-center gap-[10px] border border-gray-200 rounded-[14px] px-3 py-[10px] bg-white shadow-[0_6px_16px_rgba(17,24,39,0.08)] min-w-[260px]">
+          <span class="text-gray-400">⌕</span>
+          <input id="q" type="search" placeholder="Cari nama Mata Kuliah, kode, partner, program..." autocomplete="off" class="border-none outline-none w-full text-sm bg-transparent text-gray-900 placeholder-gray-400 focus:ring-0 p-0" />
+        </div>
+        <button class="border border-gray-200 bg-[#ee1522] text-white rounded-[14px] px-3 py-[10px] text-[13px] cursor-pointer shadow-[0_6px_16px_rgba(17,24,39,0.08)] transition-all duration-150 inline-flex items-center gap-2 whitespace-nowrap hover:bg-[#ee1522]/70 active:translate-y-[1px] focus:outline-none focus:ring-4 focus:ring-[#ee1522]/20 disabled:opacity-55 disabled:cursor-not-allowed" id="btnReload">Muat ulang</button>
+        <button class="hidden border border-gray-200 bg-white text-gray-900 rounded-[14px] px-3 py-[10px] text-[13px] cursor-pointer shadow-[0_6px_16px_rgba(17,24,39,0.08)] transition-all duration-150 inline-flex items-center gap-2 whitespace-nowrap hover:bg-gray-50 active:translate-y-[1px] focus:outline-none focus:ring-4 focus:ring-[#ee1522]/20 disabled:opacity-55 disabled:cursor-not-allowed" id="btnHelp">Endpoint</button>
+      </div>
+
+      <!-- Pagination (top) -->
+      <div class="mt-[14px] flex items-center justify-between gap-[10px] flex-wrap">
+        <div class="text-xs text-gray-500" id="pagerInfoTop">–</div>
+        <div class="flex gap-2 items-center flex-wrap">
+          <button class="border border-gray-200 bg-white text-gray-900 rounded-[14px] px-3 py-[10px] text-[13px] cursor-pointer shadow-[0_6px_16px_rgba(17,24,39,0.08)] transition-all duration-150 inline-flex items-center gap-2 whitespace-nowrap hover:bg-gray-50 active:translate-y-[1px] focus:outline-none focus:ring-4 focus:ring-[#ee1522]/20 disabled:opacity-55 disabled:cursor-not-allowed" id="btnPrevTop">← Prev</button>
+          <button class="border border-gray-200 bg-white text-gray-900 rounded-[14px] px-3 py-[10px] text-[13px] cursor-pointer shadow-[0_6px_16px_rgba(17,24,39,0.08)] transition-all duration-150 inline-flex items-center gap-2 whitespace-nowrap hover:bg-gray-50 active:translate-y-[1px] focus:outline-none focus:ring-4 focus:ring-[#ee1522]/20 disabled:opacity-55 disabled:cursor-not-allowed" id="btnNextTop">Next →</button>
+        </div>
+      </div>
+    </section>
+
+    <div id="status"></div>
+
+    <!-- GRID -->
+    <section class="mt-[16px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[14px]" id="grid"></section>
+
+    <!-- Pagination (bottom) -->
+    <div class="mt-[14px] flex items-center justify-between gap-[10px] flex-wrap">
+      <div class="text-xs text-gray-500" id="pagerInfoBottom">–</div>
+      <div class="flex gap-2 items-center flex-wrap">
+        <button class="border border-gray-200 bg-white text-gray-900 rounded-[14px] px-3 py-[10px] text-[13px] cursor-pointer shadow-[0_6px_16px_rgba(17,24,39,0.08)] transition-all duration-150 inline-flex items-center gap-2 whitespace-nowrap hover:bg-gray-50 active:translate-y-[1px] focus:outline-none focus:ring-4 focus:ring-[#ee1522]/20 disabled:opacity-55 disabled:cursor-not-allowed" id="btnPrevBottom">← Prev</button>
+        <button class="border border-gray-200 bg-white text-gray-900 rounded-[14px] px-3 py-[10px] text-[13px] cursor-pointer shadow-[0_6px_16px_rgba(17,24,39,0.08)] transition-all duration-150 inline-flex items-center gap-2 whitespace-nowrap hover:bg-gray-50 active:translate-y-[1px] focus:outline-none focus:ring-4 focus:ring-[#ee1522]/20 disabled:opacity-55 disabled:cursor-not-allowed" id="btnNextBottom">Next →</button>
+      </div>
+    </div>
+
+    <div class="mt-[16px] text-xs text-gray-500 hidden">
+      Endpoint collapse: <span class="text-[#ee1522] font-semibold">?path=course_lecturers&course_id=...</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  /*************************************************************
+    CONFIG — ganti dengan URL Web App Apps Script kamu (/exec)
+  *************************************************************/
+  const API_BASE_URL = "https://script.google.com/macros/s/AKfycbw4IMphcjYL-0_YdTs8_r_MDUDRh49N0aTI0xgDfsQc8imv-yiXeUwmDb18itcEfwQwNA/exec";
+
+  /*************************************************************
+    Pagination settings
+  *************************************************************/
+  const PAGE_SIZE = 12;
+  let page = 1;
+  let total = 0;
+  let q = "";
+
+  const elGrid = document.getElementById("grid");
+  const elStatus = document.getElementById("status");
+  const elQ = document.getElementById("q");
+  const elStatCourses = document.getElementById("statCourses");
+  const elPagerInfoTop = document.getElementById("pagerInfoTop");
+  const elPagerInfoBottom = document.getElementById("pagerInfoBottom");
+  const btnPrevTop = document.getElementById("btnPrevTop");
+  const btnNextTop = document.getElementById("btnNextTop");
+  const btnPrevBottom = document.getElementById("btnPrevBottom");
+  const btnNextBottom = document.getElementById("btnNextBottom");
+
+  document.getElementById("btnReload").addEventListener("click", () => init());
+
+  [btnPrevTop, btnPrevBottom].forEach(b => b.addEventListener("click", () => goPage(page - 1)));
+  [btnNextTop, btnNextBottom].forEach(b => b.addEventListener("click", () => goPage(page + 1)));
+
+  let tSearch;
+  elQ.addEventListener("input", () => {
+    clearTimeout(tSearch);
+    tSearch = setTimeout(() => {
+      q = (elQ.value || "").trim();
+      page = 1;
+      loadPage();
+    }, 250);
+  });
+
+  function setStatus(type, html){
+    if(!html){ elStatus.innerHTML = ""; return; }
+    const classError = "mt-[14px] border border-[#ee1522]/25 rounded-[18px] p-[16px] text-[#7f1d1d] bg-[#fff5f5] leading-[1.6]";
+    const classEmpty = "mt-[14px] border border-dashed border-gray-200 rounded-[18px] p-[16px] text-gray-500 bg-gray-50 leading-[1.6]";
+    elStatus.innerHTML = `<div class="${type === "error" ? classError : classEmpty}">${html}</div>`;
+  }
+
+  function escapeHtml(s){
+    return String(s ?? "")
+      .replaceAll("&","&amp;").replaceAll("<","&lt;")
+      .replaceAll(">","&gt;").replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  function placeholderCourseCard(){
+    const svg = encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600">
+        <rect width="100%" height="100%" fill="#ffffff"/>
+        <text x="60" y="330" font-family="system-ui,Segoe UI" font-size="44" fill="#111827" font-weight="700">Course Card</text>
+        <text x="60" y="390" font-family="system-ui,Segoe UI" font-size="22" fill="#6b7280">Gambar tidak tersedia</text>
+      </svg>`);
+    return `data:image/svg+xml;charset=utf-8,${svg}`;
+  }
+  function placeholderLogo(){
+    const svg = encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+        <rect width="100%" height="100%" fill="#ffffff"/>
+        <circle cx="100" cy="100" r="62" fill="#ee1522" opacity="0.12"/>
+        <text x="100" y="112" text-anchor="middle" font-family="system-ui,Segoe UI" font-size="22" fill="#111827" font-weight="700">Logo</text>
+      </svg>`);
+    return `data:image/svg+xml;charset=utf-8,${svg}`;
+  }
+
+  function courseCardUrl(c){
+    const u = c.course_card_url || c.course_card || "";
+    return (String(u || "").trim()) ? u : placeholderCourseCard();
+  }
+  function partnerLogoUrl(c){
+    const u = c.logo_partner_url || c.logo_partner || "";
+    return (String(u || "").trim()) ? u : "";
+  }
+
+  function totalPages(){
+    return Math.max(1, Math.ceil(total / PAGE_SIZE));
+  }
+  function goPage(next){
+    const tp = totalPages();
+    page = Math.max(1, Math.min(tp, next));
+    loadPage(true);
+  }
+  function renderPager(){
+    const tp = totalPages();
+    const start = total === 0 ? 0 : ((page - 1) * PAGE_SIZE) + 1;
+    const end = Math.min(page * PAGE_SIZE, total);
+
+    const info = total === 0
+      ? "Tidak ada data"
+      : `Menampilkan ${start}–${end} dari ${total} • Halaman ${page}/${tp}`;
+
+    elPagerInfoTop.textContent = info;
+    elPagerInfoBottom.textContent = info;
+
+    const prevDisabled = page <= 1;
+    const nextDisabled = page >= tp || total === 0;
+    [btnPrevTop, btnPrevBottom].forEach(b => b.disabled = prevDisabled);
+    [btnNextTop, btnNextBottom].forEach(b => b.disabled = nextDisabled);
+  }
+
+  function renderCourses(items){
+    elGrid.innerHTML = "";
+    if(!items.length){
+      setStatus("empty", '<div class="text-center w-full overflow-hidden"><p class="text-[13vw] font-bold m-0 whitespace-nowrap">NO DATA</p></div>');
+      return;
+    }
+    setStatus("", "");
+    const frag = document.createDocumentFragment();
+    items.forEach(c => frag.appendChild(renderCourseCard(c)));
+    elGrid.appendChild(frag);
+  }
+
+  function renderCourseCard(c){
+    const card = document.createElement("article");
+    card.className = "border border-gray-200 rounded-[18px] bg-white shadow-[0_6px_16px_rgba(17,24,39,0.08)] overflow-hidden flex flex-col min-h-[290px]";
+
+    const courseImg = courseCardUrl(c);
+    const logoUrl = partnerLogoUrl(c);
+
+    const partner = escapeHtml(c.partner || "");
+    const program = escapeHtml(c.program || "");
+    const institusi = escapeHtml(c.institusi_mk || "");
+    const kode = escapeHtml(c.kode_mk || "");
+    const nama = escapeHtml(c.nama_mk || "");
+    const cid = escapeHtml(c.course_id || "");
+    const dosenCount = Number(c.dosen_count ?? 0);
+
+    card.innerHTML = `
+      <div class="h-[132px] bg-white relative border-b border-gray-200 overflow-hidden">
+        <img src="${courseImg}" alt="Course card ${nama}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='${placeholderCourseCard()}';" loading="lazy"/>
+      </div>
+
+      <div class="p-3 pb-[10px] flex flex-col gap-2">
+        <div class="flex items-center gap-[10px] min-h-[28px]" title="${partner}">
+          ${logoUrl ? `
+            <div class="h-[45px] rounded-[10px] border border-gray-200 bg-white overflow-hidden p-[5px_10px] shadow-[0_4px_12px_rgba(17,24,39,0.08)] flex-none flex items-center justify-center">
+              <img src="${logoUrl}" alt="Logo partner ${partner}" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='${placeholderLogo()}';" loading="lazy"/>
+            </div>
+          ` : `
+            <div class="h-[45px] rounded-[10px] border border-gray-200 bg-white overflow-hidden p-[5px_10px] shadow-[0_4px_12px_rgba(17,24,39,0.08)] flex-none flex items-center justify-center" aria-hidden="true">
+              <img src="${placeholderLogo()}" alt="" class="w-full h-full object-contain" loading="lazy"/>
+            </div>
+          `}
+          <div class="text-xs text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis">${partner || "Partner"}</div>
+        </div>
+
+        <h3 class="m-0 text-[15px] leading-[1.35] tracking-[-0.01em] line-clamp-2 overflow-hidden font-normal" title="${nama}">${nama || "(Tanpa nama)"}</h3>
+        <div class="text-xs text-[#ee1522] font-bold tracking-[0.02em] -mt-[4px]" title="Kode MK">${kode || cid}</div>
+
+        <div class="flex flex-wrap gap-2 text-gray-500 text-xs leading-[1.4]">
+          ${program ? `<span class="border border-gray-200 bg-gray-50 rounded-full px-[8px] py-[6px] text-xs text-gray-700 inline-flex gap-[6px] items-center"><strong class="text-gray-900 font-semibold">Program</strong> ${program}</span>` : ""}
+          ${institusi ? `<span class="border border-gray-200 bg-gray-50 rounded-full px-[8px] py-[6px] text-xs text-gray-700 inline-flex gap-[6px] items-center"><strong class="text-gray-900 font-semibold">Institusi</strong> ${institusi}</span>` : ""}
+        </div>
+      </div>
+
+      <div class="mt-[2px] flex gap-2 items-center justify-between px-3 pb-3">
+        <button class="border border-gray-200 bg-[#ee1522] text-white rounded-[14px] px-3 py-[10px] text-[13px] cursor-pointer shadow-[0_6px_16px_rgba(17,24,39,0.08)] transition-all duration-150 inline-flex items-center gap-2 whitespace-nowrap hover:bg-[#ee1522]/70 active:translate-y-[1px] focus:outline-none focus:ring-4 focus:ring-[#ee1522]/20 jsToggle" type="button" aria-expanded="false">
+          Lihat dosen (${dosenCount})
+        </button>
+        <span class="text-xs text-gray-500 hidden" title="course_id">${cid}</span>
+      </div>
+
+      <div class="collapse border-t border-gray-200 bg-white p-[10px_12px_12px] hidden" aria-hidden="true">
+        <div class="text-xs text-gray-500">Daftar dosen pengampu</div>
+        <div class="flex flex-col gap-[10px] mt-[10px] jsLecturerList"></div>
+      </div>
+    `;
+
+    const btn = card.querySelector(".jsToggle");
+    const collapse = card.querySelector(".collapse");
+    const list = card.querySelector(".jsLecturerList");
+
+    btn.addEventListener("click", async () => {
+      const open = collapse.classList.toggle("hidden");
+      const isOpen = !open; // Jika class 'hidden' di-remove/toggle, maka dia terbuka
+      btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      collapse.setAttribute("aria-hidden", isOpen ? "false" : "true");
+
+      if(isOpen && !collapse.dataset.loaded){
+        list.innerHTML = `<div class="border border-gray-200 rounded-[14px] p-[10px] bg-gray-100 animate-pulse h-[62px]"></div><div class="border border-gray-200 rounded-[14px] p-[10px] bg-gray-100 animate-pulse h-[62px]"></div>`;
+        try{
+          const lecturers = await fetchLecturersForCourse(c.course_id);
+          collapse.dataset.loaded = "1";
+          renderLecturers(list, lecturers);
+        }catch(err){
+          list.innerHTML = `<div class="mt-[14px] border border-[#ee1522]/25 rounded-[18px] p-[16px] text-[#7f1d1d] bg-[#fff5f5] leading-[1.6]">Gagal memuat dosen: ${escapeHtml(err.message || err)}</div>`;
+        }
+      }
+    });
+
+    return card;
+  }
+
+  function renderLecturers(container, lecturers){
+    if(!lecturers || !lecturers.length){
+      container.innerHTML = `<div class="mt-[14px] border border-dashed border-gray-200 rounded-[18px] p-[16px] text-gray-500 bg-gray-50 leading-[1.6]">Belum ada data dosen untuk mata kuliah ini.</div>`;
+      return;
+    }
+    container.innerHTML = lecturers.map(d => {
+      const fotoRaw = (d.foto_url || d.foto || "").trim();
+      const foto = fotoRaw ? fotoRaw : placeholderLogo();
+      const nama = escapeHtml(d.nama_dosen || "");
+      const inst = escapeHtml(d.institusi_dosen || "");
+      return `
+        <div class="flex gap-[10px] items-center p-[10px] border border-gray-200 rounded-[14px] bg-gray-50">
+          <div class="w-[40px] h-[40px] rounded-[12px] border border-gray-200 bg-white overflow-hidden flex-none">
+            <img src="${foto}" alt="Foto ${nama}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='${placeholderLogo()}';" loading="lazy"/>
+          </div>
+          <div class="min-w-0 flex flex-col gap-[2px]">
+            <div class="text-[13px] font-[650] leading-[1.2] overflow-hidden text-ellipsis" title="${nama}">${nama || "(Tanpa nama)"}</div>
+            <div class="text-xs text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis" title="${inst}">${inst || ""}</div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  async function fetchJson(url){
+    const res = await fetch(url, { method:"GET" });
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  }
+
+  async function fetchCoursesPage(){
+    const offset = (page - 1) * PAGE_SIZE;
+    const qp = q ? `&q=${encodeURIComponent(q)}` : "";
+    const url = `${API_BASE_URL}?path=courses&limit=${PAGE_SIZE}&offset=${offset}${qp}`;
+    const data = await fetchJson(url);
+    if(!data.ok) throw new Error(data.error || "API error");
+    total = Number(data.paging?.total ?? 0);
+    return data.data || [];
+  }
+
+  async function fetchTotalCoursesAll(){
+    // total global (tanpa search)
+    const url = `${API_BASE_URL}?path=courses&limit=1&offset=0`;
+    const data = await fetchJson(url);
+    if(!data.ok) return null;
+    return Number(data.paging?.total ?? null);
+  }
+
+  async function fetchLecturersForCourse(courseId){
+    const url = `${API_BASE_URL}?path=course_lecturers&course_id=${encodeURIComponent(courseId)}`;
+    const data = await fetchJson(url);
+    if(!data.ok) throw new Error(data.error || "API error");
+    return data.data || [];
+  }
+
+  async function loadPage(scroll){
+    setStatus("empty", '<div class="text-center p-[20px]"><div class="inline-block w-[48px] h-[48px] border-4 border-t-[#ee1522] border-r-transparent border-b-[#ee1522] border-l-transparent rounded-full animate-spin"></div><br>Loading...</div>');
+    elGrid.innerHTML = "";
+    try{
+      const items = await fetchCoursesPage();
+      renderPager();
+      renderCourses(items);
+      if(scroll) elGrid.scrollIntoView({ behavior:"smooth", block:"start" });
+    }catch(err){
+      renderPager();
+      setStatus("error", `Gagal memuat data.<br/><div class="mt-2 font-mono text-xs">${escapeHtml(err.message||err)}</div>`);
+    }
+  }
+
+  async function init(){
+    if(!API_BASE_URL || API_BASE_URL.includes("PASTE_WEB_APP_EXEC_URL_DI_SINI")){
+      setStatus("error", `API_BASE_URL belum diisi. Paste URL Web App Apps Script kamu ke variabel <b>API_BASE_URL</b>.`);
+      return;
+    }
+    setStatus("empty", '<div class="text-center p-[20px]"><div class="inline-block w-[48px] h-[48px] border-4 border-t-[#ee1522] border-r-transparent border-b-[#ee1522] border-l-transparent rounded-full animate-spin"></div><br>Loading...</div>');
+    // total global untuk hero
+    const totalAll = await fetchTotalCoursesAll();
+    elStatCourses.textContent = (totalAll === null) ? "–" : String(totalAll);
+
+    page = 1; total = 0; q = "";
+    elQ.value = "";
+    await loadPage(false);
+  }
+
+  init();
+</script>
